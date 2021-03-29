@@ -4,6 +4,7 @@
 #include "eldritch_horror.h"
 #include "speciesCreature.h"
 #include "role.h"
+#include "dice.h"
 #include "speciesEldritchHorror.h"
 #include "investigator.h"
 #include <random>
@@ -16,6 +17,10 @@
 
 
 using namespace std;
+
+/* _________________________________*/
+// Functions for loading the data  //
+/* ______________________________ */
 
 void generateAllRoles(vector <Role> &roles){
     ifstream RolesFile;
@@ -219,6 +224,23 @@ void generateAllEldritchHorrors(vector <speciesEldritchHorror> &Horrors){
         }
     }
 }
+
+void initializeBaseDice(vector <Dice> &allDice)
+{
+    Dice d20( "ICOSAHEDRON", "D20", 20);
+    Dice d12( "DODECAHEDRON", "D12", 12);
+    Dice d10( "PENTAGONAL TRAPEZOHEDRON", "D10", 10);
+    Dice d8( "OCTAHEDRON", "D8", 8);
+    Dice d6("CUBE", "D6" , 6);
+    Dice d4("TETRAHEDRON", "D4", 4);
+    allDice.push_back(d20);
+    allDice.push_back(d12);
+    allDice.push_back(d10);
+    allDice.push_back(d8);
+    allDice.push_back(d6);
+    allDice.push_back(d4);
+}
+
 
 void seeAllCreatures(vector<speciesCreature> creatures)
 {
@@ -974,6 +996,17 @@ void printIndividualHorrors(vector <Individuals<EldritchHorror> > individualHorr
     }
 }
 
+void printIndividualDice(vector <Dice> allDice)
+{
+    int counter = 0;
+    cout << "Printing all dice" << endl;
+    for (Dice d: allDice)
+    {
+        counter ++;
+        cout << counter << ". " << d.getName() <<"("<< d.getNickname() <<")" << " " << d.getSides() << endl;
+    }
+}
+
 Individuals<Creature> selectIndividualCreature(vector <Individuals<Creature> > individualCreature)
 {
     printIndividualCreature(individualCreature);
@@ -1040,6 +1073,23 @@ Individuals<Investigator> selectIndividualInvestigator(vector <Individuals<Inves
     }
 
     return investigators[selection -1];
+}
+
+Dice selectIndividualDice(vector <Dice> allDice)
+{
+    printIndividualDice(allDice);
+    cout << endl;
+    int selection;
+    cout << "Select what Dice you would like to roll: ";
+    cin >> selection;
+    while(selection < 1 || selection > allDice.size())
+    {
+        cout << "Invalid Selection!, your range is 1 - " << allDice.size() << endl;
+        cout << "Select what Dice you would like to roll: ";
+        cin >> selection;
+    }
+
+    return allDice[selection -1];
 }
 
 Creature createCustomCreature()
@@ -1293,18 +1343,27 @@ Investigator createCustomInvestigator()
 
 int main()
 {
+    //All vectors pertaining to beings
     vector <Role> roles;
     vector <speciesCreature> creatures;
     vector <speciesEldritchHorror> horrors;
-    vector<Individuals<Investigator>> investigators;
+    vector <Individuals<Investigator>> investigators;
     vector <Individuals<Person> > individualsPersons;
     vector <Individuals<Creature> > IndividualsCreatures;
     vector <Individuals<EldritchHorror> > individualsHorrors;
+
+    //All vectors pertaining to game mechanics
+    vector <Dice> allDice;
+
     srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
+    
+    //Initialize all the needed data for the game to function
     generateAllRoles(roles);
     generateAllCreatures(creatures);
     generateAllEldritchHorrors(horrors);
+    initializeBaseDice(allDice);
     
+
     bool playing = true;
 
     while (playing)
@@ -1318,6 +1377,7 @@ int main()
         cout <<"\t 5. See list individuals" << endl;
         cout <<"\t 6. Select Individual for editing / deleting" << endl;
         cout <<"\t 7. Remove Individual Type" << endl;
+        cout <<"\t 8. Roll dice test" << endl;
         cout <<"\t 0. quit" << endl;
 
         cout << "Enter choice here: ";
@@ -2102,6 +2162,12 @@ int main()
                 cout << "Invalid selection" << endl;
             }
 
+        }
+
+        else if (user_choice == 8)
+        {
+            Dice selectedDice = selectIndividualDice(allDice);
+            cout << "The roll of your selected dice is: " << selectedDice.rollDice() << endl;
         }
 
 
