@@ -1,0 +1,30 @@
+#ifndef PERSON_12314123
+#define PERSON_12314123
+
+#include <iostream>
+#include "being.h"
+#include "role.h"
+#include <string>
+using namespace std;
+
+class Person : public Being
+{
+    public:
+        Person();
+        Person(string name, int life, int strength, int intelligence, string gender, int fear);
+        friend ostream& operator<<(ostream& out, const Person p);
+        void updateGender();
+        void updateFear();
+        string getGender();
+        int getFear();
+        void updateName();
+        string getName();
+
+    protected:
+        string name;
+        string gender;
+        int fear;
+        
+};
+
+#endif

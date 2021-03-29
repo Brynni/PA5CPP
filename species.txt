@@ -1,0 +1,16 @@
+Name: Ghoul
+Creature
+Life: 4
+Strength: 4
+Intelligence: 2
+Unnatural
+Disquiet: 6
+#
+Name: Wolf
+Creature
+Life: 4
+Strength: 6
+Intelligence: 5
+Natural
+Disquiet: 2
+#

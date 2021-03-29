@@ -1,0 +1,24 @@
+roleName: Nurse
+lifeMin: 5
+lifeMax: 7
+strengthMin: 3
+strengthMax: 7
+intelligenceMin: 7
+intelligenceMax: 9
+#
+roleName: Reporter
+lifeMin: 5
+lifeMax: 7
+strengthMin: 2
+strengthMax: 6
+intelligenceMin: 6
+intelligenceMax: 8
+#
+roleName: Professor
+lifeMin: 4
+lifeMax: 6
+strengthMin: 1
+strengthMax: 5
+intelligenceMin: 8
+intelligenceMax: 10
+#
