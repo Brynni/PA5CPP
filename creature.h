@@ -8,7 +8,7 @@ class Creature : public Being
 {
     public:
         Creature();
-        Creature(int life, int strength, int intelligence, bool natural, int disquiet);
+        Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet);
         friend ostream& operator<<(ostream& out, const Creature c);
         //void updateLife(Creature& cre);
         void updateStrength();
@@ -21,6 +21,7 @@ class Creature : public Being
         int getIntelligence();
         bool getNature();
     protected:
+        string name;
         bool natural;
         int disquiet;
 

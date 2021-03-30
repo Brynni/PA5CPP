@@ -1,16 +1,24 @@
 Name: Ghoul
 Creature
-Life: 4
-Strength: 4
-Intelligence: 2
+Life: 22
+Strength: 13
+Intelligence: 7
+Dex: 15
+Con: 10
+Wis: 10
+Cha: 6
 Unnatural
 Disquiet: 6
 #
 Name: Wolf
 Creature
-Life: 4
-Strength: 6
-Intelligence: 5
+Life: 11
+Strength: 12
+Intelligence: 3
+Dex: 15
+Con: 12
+Wis: 12
+Cha: 6
 Natural
 Disquiet: 2
 #

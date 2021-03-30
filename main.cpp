@@ -33,6 +33,8 @@ void generateAllRoles(vector <Role> &roles){
     int strengthMax;
     int intelligenceMin;
     int intelligenceMax;
+    //Added ability points
+    int dexMin, dexMax, wisMin, wisMax, conMin, conMax, chaMin, chaMax;
     bool readingName = false;
     RolesFile.open("roles.txt");
     if (RolesFile.is_open()){
@@ -81,8 +83,49 @@ void generateAllRoles(vector <Role> &roles){
                 intelligenceMax = std::stoi(fileStream);
             }
 
+            else if (fileStream == "dexMin:"){
+                RolesFile >> fileStream;
+                dexMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "dexMax:"){
+                RolesFile >> fileStream;
+                dexMax = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "wisMin:"){
+                RolesFile >> fileStream;
+                wisMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "wisMax:"){
+                RolesFile >> fileStream;
+                wisMax = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "conMin:"){
+                RolesFile >> fileStream;
+                conMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "conMax:"){
+                RolesFile >> fileStream;
+                conMax = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "chaMin:"){
+                RolesFile >> fileStream;
+                chaMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "conMax:"){
+                RolesFile >> fileStream;
+                conMax = std::stoi(fileStream);
+            }
+
             else if (fileStream == "#" && roleName != ""){
-                Role role(roleName, lifeMin,lifeMax ,strengthMin, strengthMax, intelligenceMin, intelligenceMax);
+                Role role(roleName, lifeMin,lifeMax ,strengthMin, strengthMax, intelligenceMin, intelligenceMax,
+                        dexMin, dexMax, wisMin, wisMax, conMin, conMax, chaMin, chaMax);
                 roles.push_back(role);
                 roleName = "";
             }
@@ -90,7 +133,7 @@ void generateAllRoles(vector <Role> &roles){
     }
 }
 
-void generateAllCreatures(vector <speciesCreature> &creatures){
+void generateAllCreatures(vector <Creature> &creatures){
 
     ifstream speciesFile;
     string fileStream; 
@@ -99,6 +142,8 @@ void generateAllCreatures(vector <speciesCreature> &creatures){
     int life;
     int strength;
     int intelligence;
+    // new ability points
+    int dex, con, wis, cha; 
     bool natural;
     int disquiet;
     bool readingName = false;
@@ -137,6 +182,22 @@ void generateAllCreatures(vector <speciesCreature> &creatures){
                 speciesFile >> fileStream;
                 strength = std::stoi(fileStream);
             }
+            else if (fileStream == "Dex:"){
+                speciesFile >> fileStream;
+                dex = std::stoi(fileStream);
+            }
+            else if (fileStream == "Con:"){
+                speciesFile >> fileStream;
+                con = std::stoi(fileStream);
+            }
+            else if (fileStream == "Wis:"){
+                speciesFile >> fileStream;
+                wis = std::stoi(fileStream);
+            }
+            else if (fileStream == "Cha:"){
+                speciesFile >> fileStream;
+                cha = std::stoi(fileStream);
+            }
             else if (fileStream == "Intelligence:"){
                 speciesFile >> fileStream;
                 intelligence = std::stoi(fileStream);
@@ -156,7 +217,7 @@ void generateAllCreatures(vector <speciesCreature> &creatures){
             }
 
             else if (fileStream == "#" && speciesName != ""){
-                speciesCreature creature(speciesName, life, strength, intelligence, natural, disquiet);
+                Creature creature(speciesName, life, strength, intelligence, dex, con, wis, cha, natural, disquiet);
                 creatures.push_back(creature);
                 speciesName = "";
             }
@@ -172,6 +233,8 @@ void generateAllEldritchHorrors(vector <speciesEldritchHorror> &Horrors){
     int life;
     int strength;
     int intelligence;
+    // New skill points
+    int dex, con, wis, cha; 
     int traumatism;
     bool readingName = false;
     horrorsFile.open("eldritchHorrors.txt");
@@ -404,7 +467,7 @@ Person createPerson(Role role)
     cout << "Enter gender: " ;
     std::getline(std::cin, gender);
 
-    Person p = Person(name,role.generateHealth(), role.generateStrength(), role.generateIntelligence(), gender, role.getFear());
+    Person p = Person(name, role.generateHealth(), role.generateStrength(), role.generateIntelligence(), gender, role.getFear());
     return p;
 }
 

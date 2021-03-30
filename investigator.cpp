@@ -4,12 +4,12 @@
 
 using namespace std;
 
-Investigator::Investigator(string name, int life, int strength, int intelligence, string gender, int fear, int terror) : Person(name,life,strength,intelligence,gender,fear)
+Investigator::Investigator(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma, string gender, int fear, int terror) : Person(name,life,strength,intelligence,gender,fear)
 {
     this->terror = terror;
 }
 
-Investigator::Investigator() : Investigator("James Bond", 5, 5, 5, "Male", 5, 1) {};
+Investigator::Investigator() : Investigator("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1) {};
 
 
 void Investigator::updateTerror()

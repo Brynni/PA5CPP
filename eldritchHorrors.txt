@@ -1,21 +1,33 @@
 Name: Chthonian
 Eldritch horror
-Life: 8
-Strength: 7
-Intelligence: 2
+Life: 207
+Strength: 22
+Intelligence: 12
+Dex: 9
+Con: 20
+Wis: 12
+Cha: 9
 Traumatism: 1
 #
 Name: Shoggoth
 Eldritch horror
-Life: 8
-Strength: 9
-Intelligence: 6
+Life: 387
+Strength: 26
+Intelligence: 12
+Dex: 14
+Con: 28
+Wis: 16
+Cha: 13
 Traumatism: 2
 #
-Name: Color of space
+Name: Color Out of space
 Eldritch horror
-Life: 10
-Strength: 10
-Intelligence: 10
+Life: 76
+Strength: 16
+Intelligence: 15
+Dex: 5
+Con: 15
+Wis: 15
+Cha: 20
 Traumatism: 3
 #

@@ -11,7 +11,7 @@ class Person : public Being
 {
     public:
         Person();
-        Person(string name, int life, int strength, int intelligence, string gender, int fear);
+        Person(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma, string gender, int fear);
         friend ostream& operator<<(ostream& out, const Person p);
         void updateGender();
         void updateFear();

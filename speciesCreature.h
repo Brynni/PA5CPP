@@ -13,7 +13,7 @@ using namespace std;
 class speciesCreature
 {
     public:
-        speciesCreature(string name, int life, int strength, int intelligence,bool natural, int disquiet);
+        speciesCreature(string name, int life, int strength, int intelligence, bool natural, int disquiet);
         friend ostream& operator<<(ostream& out, const speciesCreature sc);
         void printInfo();
         string getName();

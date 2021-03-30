@@ -3,7 +3,7 @@
 #include "role.h"
 using namespace std;
 
-Person::Person(string name, int life, int strength, int intelligence, string gender, int fear) : Being(life, strength, intelligence)
+Person::Person(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma, string gender, int fear) : Being(life, strength, intelligence, constitution, dexterity, wisdom, charisma)
 {
     this->name = name;
     this->fear = fear;

@@ -4,15 +4,20 @@
 
 using namespace std;
 
-Being::Being(int life, int strength, int intelligence)
+Being::Being(int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma)
 {
     this->life = life;
     this->strength = strength;
     this->intelligence = intelligence;
+    this->dexterity = dexterity;
+    this->constitution = constitution;
+    this->wisdom= wisdom;
+    this->charisma = charisma;
+
 };
 
 // Should be replaced with random values from 0-10 
-Being::Being() : Being (5,5,5){};
+Being::Being() : Being (5,5,5,5,5,5,5){};
 
 
 ostream& operator<<(ostream& out, const Being b)
@@ -20,7 +25,11 @@ ostream& operator<<(ostream& out, const Being b)
     out << "Being\n";
     out << "Life: " << b.life << endl;
     out << "Strength: " << b.strength << endl;
-    out << "Intelligence: " << b.intelligence;
+    out << "Intelligence: " << b.intelligence << endl;
+    out << "Dexterity: " << b.dexterity << endl;
+    out << "Constitution: " << b.constitution << endl;
+    out << "Wisdom: " << b.wisdom << endl;
+    out << "Charisma: " << b.charisma;
     return out;
 }
 
@@ -87,4 +96,24 @@ int Being ::getStrength()
 int Being::getInt()
 {
     return this->intelligence;
+}
+
+int Being::getDex()
+{
+    return this->dexterity;
+}
+
+int Being::getConst()
+{
+    return this->constitution;
+}
+
+int Being::getCharisma()
+{
+    return this->charisma;
+}
+
+int Being::getWisdom()
+{
+    return this->wisdom;
 }
