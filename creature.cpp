@@ -48,9 +48,10 @@ ostream& operator<<(ostream& out, const Creature c)
 //     }
 //     cre.life = newLife;
 // }
-bool Creature::getNature()
+
+void Creature::printInfo()
 {
-    return this->natural;
+    cout << this->name << endl;
 }
 
 void Creature::updateStrength()
@@ -98,6 +99,11 @@ void Creature::updateNature()
     natural = !natural;
 }
 
+string Creature::getName()
+{
+    return this->name;
+}
+
 int Creature::getLife()
 {
     return this->life;
@@ -111,6 +117,31 @@ int Creature::getStrength()
 int Creature::getIntelligence()
 {
     return this->intelligence;
+}
+//int dex, int con, int wis, int cha,
+int Creature::getDex()
+{
+    return this->dexterity;
+}
+
+int Creature::getCon()
+{
+    return this->constitution;
+}
+
+int Creature::getWis()
+{
+    return this->wisdom;
+}
+
+int Creature::getCha()
+{
+    return this->charisma;
+}
+
+bool Creature::getNature()
+{
+    return this->natural;
 }
 
 int Creature::getDisquiet()

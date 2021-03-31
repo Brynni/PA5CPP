@@ -305,11 +305,11 @@ void initializeBaseDice(vector <Dice> &allDice)
 }
 
 
-void seeAllCreatures(vector<speciesCreature> creatures)
+void seeAllCreatures(vector<Creature> creatures)
 {
     cout << "Species of type creature: " << endl;
     int counter = 0;
-    for (speciesCreature sp : creatures )
+    for (Creature sp : creatures )
         {   
             counter ++;
             cout << counter << ". "; 
@@ -317,24 +317,24 @@ void seeAllCreatures(vector<speciesCreature> creatures)
         }
 }
 
-void seeDetailCreatures(vector<speciesCreature> creatures)
+void seeDetailCreatures(vector<Creature> creatures)
 {
-    for(speciesCreature sp: creatures)
+    for(Creature sp: creatures)
     {
         cout << sp << endl;
     }
 }
 
-Creature createCreature(speciesCreature sp)
+Creature createCreature(Creature sp)
 {
-    Creature c = Creature(sp.getLife(),sp.getStrength(), sp.getInt(), sp.getNature(), sp.getDisquiet());
+    Creature c = Creature(sp.getName(), sp.getLife(),sp.getStrength(), sp.getInt(), sp.getDex(), sp.getCon(), sp.getWis(), sp.getCha(), sp.getNature(), sp.getDisquiet());
     return c;
 
 };
 
-void removeCreatureFromFile(speciesCreature sp, string fileName)
+void removeCreatureFromFile(Creature sp, string fileName)
 {
-    Creature c = Creature(sp.getLife(),sp.getStrength(), sp.getInt(), sp.getNature(), sp.getDisquiet());
+    Creature c = Creature(sp.getName(), sp.getLife(),sp.getStrength(), sp.getInt(), sp.getDex(), sp.getCon(), sp.getWis(), sp.getCha(), sp.getNature(), sp.getDisquiet());
     ifstream speciesFile;
     string fileStream; 
     string speciesName;
@@ -343,6 +343,8 @@ void removeCreatureFromFile(speciesCreature sp, string fileName)
     int intelligence;
     bool natural;
     int disquiet;
+    //New ability points
+    int dex, con, wis, cha; 
     string creatures;
     string NewCreature;
     speciesFile.open("species.txt");
@@ -365,6 +367,24 @@ void removeCreatureFromFile(speciesCreature sp, string fileName)
                 speciesFile >> fileStream;
                 intelligence = std::stoi(fileStream);
             }
+
+            else if (fileStream == "Dex:"){
+                speciesFile >> fileStream;
+                dex = std::stoi(fileStream);
+            }
+            else if (fileStream == "Con:"){
+                speciesFile >> fileStream;
+                con = std::stoi(fileStream);
+            }
+            else if (fileStream == "Wis:"){
+                speciesFile >> fileStream;
+                wis = std::stoi(fileStream);
+            }
+            else if (fileStream == "Cha:"){
+                speciesFile >> fileStream;
+                cha = std::stoi(fileStream);
+            }
+
             else if (fileStream == "Natural")
             {
                 natural = true;
@@ -383,8 +403,15 @@ void removeCreatureFromFile(speciesCreature sp, string fileName)
                 speciesCreature creature(speciesName, life, strength, intelligence, natural, disquiet);
                 
                 
-                NewCreature = NewCreature + "Name: " + speciesName + "\n" + "Creature\n" + "Life: " + to_string(life) + "\n" + 
-                "Strength: " + to_string(strength) + "\n" + "Intelligence: " + to_string(intelligence) + "\n";
+                NewCreature = NewCreature + "Name: " + speciesName + "\n" + 
+                            "Creature\n" + 
+                            "Life: " + to_string(life) + "\n" + 
+                            "Strength: " + to_string(strength) + "\n" +
+                            "Intelligence: " + to_string(intelligence) + "\n" + 
+                            "Dex: " + to_string(dex) + "\n" + 
+                            "Con: " + to_string(con) + "\n" + 
+                            "Wis: " + to_string(wis) + "\n" + 
+                            "Cha: " + to_string(cha) + "\n" ;
                 if (natural == true){
                     NewCreature = NewCreature + "Natural" + "\n" + "Disquiet: " + to_string(disquiet) + "\n" + "#" "\n";
                 }
@@ -467,7 +494,17 @@ Person createPerson(Role role)
     cout << "Enter gender: " ;
     std::getline(std::cin, gender);
 
-    Person p = Person(name, role.generateHealth(), role.generateStrength(), role.generateIntelligence(), gender, role.getFear());
+    Person p = Person(
+        name, 
+        role.generateHealth(), 
+        role.generateStrength(), 
+        role.generateIntelligence(), 
+        role.generateDex(),
+        role.generateWis(),
+        role.generateCon(),
+        role.generateCha(), 
+        gender, 
+        role.getFear());
     return p;
 }
 
@@ -494,7 +531,18 @@ Investigator createInvestigator(Role role)
         cout << endl;
     }
 
-    Investigator i = Investigator(name,role.generateHealth(), role.generateStrength(), role.generateIntelligence(), gender, role.getFear(),terror);
+    Investigator i = Investigator(
+        name,
+        role.generateHealth(), 
+        role.generateStrength(), 
+        role.generateIntelligence(), 
+        role.generateDex(),
+        role.generateWis(),
+        role.generateCon(),
+        role.generateCha(), 
+        gender, 
+        role.getFear(),
+        terror);
     return i;
 }
 
@@ -601,9 +649,9 @@ void seeDetailRoles(vector<Role> roles)
 
 
 
-bool checkForNameSpecies(vector <speciesCreature> creatures, vector<speciesEldritchHorror> horrors,string name)
+bool checkForNameSpecies(vector <Creature> creatures, vector<speciesEldritchHorror> horrors,string name)
 {
-    for (speciesCreature sp : creatures)
+    for (Creature sp : creatures)
     {
         string sp_name = sp.getName();
         if (name == sp_name)
@@ -649,7 +697,7 @@ bool checkForNameRole(vector <Role> roles, string name)
 }
 
 
-speciesCreature selectCreature(vector<speciesCreature> creatures)
+Creature selectCreature(vector<Creature> creatures)
 {
     seeAllCreatures(creatures);
     int selection;
@@ -720,6 +768,9 @@ Role createRole(vector <Role> roles)
     std::string name;
     int lifeMax, lifeMin, strengthMin, strengthMax, intMin, intMax;
 
+    //New ability points
+    int dexMax, dexMin, conMin, conMax, wisMin, wisMax, chaMin, chaMax;
+
 
     cout << "Enter name: ";
     //Clear the input buffer before hand
@@ -739,10 +790,10 @@ Role createRole(vector <Role> roles)
     cout << "Enter Minimum life: ";
     cin >> lifeMin;
 
-    while (lifeMin < 0 || lifeMin > 10)
+    while (lifeMin < 0 || lifeMin > 30)
     {
         cin.clear();
-        cout << "Invalid range! Life must be between 0-10" << endl; 
+        cout << "Invalid range! Life must be between 0-30" << endl; 
         cout << "Enter Minimum life: ";
         cin >> lifeMin;
     }
@@ -751,9 +802,9 @@ Role createRole(vector <Role> roles)
 
     cout << "Enter Maximum life: ";
     cin >> lifeMax;
-    while (lifeMax < lifeMin || lifeMax > 10 )
+    while (lifeMax < lifeMin || lifeMax > 30 )
     {
-        cout << "Invalid range! Maximum life must be between "<< lifeMin << " - 10" << endl; 
+        cout << "Invalid range! Maximum life must be between "<< lifeMin << "-30" << endl; 
         cout << "Enter Maximum life: ";
         cin >> lifeMax;
     }
@@ -761,19 +812,19 @@ Role createRole(vector <Role> roles)
     cout << endl;
     cout << "Enter minimum strength: ";
     cin >> strengthMin;
-    while (strengthMin < 0 || strengthMin > 10)
+    while (strengthMin < 0 || strengthMin > 30)
     {
-        cout << "Invalid range! Life must be between 0-10" << endl; 
-        cout << "Enter Minimum life: ";
+        cout << "Invalid range! Life must be between 0-30" << endl; 
+        cout << "Enter Minimum strength: ";
         cin >> strengthMin;
     }
     
     cout << endl;
     cout << "Enter Maximum strength: ";
     cin >> strengthMax;
-    while (strengthMax < strengthMin || strengthMax > 10 )
+    while (strengthMax < strengthMin || strengthMax > 30 )
     {
-        cout << "Invalid range! Maximum strength must be between "<< strengthMin << " - 10" << endl; 
+        cout << "Invalid range! Maximum strength must be between "<< strengthMin << "-30" << endl; 
         cout << "Enter Maximum strength: ";
         cin >> strengthMax;
     }
@@ -781,9 +832,9 @@ Role createRole(vector <Role> roles)
     cout << endl;
     cout << "Enter minimum intelligence: ";
     cin >> intMin;
-    while (intMin < 0 || intMin > 10)
+    while (intMin < 0 || intMin > 30)
     {
-        cout << "Invalid range! Intelligence must be between 0-10" << endl; 
+        cout << "Invalid range! Intelligence must be between 0-30" << endl; 
         cout << "Enter Minimum Intelligence: ";
         cin >> intMin;
     }
@@ -791,28 +842,122 @@ Role createRole(vector <Role> roles)
     cout << endl;
     cout << "Enter Maximum Intelligence: ";
     cin >> intMax;
-    while (intMax < intMin || intMax > 10 )
+    while (intMax < intMin || intMax > 30 )
     {
-        cout << "Invalid range! Maximum Intelligence must be between "<< intMin << " - 10" << endl; 
-        cout << "Enter Maximum strength: ";
+        cout << "Invalid range! Maximum Intelligence must be between "<< intMin << "-30" << endl; 
+        cout << "Enter Maximum Intelligence: ";
         cin >> intMax;
     }
-    string NewRole;
-    NewRole =  "roleName: " + name + "\n" + "lifeMin: " + to_string(lifeMin) + "\n" + "lifeMax: " + to_string(lifeMax) + "\n" + 
-    "strengthMin: " + to_string(strengthMin) + "\n" + "strengthMax: " + to_string(strengthMax) + "\n" + "intelligenceMin: " + to_string(intMin) + "\n" +
-    "intelligenceMax: " + to_string(intMax) + "\n" + "#";
 
-    Role r = Role(name, lifeMin,lifeMax,strengthMin,strengthMax,intMin,intMax);
+    cout << endl;
+    cout << "Enter minimum dexterity modifier: ";
+    cin >> dexMin;
+    while (dexMin < 0 || dexMin > 30)
+    {
+        cout << "Invalid range! dexterity must be between 0-30" << endl; 
+        cout << "Enter Minimum dexterity: ";
+        cin >> dexMin;
+    }
+    
+    cout << endl;
+    cout << "Enter Maximum dexterity: ";
+    cin >> dexMax;
+    while (dexMax < dexMin || dexMax > 30 )
+    {
+        cout << "Invalid range! Maximum dexterity must be between "<< dexMin << " -30" << endl; 
+        cout << "Enter Maximum dexterity: ";
+        cin >> dexMax;
+    }
+
+    cout << endl;
+    cout << "Enter minimum constituion: ";
+    cin >> conMin;
+    while (conMin < 0 || conMin > 30)
+    {
+        cout << "Invalid range! constituion must be between 0-30" << endl; 
+        cout << "Enter Minimum constituion: ";
+        cin >> conMin;
+    }
+    
+    cout << endl;
+    cout << "Enter Maximum constituion: ";
+    cin >> conMax;
+    while (conMax < conMin || conMax > 30 )
+    {
+        cout << "Invalid range! Maximum constituion must be between "<< conMin << " - 10" << endl; 
+        cout << "Enter constituion strength: ";
+        cin >> conMax;
+    }
+
+    cout << endl;
+    cout << "Enter minimum wisdom: ";
+    cin >> wisMin;
+    while (wisMin < 0 || wisMin > 30)
+    {
+        cout << "Invalid range! wisdom must be between 0-10" << endl; 
+        cout << "Enter Minimum wisdom: ";
+        cin >> wisMin;
+    }
+    
+    cout << endl;
+    cout << "Enter Maximum wisdom: ";
+    cin >> wisMax;
+    while (wisMax < wisMin || wisMax > 30 )
+    {
+        cout << "Invalid range! Maximum wisdom must be between "<< wisMin << " - 10" << endl; 
+        cout << "Enter Maximum wisdom: ";
+        cin >> wisMax;
+    }
+
+    cout << endl;
+    cout << "Enter minimum charisma: ";
+    cin >> chaMin;
+    while (chaMin < 0 || chaMin > 30)
+    {
+        cout << "Invalid range! Charisma must be between 0-10" << endl; 
+        cout << "Enter Minimum charisma: ";
+        cin >> chaMin;
+    }
+    
+    cout << endl;
+    cout << "Enter Maximum charisma: ";
+    cin >> chaMax;
+    while (chaMax < chaMin || chaMax > 30 )
+    {
+        cout << "Invalid range! Maximum charisma must be between "<< intMin << " - 10" << endl; 
+        cout << "Enter Maximum charisma: ";
+        cin >> chaMax;
+    }
+    
+    string NewRole;
+    NewRole =  "roleName: " + name + "\n" + 
+                "lifeMin: " + to_string(lifeMin) + "\n" + 
+                "lifeMax: " + to_string(lifeMax) + "\n" + 
+                "strengthMin: " + to_string(strengthMin) + "\n" + 
+                "strengthMax: " + to_string(strengthMax) + "\n" + 
+                "intelligenceMin: " + to_string(intMin) + "\n" +
+                "intelligenceMax: " + to_string(intMax) + "\n" + 
+                "dexMin: " + to_string(dexMin) + "\n" + 
+                "dexMax: " + to_string(dexMax) + "\n" + 
+                "wisMin: " + to_string(wisMax) + "\n" + 
+                "wisMax: " + to_string(wisMax) + "\n" + 
+                "conMin: " + to_string(conMax) + "\n" + 
+                "conMax: " + to_string(conMax) + "\n" + 
+                "chaMin: " + to_string(chaMax) + "\n" + 
+                "chaMax: " + to_string(chaMax) + "\n" + 
+                "#";
+
+    Role r = Role(name, lifeMin,lifeMax,strengthMin,strengthMax,intMin,intMax, dexMin, dexMax, conMin, conMax, wisMin, wisMax, chaMin, chaMax);
     std::ofstream RoleFile;
     RoleFile.open("roles.txt", std::ios::out | std::ios::app);
     RoleFile << "\n" <<NewRole;
     return r;
 };
 
-speciesCreature createSpecies(vector <speciesCreature> species_vector, vector <speciesEldritchHorror> eh_vector)
+Creature createSpecies(vector <Creature> species_vector, vector <speciesEldritchHorror> eh_vector)
 {
     string name;
-    int life, strength, intelligence, naturalInput, disquiet;
+    int life, strength, intelligence, dex, con, wis, cha, naturalInput, disquiet;
     bool natural;
     cout << "Enter name: ";
     cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
@@ -829,36 +974,77 @@ speciesCreature createSpecies(vector <speciesCreature> species_vector, vector <s
 
     cout << "Enter  life for " << name << " ";
     cin >> life;
-    while (life > 10 || life < 0)
+    while (life > 1000 || life < 0)
     {   
-        cout << "Invalid value for life, the range is 0-10" << endl;
+        cout << "Invalid value for life, the range is 0-1000" << endl;
         cout << "Enter  life for " << name << " ";
         cin >> life;
     }
     
     cout << "Enter  strength for " << name << " ";
     cin >> strength;
-    while (strength > 10 || strength < 0)
+    while (strength > 30 || strength < 0)
     {   
-        cout << "Invalid value for strength, the range is 0-10" << endl;
+        cout << "Invalid value for strength, the range is 0-30" << endl;
         cout << "Enter  strength for " << name << " ";
         cin >> strength;
     }
 
     cout << "Enter  intelligence for " << name << " ";
     cin >> intelligence;
-    while (intelligence > 10 || intelligence < 0)
+    while (intelligence > 30 || intelligence < 0)
     {   
-        cout << "Invalid value for Intelligence, the range is 0-10" << endl;
+        cout << "Invalid value for Intelligence, the range is 0-30" << endl;
         cout << "Enter  intelligence for " << name << " ";
         cin >> intelligence;
     }
+
+    cout << endl;
+    cout << "Enter dexterity for " << name << " ";
+    cin >> dex;
+    while (dex < 0 || dex > 30)
+    {
+        cout << "Invalid range! dexterity must be between 0-30" << endl; 
+        cout << "Enter dexterity for " << name << " ";
+        cin >> dex;
+    }
+
+    cout << endl;
+    cout << "Enter constituion for " << name << " ";
+    cin >> con;
+    while (con < 0 || con > 30)
+    {
+        cout << "Invalid range! constituion must be between 0-30" << endl; 
+        cout << "Enter constituion for " << name << " ";
+        cin >> con;
+    }
+
+    cout << endl;
+    cout << "Enter wisdom for " << name << " ";
+    cin >> wis;
+    while (wis < 0 || wis > 30)
+    {
+        cout << "Invalid range! wisdom must be between 0-30" << endl; 
+        cout << "Enter wisdom for " << name << " ";
+        cin >> wis;
+    }
+
+    cout << endl;
+    cout << "Enter charisma for " << name << " ";
+    cin >> cha;
+    while (cha < 0 || cha > 30)
+    {
+        cout << "Invalid range! Charisma must be between 0-30" << endl; 
+        cout << "Enter charisma for " << name << " ";
+        cin >> cha;
+    }
+    
 
     cout << "Enter disquiet for " << name << " ";
     cin>> disquiet;
     while (disquiet > 10 || disquiet < 0)
     {   
-        cout << "Invalid value for disquiet, the range is 0-10" << endl;
+        cout << "Invalid value for disquiet, the range is 0-30" << endl;
         cout << "Enter  disquiet for " << name << " ";
         cin >> disquiet;
     }
@@ -876,13 +1062,20 @@ speciesCreature createSpecies(vector <speciesCreature> species_vector, vector <s
     }
     cout << endl;
 
-    speciesCreature sc = speciesCreature(name, life, strength, intelligence, natural, disquiet);
+    Creature sc = Creature(name, life, strength, intelligence, dex, con, wis, cha,  natural, disquiet);
     cout << endl;
     cout << "Here is your species: " << endl;
     cout << sc << endl;
     string NewCreature;
-    NewCreature =  "Name: " + name + "\n" + "Creature\n" + "Life: " + to_string(life) + "\n" + 
-    "Strength: " + to_string(strength) + "\n" + "Intelligence: " + to_string(intelligence) + "\n";
+    NewCreature =   "Name: " + name + "\n" + 
+                    "Creature\n" + 
+                    "Life: " + to_string(life) + "\n" + 
+                    "Strength: " + to_string(strength) + "\n" + 
+                    "Intelligence: " + to_string(intelligence) + "\n";
+                    "Dex: " + to_string(dex) + "\n";
+                    "Con: " + to_string(con) + "\n";
+                    "Wis: " + to_string(wis) + "\n";
+                    "Cha: " + to_string(cha) + "\n";
     if (natural == true){
         NewCreature = NewCreature + "Natural" + "\n" + "Disquiet: " + to_string(disquiet) + "\n" + "#";
     }
@@ -896,7 +1089,7 @@ speciesCreature createSpecies(vector <speciesCreature> species_vector, vector <s
     return sc;
 };
 
-speciesEldritchHorror createEldritchHorror(vector<speciesCreature> creatures, vector <speciesEldritchHorror> horrors)
+speciesEldritchHorror createEldritchHorror(vector<Creature> creatures, vector <speciesEldritchHorror> horrors)
 {
     int life, str, intelligence, traumatism;
     string name;
@@ -1157,12 +1350,10 @@ Dice selectIndividualDice(vector <Dice> allDice)
 
 Creature createCustomCreature()
 {
-    int life;
-    int intelligence;
-    int natureChoice;
+    int life, intelligence, natureChoice, strength, disquiet;
     bool nature;
-    int strength;
-    int disquiet;
+    string name;
+    int dex, con, wis, cha;
 
     cout << endl;
     cout << "Enter life for creature: " <<  endl;
@@ -1192,6 +1383,47 @@ Creature createCustomCreature()
         cin >> intelligence;
         cout << endl;
     }   
+
+        cout << endl;
+    cout << "Enter dexterity for creature: " <<  endl;
+    cin >> dex;
+    while (dex < 0 || dex > 30)
+    {
+        cout << "Invalid range! dexterity must be between 0-30" << endl; 
+        cout << "Enter dexterity for creature: " <<  endl;
+        cin >> dex;
+    }
+
+    cout << endl;
+    cout << "Enter constituion for creature: " <<  endl;
+    cin >> con;
+    while (con < 0 || con > 30)
+    {
+        cout << "Invalid range! constituion must be between 0-30" << endl; 
+        cout << "Enter constituion for creature: " <<  endl;
+        cin >> con;
+    }
+
+    cout << endl;
+    cout << "Enter wisdom for creature: " <<  endl;
+    cin >> wis;
+    while (wis < 0 || wis > 30)
+    {
+        cout << "Invalid range! wisdom must be between 0-30" << endl; 
+        cout << "Enter wisdom for creature: " <<  endl;
+        cin >> wis;
+    }
+
+    cout << endl;
+    cout << "Enter charisma for creature: " <<  endl;
+    cin >> cha;
+    while (cha < 0 || cha > 30)
+    {
+        cout << "Invalid range! Charisma must be between 0-30" << endl; 
+        cout << "Enter charisma for creature: " <<  endl;
+        cin >> cha;
+    }
+
     cout << "Enter Nature choice for creature: " <<  endl;
     cout << "1. Natural" << endl;
     cout << "2. Unnatural" << endl;
@@ -1213,7 +1445,7 @@ Creature createCustomCreature()
         cin >> disquiet;
         cout << endl;
     };
-    Creature beast = Creature(life, strength, intelligence, nature, disquiet);  
+    Creature beast = Creature(name ,life, strength, intelligence, dex, con, wis, cha, nature, disquiet);  
         return beast;
 }
 
@@ -1223,11 +1455,19 @@ Person createCustomPerson()
     int life;
     int strength;
     int intelligence;
+    int dex, con, wis, cha;
     string gender;
     int fear;
     int terror;
 
-     cout << endl;
+    
+    cout << endl;
+
+    cout << "Enter name: "; 
+    //Clear the input buffer before hand
+    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
+    cout << endl;
 
     cout << "Enter life for Person: " <<  endl;
     cin >> life;
@@ -1257,6 +1497,47 @@ Person createCustomPerson()
         cout << endl;
     }
 
+    
+        cout << endl;
+    cout << "Enter dexterity for person: " <<  endl;
+    cin >> dex;
+    while (dex < 0 || dex > 30)
+    {
+        cout << "Invalid range! dexterity must be between 0-30" << endl; 
+        cout << "Enter dexterity for person: " <<  endl;
+        cin >> dex;
+    }
+
+    cout << endl;
+    cout << "Enter constituion for person: " <<  endl;
+    cin >> con;
+    while (con < 0 || con > 30)
+    {
+        cout << "Invalid range! constituion must be between 0-30" << endl; 
+        cout << "Enter constituion for person: " <<  endl;
+        cin >> con;
+    }
+
+    cout << endl;
+    cout << "Enter wisdom for person: " <<  endl;
+    cin >> wis;
+    while (wis < 0 || wis > 30)
+    {
+        cout << "Invalid range! wisdom must be between 0-30" << endl; 
+        cout << "Enter wisdom for person: " <<  endl;
+        cin >> wis;
+    }
+
+    cout << endl;
+    cout << "Enter charisma for person: " <<  endl;
+    cin >> cha;
+    while (cha < 0 || cha > 30)
+    {
+        cout << "Invalid range! Charisma must be between 0-30" << endl; 
+        cout << "Enter charisma for person: " <<  endl;
+        cin >> cha;
+    }
+
     cout << "Enter name for Person: ";
     cin   >> name;
     cout << endl;
@@ -1275,7 +1556,7 @@ Person createCustomPerson()
     }
 
 
-    Person p = Person(name, life, strength, intelligence, gender, fear);
+    Person p = Person(name, life, strength, intelligence, dex, con, wis, cha, gender, fear);
     return p;
 
 }
@@ -1341,6 +1622,8 @@ Investigator createCustomInvestigator()
     int fear;
     int terror;
 
+    int wis, dex, con, cha;
+
      cout << endl;
 
     cout << "Enter life for Investigator: " <<  endl;
@@ -1371,6 +1654,46 @@ Investigator createCustomInvestigator()
         cout << endl;
     }
 
+        cout << endl;
+    cout << "Enter dexterity for Investigator: " <<  endl;
+    cin >> dex;
+    while (dex < 0 || dex > 30)
+    {
+        cout << "Invalid range! dexterity must be between 0-30" << endl; 
+        cout << "Enter dexterity for Investigator: " <<  endl;
+        cin >> dex;
+    }
+
+    cout << endl;
+    cout << "Enter constituion for Investigator: " <<  endl;
+    cin >> con;
+    while (con < 0 || con > 30)
+    {
+        cout << "Invalid range! constituion must be between 0-30" << endl; 
+        cout << "Enter constituion for Investigator: " <<  endl;
+        cin >> con;
+    }
+
+    cout << endl;
+    cout << "Enter wisdom for Investigator: " <<  endl;
+    cin >> wis;
+    while (wis < 0 || wis > 30)
+    {
+        cout << "Invalid range! wisdom must be between 0-30" << endl; 
+        cout << "Enter wisdom for Investigator: " <<  endl;
+        cin >> wis;
+    }
+
+    cout << endl;
+    cout << "Enter charisma for Investigator: " <<  endl;
+    cin >> cha;
+    while (cha < 0 || cha > 30)
+    {
+        cout << "Invalid range! Charisma must be between 0-30" << endl; 
+        cout << "Enter charisma for Investigator: " <<  endl;
+        cin >> cha;
+    }
+
     cout << "Enter name for Investigator: ";
     cin   >> name;
     cout << endl;
@@ -1398,7 +1721,7 @@ Investigator createCustomInvestigator()
         cout << endl;
     }
 
-    Investigator inv = Investigator(name, life, strength, intelligence, gender, fear, terror);
+    Investigator inv = Investigator(name, life, strength, intelligence, dex, con, wis, cha, gender, fear, terror);
     return inv;     
 }
 
@@ -1408,7 +1731,7 @@ int main()
 {
     //All vectors pertaining to beings
     vector <Role> roles;
-    vector <speciesCreature> creatures;
+    vector <Creature> creatures;
     vector <speciesEldritchHorror> horrors;
     vector <Individuals<Investigator>> investigators;
     vector <Individuals<Person> > individualsPersons;
@@ -1586,7 +1909,7 @@ int main()
             {
                 if(creatures.size() > 0)
                 {
-                    speciesCreature cre = selectCreature(creatures);
+                    Creature cre = selectCreature(creatures);
 
                     int basicOrCustom;
 
@@ -1892,7 +2215,7 @@ int main()
 
                 else if(editing >0 || editing < 6 )
                 {
-                    Creature newCre = Creature (cr.type.getLife(), cr.type.getStrength(), cr.type.getIntelligence(), cr.type.getNature(), cr.type.getDisquiet());
+                    Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getIntelligence(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet());
                     string name = cr.getName();
                     string job = cr.getJob();
                     int count = cr.getCounter() - 1;
@@ -1964,7 +2287,7 @@ int main()
 
                 else if (editing > 0 && editing < 7)
                 {
-                    Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getGender(), p.type.getFear());
+                    Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getDex(), p.type.getCon(), p.type.getWis(), p.type.getCha(), p.type.getGender(), p.type.getFear());
                     string name = p.getName();
                     string job = p.getJob();
                     int count = p.getCounter();
@@ -2111,7 +2434,7 @@ int main()
 
                 else if (editing > 0 && editing < 8)
                 {
-                    Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
+                    Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getDex(), inv.type.getCon(), inv.type.getWis(), inv.type.getCha(),  inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
                     string name = inv.getName();
                     string job = inv.getJob();
                     int count = inv.getCounter();
@@ -2149,7 +2472,7 @@ int main()
                 {
                     cout << "Creatures" << endl;
                     //Get the creature
-                    speciesCreature cre = selectCreature(creatures);
+                    Creature cre = selectCreature(creatures);
                     //Send the filename to the remove function and the creature itself
                     removeCreatureFromFile(cre, "species.txt");
                     //Remove the creature from the creature vector as per the Occamz razor sollution

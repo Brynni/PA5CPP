@@ -15,9 +15,13 @@ class Person : public Being
         friend ostream& operator<<(ostream& out, const Person p);
         void updateGender();
         void updateFear();
-        string getGender();
-        int getFear();
         void updateName();
+        int getFear();
+        int getDex();
+        int getCon();
+        int getWis();
+        int getCha();
+        string getGender();
         string getName();
 
     protected:

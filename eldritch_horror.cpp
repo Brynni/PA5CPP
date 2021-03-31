@@ -3,7 +3,7 @@
 
 using namespace std;
 
-EldritchHorror::EldritchHorror(int life, int strength, int intelligence, int traumatism) : Creature(life, strength, intelligence, false, 10)
+EldritchHorror::EldritchHorror(int life, int strength, int intelligence, int traumatism) : Creature("bla", life, strength, intelligence, 0, 0, 0, 0, false, 10)
 {
     this->traumatism = traumatism;
 };

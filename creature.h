@@ -15,10 +15,16 @@ class Creature : public Being
         void updateDisquiet();
         void updateIntelligence();
         void updateNature();
+        void printInfo();
+        string getName();
         int getLife();
         int getStrength();
-        int getDisquiet();
         int getIntelligence();
+        int getDex();
+        int getCon();
+        int getWis();
+        int getCha();
+        int getDisquiet();
         bool getNature();
     protected:
         string name;

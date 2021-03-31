@@ -66,6 +66,27 @@ void Person:: updateName()
     this->name = newName;
 }
 
+//int dex, int con, int wis, int cha,
+int Person::getDex()
+{
+    return this->dexterity;
+}
+
+int Person::getCon()
+{
+    return this->constitution;
+}
+
+int Person::getWis()
+{
+    return this->wisdom;
+}
+
+int Person::getCha()
+{
+    return this->charisma;
+}
+
 string Person:: getName()
 {
     return this->name;

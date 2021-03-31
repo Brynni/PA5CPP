@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Investigator::Investigator(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma, string gender, int fear, int terror) : Person(name,life,strength,intelligence,gender,fear)
+Investigator::Investigator(string name, int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma, string gender, int fear, int terror) : Person(name,life,strength,intelligence,dexterity,constitution,wisdom,charisma,gender,fear)
 {
     this->terror = terror;
 }
