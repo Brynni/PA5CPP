@@ -4,9 +4,11 @@
 
 using namespace std;
 
-Being::Being(int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma)
-{
+Being::Being(string name, int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma)
+{   
+    this->name = name;
     this->life = life;
+    this->currentLife = life;
     this->strength = strength;
     this->intelligence = intelligence;
     this->dexterity = dexterity;
@@ -17,13 +19,14 @@ Being::Being(int life, int strength, int intelligence, int dexterity, int consti
 };
 
 // Should be replaced with random values from 0-10 
-Being::Being() : Being (5,5,5,5,5,5,5){};
+Being::Being() : Being ("being", 5,5,5,5,5,5,5){};
 
 
 ostream& operator<<(ostream& out, const Being b)
 {
     out << "Being\n";
-    out << "Life: " << b.life << endl;
+    out << "Max Life: " << b.life << endl;
+    out << "Current life: " << b.currentLife << endl;
     out << "Strength: " << b.strength << endl;
     out << "Intelligence: " << b.intelligence << endl;
     out << "Dexterity: " << b.dexterity << endl;
@@ -31,6 +34,43 @@ ostream& operator<<(ostream& out, const Being b)
     out << "Wisdom: " << b.wisdom << endl;
     out << "Charisma: " << b.charisma;
     return out;
+}
+
+void Being::takeDamage(int attackDamage)
+{
+    int newCurrentHealth;
+    
+    cout << name << " took " << attackDamage << " points of damage!" << endl;
+    if ((currentLife - attackDamage) < 0)
+    {
+        damage = life;
+        newCurrentHealth = 0;
+    } else {
+        newCurrentHealth = currentLife - attackDamage;
+    }
+    
+    cout << name << "'s health points are now currently " << newCurrentHealth << endl;
+    if (currentLife == 0){
+        cout << name << " is dead!";
+    }
+    
+    this->currentLife = newCurrentHealth;
+    
+    cout << this->currentLife << "THIS!" << endl;
+}
+
+void Being::healDamage(int healingPoints)
+{   
+    
+    if ((currentLife + healingPoints) < life)
+    {
+        cout << name << " has been healed for " << healingPoints << " points!" << endl;
+        this->currentLife = currentLife + healingPoints;
+        cout << name << "'s current life is now " << currentLife << endl;
+    } else{
+        cout << name << " is now fully healed! " << endl;
+        this->currentLife = life;
+    }
 }
 
 void Being::updateLife()
@@ -81,7 +121,10 @@ void Being::updateInt()
 
 }
 
-
+string Being::getName()
+{
+    return this->name;
+}
 
 int Being:: getLife()
 {
@@ -103,17 +146,22 @@ int Being::getDex()
     return this->dexterity;
 }
 
-int Being::getConst()
+int Being::getCon()
 {
     return this->constitution;
 }
 
-int Being::getCharisma()
+int Being::getCha()
 {
     return this->charisma;
 }
 
-int Being::getWisdom()
+int Being::getWis()
 {
     return this->wisdom;
+}
+
+int Being::getCurrentLife()
+{
+    return this->currentLife;
 }

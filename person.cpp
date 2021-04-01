@@ -3,7 +3,7 @@
 #include "role.h"
 using namespace std;
 
-Person::Person(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma, string gender, int fear) : Being(life, strength, intelligence, constitution, dexterity, wisdom, charisma)
+Person::Person(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma, string gender, int fear) : Being(name ,life, strength, intelligence, constitution, dexterity, wisdom, charisma)
 {
     this->name = name;
     this->fear = fear;
@@ -18,8 +18,13 @@ ostream& operator<<(ostream& out, const Person p)
     out << "Person\n";
     out << "Name: " << p.name << endl;
     out << "Life: " << p.life << endl;
+    out << "Current life: " << p.currentLife << endl;
     out << "Strength: " << p.strength << endl;
     out << "Intelligence: " << p.intelligence << endl;
+    out << "Dexterity: " << p.dexterity << endl;
+    out << "Constitution: " << p.constitution << endl;
+    out << "Wisdom: " << p.wisdom << endl;
+    out << "Charisma: " << p.charisma << endl;
     out << "Gender: " << p.gender << endl;
     out << "Fear: " << p.fear << endl;
     return out;
@@ -66,28 +71,7 @@ void Person:: updateName()
     this->name = newName;
 }
 
-//int dex, int con, int wis, int cha,
-int Person::getDex()
+void Person:: updateCurrentLife(int newLifeStat)
 {
-    return this->dexterity;
-}
-
-int Person::getCon()
-{
-    return this->constitution;
-}
-
-int Person::getWis()
-{
-    return this->wisdom;
-}
-
-int Person::getCha()
-{
-    return this->charisma;
-}
-
-string Person:: getName()
-{
-    return this->name;
+    this->currentLife = newLifeStat;
 }

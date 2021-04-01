@@ -10,9 +10,12 @@ class Being
 {
     public:
         Being();
-        Being(int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma);
+        Being(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma);
         friend ostream& operator<<(ostream& out, const Being b);
-        int life, strength, intelligence, constitution, dexterity,  wisdom,  charisma;
+        string name;
+        int life, damage, currentLife, strength, intelligence, constitution, dexterity,  wisdom,  charisma;
+        void takeDamage(int attackDamage);
+        void healDamage(int healingPoints);
         void updateLife();
         void updateStrength();
         void updateInt();
@@ -20,9 +23,11 @@ class Being
         int getStrength();
         int getInt();
         int getDex();
-        int getConst();
-        int getCharisma();
-        int getWisdom();
+        int getCon();
+        int getCha();
+        int getWis();
+        int getCurrentLife();
+        string getName();
 
 
 

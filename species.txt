@@ -23,7 +23,6 @@ Natural
 Disquiet: 2
 #
 Name: Chthonian
-Eldritch horror
 Creature
 Life: 207
 Strength: 22
@@ -34,9 +33,9 @@ Wis: 12
 Cha: 9
 Unnatural
 Disquiet: 6
+Eldritch horror
 #
 Name: Shoggoth
-Eldritch horror
 Creature
 Life: 387
 Strength: 26
@@ -47,9 +46,9 @@ Wis: 16
 Cha: 13
 Unnatural
 Disquiet: 6
+Eldritch horror
 #
 Name: Color Out of space
-Eldritch horror
 Creature
 Life: 76
 Strength: 16
@@ -60,4 +59,13 @@ Wis: 15
 Cha: 20
 Unnatural
 Disquiet: 6
+Eldritch horror
+#
+Name: Pug
+Creature
+Life: 1
+Strength: 2
+Intelligence: 3
+Natural
+Disquiet: 3
 #

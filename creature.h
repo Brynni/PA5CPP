@@ -16,14 +16,6 @@ class Creature : public Being
         void updateIntelligence();
         void updateNature();
         void printInfo();
-        string getName();
-        int getLife();
-        int getStrength();
-        int getIntelligence();
-        int getDex();
-        int getCon();
-        int getWis();
-        int getCha();
         int getDisquiet();
         bool getNature();
     protected:

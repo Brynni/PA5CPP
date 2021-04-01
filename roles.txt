@@ -7,11 +7,11 @@ intelligenceMin: 5
 intelligenceMax: 20
 dexMin: 3
 dexMax: 18
-wisMin: 3
+wisMin: 18
 wisMax: 18
-conMin: 3
+conMin: 18
 conMax: 18
-chaMin: 4
+chaMin: 19
 chaMax: 19
 #
 roleName: Reporter
@@ -23,11 +23,11 @@ intelligenceMin: 4
 intelligenceMax: 19
 dexMin: 4
 dexMax: 19
-wisMin: 4
+wisMin: 19
 wisMax: 19
-conMin: 3
+conMin: 18
 conMax: 18
-chaMin: 4
+chaMin: 19
 chaMax: 19
 #
 roleName: Professor
@@ -39,10 +39,26 @@ intelligenceMin: 5
 intelligenceMax: 20
 dexMin: 3
 dexMax: 18
-wisMin: 5
+wisMin: 20
 wisMax: 20
-conMin: 1
+conMin: 15
 conMax: 15
-chaMin: 1
+chaMin: 15
 chaMax: 15
+#
+roleName: No
+lifeMin: 1
+lifeMax: 1
+strengthMin: 1
+strengthMax: 1
+intelligenceMin: 1
+intelligenceMax: 1
+dexMin: 1
+dexMax: 1
+wisMin: 1
+wisMax: 1
+conMin: 1
+conMax: 1
+chaMin: 1
+chaMax: 1
 #

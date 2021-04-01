@@ -118,9 +118,9 @@ void generateAllRoles(vector <Role> &roles){
                 chaMin = std::stoi(fileStream);
             }
 
-            else if (fileStream == "conMax:"){
+            else if (fileStream == "chaMax:"){
                 RolesFile >> fileStream;
-                conMax = std::stoi(fileStream);
+                chaMax = std::stoi(fileStream);
             }
 
             else if (fileStream == "#" && roleName != ""){
@@ -552,12 +552,11 @@ void removePersonRoleFromFile(Role role, string filename)
     string fileStream; 
     string roleName;
     string NewRole;
-    int lifeMin;
-    int lifeMax;
-    int strengthMin;
-    int strengthMax;
-    int intelligenceMin;
-    int intelligenceMax;
+    int lifeMax, lifeMin, strengthMin, strengthMax, intelligenceMin, intelligenceMax;
+
+    //New ability points
+    int dexMax, dexMin, conMin, conMax, wisMin, wisMax, chaMin, chaMax;
+    
     RolesFile.open("roles.txt");
     if (RolesFile.is_open()){
         while (RolesFile){
@@ -591,11 +590,65 @@ void removePersonRoleFromFile(Role role, string filename)
                 intelligenceMax = std::stoi(fileStream);
             }
 
+            else if (fileStream == "dexMin:"){
+                RolesFile >> fileStream;
+                dexMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "dexMax:"){
+                RolesFile >> fileStream;
+                dexMax = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "wisMin:"){
+                RolesFile >> fileStream;
+                wisMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "wisMax:"){
+                RolesFile >> fileStream;
+                wisMax = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "conMin:"){
+                RolesFile >> fileStream;
+                conMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "conMax:"){
+                RolesFile >> fileStream;
+                conMax = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "chaMin:"){
+                RolesFile >> fileStream;
+                chaMin = std::stoi(fileStream);
+            }
+
+            else if (fileStream == "chaMax:"){
+                RolesFile >> fileStream;
+                chaMax = std::stoi(fileStream);
+            }
+
             else if (fileStream == "#" && roleName != "" && roleName != role.getName()){
                 
-                NewRole =  NewRole + "roleName: " + roleName + "\n" + "lifeMin: " + to_string(lifeMin) + "\n" + "lifeMax: " + to_string(lifeMax) + "\n" + 
-                "strengthMin: " + to_string(strengthMin) + "\n" + "strengthMax: " + to_string(strengthMax) + "\n" + "intelligenceMin: " + to_string(intelligenceMin) + "\n" +
-                "intelligenceMax: " + to_string(intelligenceMax) + "\n" + "#" + "\n";
+                NewRole =   NewRole + 
+                            "roleName: " + roleName + "\n" + 
+                            "lifeMin: " + to_string(lifeMin) + "\n" + 
+                            "lifeMax: " + to_string(lifeMax) + "\n" + 
+                            "strengthMin: " + to_string(strengthMin) + "\n" + 
+                            "strengthMax: " + to_string(strengthMax) + "\n" + 
+                            "intelligenceMin: " + to_string(intelligenceMin) + "\n" +
+                            "intelligenceMax: " + to_string(intelligenceMax) + "\n" + 
+                            "dexMin: " + to_string(dexMin) + "\n" + 
+                            "dexMax: " + to_string(dexMax) + "\n" + 
+                            "wisMin: " + to_string(wisMax) + "\n" + 
+                            "wisMax: " + to_string(wisMax) + "\n" + 
+                            "conMin: " + to_string(conMax) + "\n" + 
+                            "conMax: " + to_string(conMax) + "\n" + 
+                            "chaMin: " + to_string(chaMax) + "\n" + 
+                            "chaMax: " + to_string(chaMax) + "\n" + 
+                            "#" + "\n";
                 roleName = "";
             }
         }
@@ -756,11 +809,6 @@ Role selectRole(vector<Role> roles)
     return roles[selection -1];
     
 }
-
-
-
-
-
 
 Role createRole(vector <Role> roles)
 {
@@ -1761,7 +1809,7 @@ int main()
         cout <<"\t 3. See lists" << endl;
         cout <<"\t 4. Create a new individual " << endl;
         cout <<"\t 5. See list individuals" << endl;
-        cout <<"\t 6. Select Individual for editing / deleting" << endl;
+        cout <<"\t 6. Select Individual for editing / deleting / taking damage test" << endl;
         cout <<"\t 7. Remove Individual Type" << endl;
         cout <<"\t 8. Roll dice test" << endl;
         cout <<"\t 0. quit" << endl;
@@ -2213,9 +2261,14 @@ int main()
                     cr.type.updateIntelligence();
                 }
 
-                else if(editing >0 || editing < 6 )
+                if (editing == 6)
                 {
-                    Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getIntelligence(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet());
+                    cr.type.takeDamage(5);
+                }
+
+                else if(editing >0 || editing < 7 )
+                {
+                    Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getInt(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet());
                     string name = cr.getName();
                     string job = cr.getJob();
                     int count = cr.getCounter() - 1;
@@ -2251,6 +2304,7 @@ int main()
                 cout << "4. Intelligence " << endl;
                 cout << "5. Gender" << endl;
                 cout << "6. Fear" << endl;
+                cout << "7. Hurt being for 5 points of damage" << endl;
                 cout << "Your selection: ";
                 cin >> editing;
                 cout << endl;
@@ -2285,7 +2339,12 @@ int main()
                     p.type.updateFear();
                 }
 
-                else if (editing > 0 && editing < 7)
+                if (editing == 7)
+                {
+                    p.type.takeDamage(5);
+                }
+
+                else if (editing > 0 && editing < 8)
                 {
                     Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getDex(), p.type.getCon(), p.type.getWis(), p.type.getCha(), p.type.getGender(), p.type.getFear());
                     string name = p.getName();
@@ -2302,11 +2361,12 @@ int main()
                     }
                     cout << "updated Person" << endl;
                     t.printA();
+                    
                     cout << endl;
                     sort(individualsPersons.begin(), individualsPersons.end());
                 }
 
-                else if (editing < 1 || editing > 6)
+                else if (editing < 1 || editing > 8)
                 {
                     cout << "Invalid Selection" << endl;
                 }
@@ -2354,7 +2414,7 @@ int main()
 
                 else if(editing >0 || editing < 5 )
                 {
-                    EldritchHorror newHorror = EldritchHorror (eh.type.getLife(), eh.type.getStrength(), eh.type.getIntelligence(), eh.type.getTraumatism());
+                    EldritchHorror newHorror = EldritchHorror (eh.type.getLife(), eh.type.getStrength(), eh.type.getInt(), eh.type.getTraumatism());
                     string name = eh.getName();
                     string job = eh.getJob();
                     int count = eh.getCounter();
@@ -2393,6 +2453,7 @@ int main()
                 cout << "5. Gender" << endl;
                 cout << "6. Fear" << endl;
                 cout << "7. Terror" << endl;
+                cout << "8. Hurt this character for 5 points of damage" << endl;
                 cout << "Your selection: ";
                 cin >> editing;
                 cout << endl;
@@ -2432,12 +2493,19 @@ int main()
                     inv.type.updateTerror();
                 }
 
-                else if (editing > 0 && editing < 8)
+                if (editing == 8)
+                {
+                    inv.type.takeDamage(5);
+                }
+
+                if (editing > 0 && editing < 9)
                 {
                     Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getDex(), inv.type.getCon(), inv.type.getWis(), inv.type.getCha(),  inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
                     string name = inv.getName();
                     string job = inv.getJob();
                     int count = inv.getCounter();
+                    newI.updateCurrentLife(inv.type.getCurrentLife());
+                    cout << newI.getCurrentLife();
                     Individuals<Investigator> t = Individuals<Investigator>(name, newI, count, job);
                     for (int i=0; i<investigators.size();i++)
                     {
@@ -2445,6 +2513,7 @@ int main()
                         {
                             investigators.erase(investigators.begin() + i);
                             investigators.push_back(t);
+                            
                         }
                     }
                     cout << "updated Updated Investigator" << endl;
@@ -2453,7 +2522,7 @@ int main()
                     sort(investigators.begin(), investigators.end());
                 }
 
-                else if (editing < 1 || editing > 7)
+                else if (editing < 1 || editing > 8)
                 {
                     cout << "Invalid Selection" << endl;
                 }

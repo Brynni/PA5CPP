@@ -3,7 +3,7 @@
 using namespace std;
 
 
-Creature::Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet) : Being(life, strength, intelligence, dex, con, wis, cha)
+Creature::Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet) : Being(name, life, strength, intelligence, dex, con, wis, cha)
 {
     this->name = name;
     this->natural = natural;
@@ -18,6 +18,7 @@ ostream& operator<<(ostream& out, const Creature c)
 {
     out << "Creature: " << c.name << endl;
     out << "Life: " << c.life << endl;
+    out << "Current hitpoints are: " << c.currentLife << endl;
     out << "Strength: " << c.strength << endl;
     out << "Intelligence: " << c.intelligence << endl;
     out << "Dexterity: " << c.dexterity << endl;
@@ -36,18 +37,6 @@ ostream& operator<<(ostream& out, const Creature c)
     out << "Disquiet: " << c.disquiet;
     return out;
 }
-// void Creature::updateLife(Creature& cre){
-//     int newLife;
-//     cout << "Enter new life: " ;
-//     cin >> newLife;
-
-//     while(newLife > 10 || newLife < 0)
-//     {
-//         cout << "Please enter a valid life, the range is 0 -10" << endl;
-//         cin >> newLife;
-//     }
-//     cre.life = newLife;
-// }
 
 void Creature::printInfo()
 {
@@ -97,46 +86,6 @@ void Creature::updateDisquiet()
 void Creature::updateNature()
 {
     natural = !natural;
-}
-
-string Creature::getName()
-{
-    return this->name;
-}
-
-int Creature::getLife()
-{
-    return this->life;
-}
-
-int Creature::getStrength()
-{
-    return this->strength;
-}
-
-int Creature::getIntelligence()
-{
-    return this->intelligence;
-}
-//int dex, int con, int wis, int cha,
-int Creature::getDex()
-{
-    return this->dexterity;
-}
-
-int Creature::getCon()
-{
-    return this->constitution;
-}
-
-int Creature::getWis()
-{
-    return this->wisdom;
-}
-
-int Creature::getCha()
-{
-    return this->charisma;
 }
 
 bool Creature::getNature()

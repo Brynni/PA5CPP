@@ -17,12 +17,9 @@ class Person : public Being
         void updateFear();
         void updateName();
         int getFear();
-        int getDex();
-        int getCon();
-        int getWis();
-        int getCha();
+        void updateCurrentLife(int newLifeStat);
         string getGender();
-        string getName();
+        
 
     protected:
         string name;

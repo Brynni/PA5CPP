@@ -14,6 +14,7 @@ class Investigator :public Person
         void updateTerror();
         int getTerror();
         int terror;
+        void printCharacter();
 };
 
 
