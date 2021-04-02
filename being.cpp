@@ -55,8 +55,6 @@ void Being::takeDamage(int attackDamage)
     }
     
     this->currentLife = newCurrentHealth;
-    
-    cout << this->currentLife << "THIS!" << endl;
 }
 
 void Being::healDamage(int healingPoints)
@@ -96,9 +94,9 @@ void Being::updateStrength()
     cout << "Enter new strength: " ;
     cin >> newStrength;
 
-    while(newStrength > 10 || newStrength < 0)
+    while(newStrength > 30 || newStrength < 0)
     {
-        cout << "Please enter a valid strength, the range is 0 -10" << endl;
+        cout << "Please enter a valid strength, the range is 1-30" << endl;
         cin >> newStrength;
     }
     this->strength = newStrength;

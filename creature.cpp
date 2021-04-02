@@ -43,32 +43,6 @@ void Creature::printInfo()
     cout << this->name << endl;
 }
 
-void Creature::updateStrength()
-{
-    int newStr;
-    cout << "Enter new strength: ";
-    cin  >> newStr;
-     while(newStr > 10 || newStr < 0)
-    {
-        cout << "Please enter a valid Strength, the range is 0 -10" << endl;
-        cin >> newStr;
-    }
-    strength = newStr;   
-}
-
-void Creature::updateIntelligence()
-{
-    int newInt;
-    cout << "Enter new intelligence: ";
-    cin >> newInt;
-    while(newInt > 10 || newInt < 0)
-    {
-        cout << "Please enter a valid Intelligence, the range is 0 -10" << endl;
-        cin >> newInt;
-    }
-    intelligence = newInt;  
-}
-
 
 void Creature::updateDisquiet()
 {

@@ -47,7 +47,7 @@ ostream& operator <<(ostream& out, const Investigator i)
     out << "Dexterity: " << i.dexterity << endl;
     out << "Constitution: " << i.constitution << endl;
     out << "Wisdom: " << i.wisdom << endl;
-    out << "Charisma: " << i.charisma;
+    out << "Charisma: " << i.charisma << endl;
     out << "Fear: " << i.fear << endl;
     out << "Terror: " << i.terror << endl;
     out << endl;
@@ -72,5 +72,5 @@ void Investigator::printCharacter(){
     cout <<"RELIGION " <<floor((intelligence-10)/2)  << endl;
     cout <<"SLEIGHT OF HAND " << floor((dexterity-10)/2) << endl;
     cout <<"STEALH " << floor((dexterity-10)/2) << endl;
-    cout <<"SURVIVAL" <<floor((wisdom-10)/2) << endl;
+    cout <<"SURVIVAL " <<floor((wisdom-10)/2) << endl;
 }

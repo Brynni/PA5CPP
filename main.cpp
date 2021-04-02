@@ -2258,7 +2258,7 @@ int main()
 
                 if (editing == 5)
                 {
-                    cr.type.updateIntelligence();
+                    cr.type.updateInt();
                 }
 
                 if (editing == 6)
@@ -2409,7 +2409,7 @@ int main()
 
                 if (editing == 4)
                 {
-                    eh.type.updateIntelligence();
+                    eh.type.updateInt();
                 }
 
                 else if(editing >0 || editing < 5 )
@@ -2505,7 +2505,7 @@ int main()
                     string job = inv.getJob();
                     int count = inv.getCounter();
                     newI.updateCurrentLife(inv.type.getCurrentLife());
-                    cout << newI.getCurrentLife();
+                    newI.printCharacter();
                     Individuals<Investigator> t = Individuals<Investigator>(name, newI, count, job);
                     for (int i=0; i<investigators.size();i++)
                     {

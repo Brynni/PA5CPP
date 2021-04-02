@@ -11,9 +11,7 @@ class Creature : public Being
         Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet);
         friend ostream& operator<<(ostream& out, const Creature c);
         //void updateLife(Creature& cre);
-        void updateStrength();
         void updateDisquiet();
-        void updateIntelligence();
         void updateNature();
         void printInfo();
         int getDisquiet();
