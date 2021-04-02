@@ -3,6 +3,8 @@
 
 
 #include <iostream>
+#include <vector>
+#include "attack.h"
 using namespace std;
 
 
@@ -14,6 +16,11 @@ class Being
         friend ostream& operator<<(ostream& out, const Being b);
         string name;
         int life, damage, currentLife, strength, intelligence, constitution, dexterity,  wisdom,  charisma;
+        vector <Attack> attacks;
+        
+        
+
+        void AddAttackToBeing(vector <Attack> newAttacks);
         void takeDamage(int attackDamage);
         void healDamage(int healingPoints);
         void updateLife();
@@ -28,6 +35,8 @@ class Being
         int getWis();
         int getCurrentLife();
         string getName();
+
+       
 
 
 

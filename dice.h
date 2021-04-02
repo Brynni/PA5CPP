@@ -6,6 +6,7 @@ using namespace std;
 class Dice
 {
     public:
+        Dice();
         Dice(string name, string nickname, int sides);
         friend ostream& operator<<(ostream& out, const Dice d);
         

@@ -1,11 +1,14 @@
+#include "attack.h"
 #include "being.h"
 #include <random>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 Being::Being(string name, int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma)
 {   
+    std::vector <Attack> attacks;
     this->name = name;
     this->life = life;
     this->currentLife = life;
@@ -15,6 +18,7 @@ Being::Being(string name, int life, int strength, int intelligence, int dexterit
     this->constitution = constitution;
     this->wisdom= wisdom;
     this->charisma = charisma;
+    this->attacks = attacks;
 
 };
 
@@ -162,4 +166,8 @@ int Being::getWis()
 int Being::getCurrentLife()
 {
     return this->currentLife;
+}
+
+void Being::AddAttackToBeing(vector <Attack> newAttacks){
+    this->attacks = newAttacks;
 }

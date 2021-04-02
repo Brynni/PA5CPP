@@ -12,6 +12,7 @@ Dice::Dice(string name, string nickname, int sides)
     this->sides = sides;
 };
 
+Dice::Dice() : Dice("mobius strip", "D1", 1){};
 
 ostream& operator<<(ostream& out, const Dice d)
 {

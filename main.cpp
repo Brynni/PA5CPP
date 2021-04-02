@@ -1,11 +1,14 @@
+#include "attack.h"
 #include "being.h"
+#include "dice.h"
+#include "fileReader.h"
 #include "individuals.h"
+#include "investigator.h"
 #include "person.h"
 #include "speciesCreature.h"
 #include "role.h"
-#include "dice.h"
-#include "investigator.h"
-#include "fileReader.h"
+#include "weapon.h"
+
 #include <random>
 #include <iostream>
 #include <fstream>
@@ -327,6 +330,19 @@ Dice selectIndividualDice(vector <Dice> allDice)
     }
 
     return allDice[selection -1];
+}
+
+Dice selectIndividualDiceByNickname(vector <Dice> allDice, string nickname)
+{
+    for (int i = 0; i < allDice.size(); i++)
+    {
+        if (allDice[i].getNickname() == nickname)
+        {
+            return allDice[i];
+        }
+    }
+    return Dice();
+    
 }
 
 Creature createCustomCreature()
@@ -656,7 +672,9 @@ Investigator createCustomInvestigator()
     return inv;     
 }
 
-
+/* _________________________________*/
+//       Main starts here!         //
+/* ______________________________ */
 
 int main()
 {
@@ -692,7 +710,7 @@ int main()
         cout <<"\t 5. See list individuals" << endl;
         cout <<"\t 6. Select Individual for editing / deleting / taking damage test" << endl;
         cout <<"\t 7. Remove Individual Type" << endl;
-        cout <<"\t 8. Roll dice test" << endl;
+        cout <<"\t 8. Testing area" << endl;
         cout <<"\t 0. quit" << endl;
 
         cout << "Enter choice here: ";
@@ -1354,8 +1372,56 @@ int main()
 
         else if (user_choice == 8)
         {
-            Dice selectedDice = selectIndividualDice(allDice);
-            cout << "The roll of your selected dice is: " << selectedDice.rollDice() << endl;
+            int select_test;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n<< endl";
+            cin >>select_test;
+            if (select_test == 0){
+                Dice selectedDice = selectIndividualDice(allDice);
+                cout << "The roll of your selected dice is: " << selectedDice.rollDice() << endl;
+            }
+            if (select_test == 1){
+                // Create an attack vector for unarmed attacks
+                vector <Attack> unarmedHumanAttacks;
+                Attack punch = Attack();
+                unarmedHumanAttacks.push_back(punch);
+
+                vector <Attack> unarmedBeastAttacks;
+                Attack bite = Attack("Bite", "Strength", selectIndividualDiceByNickname(allDice,"D6"), 1);
+                Attack scratch = Attack("Scratch", "Strength", selectIndividualDiceByNickname(allDice,"D4"), 1);
+                unarmedBeastAttacks.push_back(bite);
+                unarmedBeastAttacks.push_back(scratch);
+
+                // Create an attack vector for weapon attacks
+                
+                    //Melee weapons use strength
+                vector <Attack> swordAttacks;
+                Attack slash = Attack("Slash", "Strength", selectIndividualDiceByNickname(allDice,"D8"), 1);
+                Attack franticSlashes = Attack("Frantic slashes", "Strength", selectIndividualDiceByNickname(allDice,"D4"), 3);
+                Attack stab = Attack("Stab", "Strength", selectIndividualDiceByNickname(allDice,"D8"), 1);
+                
+                swordAttacks.push_back(slash);
+                swordAttacks.push_back(franticSlashes);
+                swordAttacks.push_back(stab);
+                
+                    //Ranged weapons use Dexterity
+                vector <Attack> bowAttack;
+                Attack letBow = Attack("Fire bow", "Dexterity", selectIndividualDiceByNickname(allDice,"D8"), 1);
+                bowAttack.push_back(letBow);
+
+                // Create an attack vector for spells?
+
+
+                //Create the weapons to be used
+                Weapon sword("Sword");
+                sword.AddAttackToWeapon(swordAttacks);
+                Weapon bow("Bow");
+                bow.AddAttackToWeapon(bowAttack);
+                cout << sword << endl;
+
+
+            }
+
+            
         }
 
 
