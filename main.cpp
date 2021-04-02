@@ -1,11 +1,9 @@
 #include "being.h"
 #include "individuals.h"
 #include "person.h"
-#include "eldritch_horror.h"
 #include "speciesCreature.h"
 #include "role.h"
 #include "dice.h"
-#include "speciesEldritchHorror.h"
 #include "investigator.h"
 #include <random>
 #include <iostream>
@@ -225,69 +223,6 @@ void generateAllCreatures(vector <Creature> &creatures){
     }
 }
 
-void generateAllEldritchHorrors(vector <speciesEldritchHorror> &Horrors){
-    ifstream horrorsFile;
-    string fileStream; 
-    string horrorName;
-    string tempName;
-    int life;
-    int strength;
-    int intelligence;
-    // New skill points
-    int dex, con, wis, cha; 
-    int traumatism;
-    bool readingName = false;
-    horrorsFile.open("eldritchHorrors.txt");
-    if (horrorsFile.is_open()){
-        while (horrorsFile){
-            horrorsFile >> fileStream;
-            if (fileStream == "Life:"){
-                horrorsFile >> fileStream;
-                life = std::stoi(fileStream);
-            }
-            else if (fileStream == "horror"){
-                readingName = false;
-            }
-            else if ((fileStream == "Name:" || readingName == true) && fileStream != "Eldritch"){
-                if (fileStream == "Name:")
-                {
-                    horrorsFile >> fileStream;
-                }
-                readingName = true;
-                tempName = "";
-                tempName = fileStream;
-                if (horrorName == "")
-                {
-                    horrorName = tempName;
-                }
-                else
-                {
-                    horrorName = horrorName + " " + tempName;
-                }
-            }
-            else if (fileStream == "Strength:"){
-                horrorsFile >> fileStream;
-                strength = std::stoi(fileStream);
-            }
-            else if (fileStream == "Intelligence:"){
-                horrorsFile >> fileStream;
-                intelligence = std::stoi(fileStream);
-            }
-            else if (fileStream == "Traumatism:")
-            {
-                horrorsFile >> fileStream;
-                traumatism = std::stoi(fileStream);
-            }
-
-            else if (fileStream == "#" && horrorName != ""){
-                speciesEldritchHorror horror(horrorName, life, strength, intelligence, traumatism);
-                Horrors.push_back(horror);
-                horrorName = "";
-            }
-        }
-    }
-}
-
 void initializeBaseDice(vector <Dice> &allDice)
 {
     Dice d20( "ICOSAHEDRON", "D20", 20);
@@ -426,61 +361,6 @@ void removeCreatureFromFile(Creature sp, string fileName)
         CreatureFile << NewCreature;
     }
 
-};
-
-EldritchHorror createEldritchHorror(speciesEldritchHorror eh)
-{
-    EldritchHorror e = EldritchHorror(eh.getLife(), eh.getStrength(), eh.getIntelligence(), eh.getTraumatism());
-    return e;
-};
-
-void removeEldritchHorrorFromFile(speciesEldritchHorror eh,  string fileName)
-{
-    ifstream horrorsFile;
-    string fileStream; 
-    string horrorName;
-    string NewHorror;
-    int life;
-    int strength;
-    int intelligence;
-    int traumatism;
-    horrorsFile.open("eldritchHorrors.txt");
-    if (horrorsFile.is_open()){
-        while (horrorsFile){
-            horrorsFile >> fileStream;
-            if (fileStream == "Name:"){
-                horrorsFile >> fileStream;
-                horrorName = fileStream;
-            }
-            else if (fileStream == "Life:"){
-                horrorsFile >> fileStream;
-                life = std::stoi(fileStream);
-            }
-            else if (fileStream == "Strength:"){
-                horrorsFile >> fileStream;
-                strength = std::stoi(fileStream);
-            }
-            else if (fileStream == "Intelligence:"){
-                horrorsFile >> fileStream;
-                intelligence = std::stoi(fileStream);
-            }
-            else if (fileStream == "Traumatism:")
-            {
-                horrorsFile >> fileStream;
-                traumatism = std::stoi(fileStream);
-            }
-
-            else if (fileStream == "#" && horrorName != "" && horrorName != eh.getName()){
-                NewHorror = NewHorror + "Name: " + horrorName + "\n" + "Creature\n" + "Life: " + to_string(life) + "\n" + 
-                "Strength: " + to_string(strength) + "\n" + "Intelligence: " + to_string(intelligence) + "\n" +
-                "Traumatism: " + to_string(traumatism) + "\n" + "#" "\n";
-                horrorName = "";
-            }
-        }
-        std::ofstream HorrorFile;
-        HorrorFile.open("eldritchHorrors.txt", std::ios::out);
-        HorrorFile << NewHorror;
-    }
 };
 
 Person createPerson(Role role)
@@ -658,28 +538,6 @@ void removePersonRoleFromFile(Role role, string filename)
     }
 }
 
-void seeAllHorrors(vector<speciesEldritchHorror> horrors)
-{
-    cout << "Species of type Horror: " << endl;
-    int counter = 0;
-    for (speciesEldritchHorror eh : horrors )
-    {
-        counter++;
-        cout << counter << ". "; 
-        eh.printInfo();
-    }
-
-};
-
-void seeDetailHorrors(vector<speciesEldritchHorror> horrors)
-{
-    for (speciesEldritchHorror eh: horrors)
-    {
-        cout << eh << endl;
-    };
-}
-
-
 void seeAllRoles(vector<Role> roles)
 {
     cout << "Roles"  << endl;
@@ -702,7 +560,7 @@ void seeDetailRoles(vector<Role> roles)
 
 
 
-bool checkForNameSpecies(vector <Creature> creatures, vector<speciesEldritchHorror> horrors,string name)
+bool checkForNameSpecies(vector <Creature> creatures,string name)
 {
     for (Creature sp : creatures)
     {
@@ -711,17 +569,6 @@ bool checkForNameSpecies(vector <Creature> creatures, vector<speciesEldritchHorr
         {
             return true;
         }
-
-    }
-
-    for (speciesEldritchHorror eh : horrors)
-    {
-        string eh_name = eh.getName();
-        if (name == eh_name)
-        {
-            return true;
-        }
-
     }
 
     return false;
@@ -768,26 +615,6 @@ Creature selectCreature(vector<Creature> creatures)
 
     return creatures[selection -1];
     
-}
-
-
-speciesEldritchHorror selectHorror(vector<speciesEldritchHorror> horrors)
-{
-    seeAllHorrors(horrors);
-    int selection;
-    cout << endl;
-    cout << "Enter your selection: ";
-    cin >> selection;
-
-    while (selection < 1 || selection > horrors.size())
-    {
-        cout << "Invalid selection! You must select a creature between 1 and " << horrors.size() << endl; 
-        cout << "Enter your selection: ";
-        cin >> selection;
-    }
-
-
-    return horrors[selection -1];
 }
 
 Role selectRole(vector<Role> roles)
@@ -1002,7 +829,7 @@ Role createRole(vector <Role> roles)
     return r;
 };
 
-Creature createSpecies(vector <Creature> species_vector, vector <speciesEldritchHorror> eh_vector)
+Creature createSpecies(vector <Creature> species_vector)
 {
     string name;
     int life, strength, intelligence, dex, con, wis, cha, naturalInput, disquiet;
@@ -1012,7 +839,7 @@ Creature createSpecies(vector <Creature> species_vector, vector <speciesEldritch
     std::getline(std::cin, name);
     cout << endl;
 
-    while(checkForNameSpecies(species_vector, eh_vector, name))
+    while(checkForNameSpecies(species_vector, name))
     {   
         cout << "Name already exists!" << endl;
         cout << "Enter name: " << endl;
@@ -1137,75 +964,6 @@ Creature createSpecies(vector <Creature> species_vector, vector <speciesEldritch
     return sc;
 };
 
-speciesEldritchHorror createEldritchHorror(vector<Creature> creatures, vector <speciesEldritchHorror> horrors)
-{
-    int life, str, intelligence, traumatism;
-    string name;
-    EldritchHorror eh;
-
-    cout << "Enter name: "; 
-    //Clear the input buffer before hand
-    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-    std::getline(std::cin, name);
-    cout << endl;
-
-    while(checkForNameSpecies(creatures, horrors, name))
-    {   
-        cout << "Name already exists!" << endl;
-        cout << "Enter name: " << endl;
-        name = "";
-        std::getline(std::cin, name);
-    }
-    cout <<"Enter life for " << name << endl;
-    cin >> life;
-    while (life >10 || life < 0)
-    {
-        cout << "Invalid value for life the range is 0-10" << endl;
-        cout <<"Enter life for " << name << endl;
-        cin >> life;
-    }
-
-    cout <<"Enter strength for " << name << endl;
-    cin >> str;
-    while (str > 10 || str < 0)
-    {
-        cout << "Invalid value for strength the range is 0-10" << endl;
-        cout <<"Enter strength for " << name << endl;
-        cin >> str;
-    }
-    cout << "Enter intelligence for " << name << endl;
-    cin >> intelligence;
-    while (intelligence > 10 || intelligence < 0)
-    {
-        cout << "Invalid value for intelligence the range is 0-10" << endl;
-        cout <<"Enter intelligence for " << name << endl;
-        cin >> intelligence;
-    }
-    cout << "Enter traumatism for for " << name << endl;
-    cin >> traumatism;
-    while (traumatism > 3 || traumatism < 0)
-    {
-        cout << "Invalid value for traumatism the range is 0-3" << endl;
-        cout <<"Enter traumatism for " << name << endl;
-        cin >> traumatism;
-    }
-
-
-    speciesEldritchHorror sp_eh = speciesEldritchHorror(name, life, str, intelligence, traumatism);
-
-    cout << "Here is your species: " << endl;
-    cout << sp_eh << endl;
-    string NewHorror;
-    NewHorror =  "Name: " + name + "\n" + "Eldritch horror\n" + "Life: " + to_string(life) + "\n" + 
-    "Strength: " + to_string(str) + "\n" + "Intelligence: " + to_string(intelligence) + "\n" +
-    "Traumatism: " + to_string(traumatism) + "\n" + "#";
-    std::ofstream HorrorFile;
-    HorrorFile.open("eldritchHorrors.txt", std::ios::out | std::ios::app);
-    HorrorFile << "\n" << NewHorror;
-
-    return sp_eh;
-}
-
 
 int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string name)
 {
@@ -1218,25 +976,8 @@ int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string nam
             counter ++;
         }
     }
-
     return counter;
 }
-
-int getNumberOfHorrors(vector<Individuals<EldritchHorror> >individualsHorrors, string name)
-{
-    int counter = 0;
-
-     for (Individuals<EldritchHorror> eh : individualsHorrors)
-    {
-        if(eh.getJob() == name)
-        {
-            counter ++;
-        }
-    }
-
-    return counter;
-}
-
 
 int getNumberOfCreatures(vector<Individuals<Creature> >individualsCreatures, string name)
 {
@@ -1289,17 +1030,6 @@ void printIndividualCreature(vector <Individuals<Creature> > individualCreature)
     }
 }
 
-void printIndividualHorrors(vector <Individuals<EldritchHorror> > individualHorrors)
-{
-    int counter = 0;
-    cout << "Printing Individuals of type Eldritch Horrors" << endl;
-    for (Individuals<EldritchHorror> h: individualHorrors)
-    {
-        counter ++;
-        cout << counter << ". " << h.getName() << " " << h.getCounter() << endl;
-    }
-}
-
 void printIndividualDice(vector <Dice> allDice)
 {
     int counter = 0;
@@ -1326,23 +1056,6 @@ Individuals<Creature> selectIndividualCreature(vector <Individuals<Creature> > i
     }
 
     return individualCreature[selection -1];
-}
-
-Individuals<EldritchHorror> selectIndividualHorror(vector <Individuals<EldritchHorror> > individualHorrors)
-{
-    printIndividualHorrors(individualHorrors);
-    cout << endl;
-    int selection;
-    cout << "Select what horror you would like to select for editing: ";
-    cin >> selection;
-    while(selection < 1 || selection > individualHorrors.size())
-    {
-        cout << "Invalid Selection!, your range is 1 - " << individualHorrors.size() << endl;
-        cout << "Select what creature you would like to select for editing: ";
-        cin >> selection;
-    }
-
-    return individualHorrors[selection -1];
 }
 
 Individuals<Person> selectIndividualPerson(vector <Individuals<Person> > individualPersons)
@@ -1609,56 +1322,6 @@ Person createCustomPerson()
 
 }
 
-EldritchHorror createCustomHorror()
-{
-    int life;
-    int strength;
-    int intelligence;
-    int traumtaism;
-
-    cout << endl;
-    cout << "Enter life for Horror: " <<  endl;
-    cin >> life;
-    while (life < 0 || life > 10)
-    {
-        cout << "Invalid value for life - the range is 0 - 10" << endl;
-        cout << "Enter life for Horror: " <<  endl;
-        cin >> life;
-        cout << endl;
-    }   
-    cout << "Enter strength for Horror: " <<  endl;
-    cin >> strength;
-    while (strength < 0 || strength > 10)
-    {
-        cout << "Invalid value for strength - the range is 0 - 10" << endl;
-        cout << "Enter strength for Horror: " <<  endl;
-        cin >> strength;
-        cout << endl;
-    }   
-    cout << "Enter Intelligence for Horror: " <<  endl;
-    cin >> intelligence;
-    while (intelligence < 0 || intelligence > 10)
-    {
-        cout << "Invalid value for Intelligence - the range is 0 - 10" << endl;
-        cout << "Enter Intelligence for Horror: " <<  endl;
-        cin >> intelligence;
-        cout << endl;
-    }
-
-    cout << "Enter Traumatism for Horror: " <<  endl;
-    cin >> traumtaism;
-    while (traumtaism < 0 || traumtaism > 3)
-    {
-        cout << "Invalid value for Horror - the range is 0 - 3" << endl;
-        cout << "Enter life for Horror: " <<  endl;
-        cin >> traumtaism;
-        cout << endl;
-    }
-
-    EldritchHorror eh = EldritchHorror(life, strength, intelligence, traumtaism);
-    return eh;    
-}
-
 Investigator createCustomInvestigator()
 {
 
@@ -1780,11 +1443,9 @@ int main()
     //All vectors pertaining to beings
     vector <Role> roles;
     vector <Creature> creatures;
-    vector <speciesEldritchHorror> horrors;
     vector <Individuals<Investigator>> investigators;
     vector <Individuals<Person> > individualsPersons;
     vector <Individuals<Creature> > IndividualsCreatures;
-    vector <Individuals<EldritchHorror> > individualsHorrors;
 
     //All vectors pertaining to game mechanics
     vector <Dice> allDice;
@@ -1794,7 +1455,6 @@ int main()
     //Initialize all the needed data for the game to function
     generateAllRoles(roles);
     generateAllCreatures(creatures);
-    generateAllEldritchHorrors(horrors);
     initializeBaseDice(allDice);
     
 
@@ -1831,11 +1491,12 @@ int main()
             cin >> creature_or_horror;
             if (creature_or_horror != 2)
             {
-                creatures.push_back(createSpecies(creatures, horrors));
+                creatures.push_back(createSpecies(creatures));
             }
             else
             {
-                horrors.push_back(createEldritchHorror(creatures,horrors));
+                //TODO look at message below
+                cout << "Maybe make it so that we can have different types of animals and this is how they'd be defined" << endl;
             }
         }
 
@@ -1881,34 +1542,10 @@ int main()
                 cout << "No species of type creature yet added" << endl;
             }
 
-            else if (whatList == 2 && horrors.size()>0)
+            else if (whatList == 2 )
             {
-                cout << "Would you like see: " << endl;
-                cout << "1. Compact view" << endl;
-                cout << "2. Detailed view" << endl;
-                cout << "Your choice here: ";
-                cin >> detailOrCompact;
-                cout << endl;
-
-                if (detailOrCompact == 1)
-                {
-                    seeAllHorrors(horrors);
-                    cout << endl;
-                }
-
-                if (detailOrCompact == 2)
-                {
-                    seeDetailHorrors(horrors);
-                    cout << endl;
-                }
-                else
-                {
-                    cout << "Invalid selection" << endl;
-                }
-            }
-            else if (whatList == 2 && horrors.size() == 0)
-            {
-                cout << "No species of type Eldritch Horror yet added" << endl;
+                //TODO Fix
+                cout << "This has been removed" << endl;
             }
 
             else if(whatList == 3 && roles.size()>0)
@@ -2010,56 +1647,8 @@ int main()
             }
             else if (select_creature_horror_person == 2)
             {
-                if(horrors.size() > 0)
-                {
-                    int basicOrCustom;
-                    speciesEldritchHorror eh = selectHorror(horrors);
-
-                    cout << "Would you like to create a basic or a custom Individual? " << endl;
-                    cout << "1. Basic" << endl;
-                    cout << "2. Custom" << endl;
-                    cin >>basicOrCustom;
-
-                    if(basicOrCustom == 1)
-                    {
-                       
-                        EldritchHorror horror = createEldritchHorror(eh);
-                        int countOfHorrors = getNumberOfHorrors(individualsHorrors, eh.getName());
-                        string name = eh.getName();
-                        Individuals<EldritchHorror> t = Individuals<EldritchHorror>(name, horror, countOfHorrors +1, eh.getName());
-                        individualsHorrors.push_back(t);
-                        t.printA();
-                        cout << endl;
-                    }
-
-                    if (basicOrCustom == 2)
-                    {
-                        string name;
-                        EldritchHorror horror = createCustomHorror();
-                        int countOfHorrors = getNumberOfHorrors(individualsHorrors, eh.getName());
-                        cout << "Enter name for individual: ";
-                        cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-                        std::getline(std::cin, name);
-                        Individuals<EldritchHorror> t = Individuals<EldritchHorror>(name, horror, countOfHorrors +1, eh.getName());
-                        individualsHorrors.push_back(t);
-                        t.printA();
-                        cout << endl;
-                    }
-                    else if (basicOrCustom != 1 || basicOrCustom !=2) 
-                    {
-                        cout << "Invalid choice..." << endl;
-                    } 
-                    
-
-                    
-
-                }
-
-                else
-                {
-                    cout << "There are no horrors..." << endl;
-                }
-                
+                //TODO Remove
+                cout << "Nothing to see here, move along" << endl;
             }
 
             else if (select_creature_horror_person == 3)
@@ -2190,7 +1779,8 @@ int main()
 
             else if (indList == 3)
             {
-                printIndividualHorrors(individualsHorrors);
+                //TODO Remove
+                cout << "Nothing to see here" << endl;
             }
 
             else if (indList == 4)
@@ -2376,67 +1966,8 @@ int main()
 
             else if(whatToEdit == 3)
             {
-                Individuals<EldritchHorror> eh = selectIndividualHorror(individualsHorrors);
-                int editing;
-                eh.printA();
-                cout << "What would you like to edit? " << endl;
-                cout << "1. Life" << endl;
-                cout << "2. Strength" << endl;
-                cout << "3. Traumatism" << endl;
-                cout << "4. Intelligence " << endl;
-                cout << "Your selection: ";
-
-                cin >> editing;
-
-
-                if (editing == 1)
-                {
-                    eh.type.updateLife();
-                }
-
-                if (editing == 2)
-                {
-                    eh.type.updateStrength();
-                }
-
-                if (editing == 3)
-                {
-                    
-                    eh.type.updateTrauma();
-                    
-                }
-
-
-                if (editing == 4)
-                {
-                    eh.type.updateInt();
-                }
-
-                else if(editing >0 || editing < 5 )
-                {
-                    EldritchHorror newHorror = EldritchHorror (eh.type.getLife(), eh.type.getStrength(), eh.type.getInt(), eh.type.getTraumatism());
-                    string name = eh.getName();
-                    string job = eh.getJob();
-                    int count = eh.getCounter();
-                    Individuals<EldritchHorror> t = Individuals<EldritchHorror>(name, newHorror, count, job);
-                    for (int i=0; i<individualsHorrors.size();i++)
-                    {
-                        if (individualsHorrors[i].getName() == eh.getName() && individualsHorrors[i].getCounter() == eh.getCounter() )
-                        {
-                            individualsHorrors.erase(individualsHorrors.begin() + i);
-                            individualsHorrors.push_back(t);
-                        }
-                    }
-                    sort(individualsHorrors.begin(), individualsHorrors.end());
-                }
-
-                else if(editing < 1 || editing > 6)
-                {
-                    cout << "Invalid selection" << endl;
-                }
-
-                cout << endl;
-                
+            //TODO Remove
+                cout << "Nothing to see here" << endl;
             }
 
             else if(whatToEdit == 4)
@@ -2563,27 +2094,8 @@ int main()
             }
             else if (select_creature_horror_person == 2)
             {
-                if(horrors.size() > 0)
-                {
-                    cout << "Horror" << endl;
-                    speciesEldritchHorror eh = selectHorror(horrors);
-                    removeEldritchHorrorFromFile(eh, "eldritchHorrors.txt");
-                    //Remove the horror from the horror vector as per the Occamz razor sollution
-                    for (int i = 0; i < horrors.size(); i++)
-                    {
-                        if (horrors[i].getName() == eh.getName())
-                        {
-                            horrors.erase (horrors.begin() + i);
-                        }
-                    }
-                    //Success
-                    cout << "Horror type has been removed..." << endl; 
-                }
-
-                else
-                {
-                    cout << "There are no horrors..." << endl;
-                }
+                //TODO Remove
+                cout << "Nothing to see here" << endl;
                 
             }
 
