@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "attack.h"
+#include "weapon.h"
 using namespace std;
 
 
@@ -17,10 +18,12 @@ class Being
         string name;
         int life, damage, currentLife, strength, intelligence, constitution, dexterity,  wisdom,  charisma;
         vector <Attack> attacks;
+        vector <Weapon> weapons;
         
         
 
-        void AddAttackToBeing(vector <Attack> newAttacks);
+        void AddAttackToBeing(Attack attack);
+        void AddWeaponToBeing(Weapon weapon);
         void takeDamage(int attackDamage);
         void healDamage(int healingPoints);
         void updateLife();
@@ -35,6 +38,7 @@ class Being
         int getWis();
         int getCurrentLife();
         string getName();
+        void printAttacks();
 
        
 

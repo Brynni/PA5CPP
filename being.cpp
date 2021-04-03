@@ -19,6 +19,7 @@ Being::Being(string name, int life, int strength, int intelligence, int dexterit
     this->wisdom= wisdom;
     this->charisma = charisma;
     this->attacks = attacks;
+    this->weapons = weapons;
 
 };
 
@@ -77,7 +78,6 @@ void Being::healDamage(int healingPoints)
 
 void Being::updateLife()
 {
-   
     int newLife;
     cout << "Enter new life: " ;
     cin >> newLife;
@@ -168,6 +168,24 @@ int Being::getCurrentLife()
     return this->currentLife;
 }
 
-void Being::AddAttackToBeing(vector <Attack> newAttacks){
-    this->attacks = newAttacks;
+void Being::AddAttackToBeing(Attack attack){
+    this->attacks.push_back(attack);
+}
+
+void Being::AddWeaponToBeing(Weapon weapon)
+{
+    this->weapons.push_back(weapon);
+}
+
+void Being::printAttacks(){
+    cout << "_____________UNARMED ATTACKS_____________" << endl;
+    for (int i=0; i < attacks.size(); i++)
+    {
+        cout << attacks[i];
+    }
+    cout << "_________________WEAPONS________________" << endl; 
+    for (int j=0; j < weapons.size(); j++)
+    {
+        cout << weapons[j];
+    }
 }
