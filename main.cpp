@@ -1424,6 +1424,18 @@ int main()
             
         }
 
+        // Weapons here
+        else if (user_choice == 9)
+        {
+            string weaponName;
+            cout << "Enter name of the weapon: " << endl;
+            cin >> weaponName;
+            Weapon newWeapon = Weapon(weaponName);
+            
+
+
+        }
+
 
         else if (user_choice == 0)
         {
