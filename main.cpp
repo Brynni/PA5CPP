@@ -345,6 +345,54 @@ Dice selectIndividualDiceByNickname(vector <Dice> allDice, string nickname)
     
 }
 
+Weapon createIndividualWeapon ()
+{
+    string name;
+    cout << "Enter name for the weapon: ";
+    cin >> name;
+    cout << endl;
+    return Weapon(name);
+}
+
+
+
+Attack createIndividualAttack (vector<Dice> allDice)
+{
+    string name, proficiencyAbbility; 
+    Dice dice;
+    int amountOfDiceThrown;
+    int profSelector;
+    string modifiers[6] = {"Strength", "Dexterity", "Wisdom", "Constitution", "Charisma", "Intelligence"};
+
+    cout << "Enter name for the attack / spell attack:" << endl;
+    cin >> name;
+    for (int i = 0; i < 6; i++)
+    {
+        cout << i+1 <<".\t"<<modifiers[i] << endl;
+    }
+    
+    cin >> profSelector;
+    while (profSelector < 1 || profSelector > 6 ){
+        cout << "You need to select a modifer" << endl;
+        for (int i = 0; i < 6; i++)
+        {
+            cout << i+1 <<".\t"<<modifiers[i] << endl;
+        }
+        cin >> profSelector;
+    }
+
+
+
+    dice = selectIndividualDice(allDice);
+
+    cout << "How many dices would you like to throw? " << endl;
+    cout << "Enter choice here: ";
+    cin >> amountOfDiceThrown;
+
+    return Attack(name, modifiers[profSelector-1], dice, amountOfDiceThrown); 
+};
+
+
 Creature createCustomCreature()
 {
     int life, intelligence, natureChoice, strength, disquiet;
@@ -1436,14 +1484,56 @@ int main()
             
         }
 
-        // Weapons here
+        // Testing area for createing weapons and attacks
         else if (user_choice == 9)
         {
-            string weaponName;
-            cout << "Enter name of the weapon: " << endl;
-            cin >> weaponName;
-            Weapon newWeapon = Weapon(weaponName);
+            int w_or_s; 
+            cout << "Would you like to create: " << endl;
+            cout << "1. Weapon" << endl;
+            cout << "2. Attack/Spell" << endl;
+            cin >> w_or_s;
+            while(w_or_s < 1 || w_or_s > 2){
+                cout << "invalid input" << endl;
+                cout << "Would you like to create: " << endl;
+                cout << "1. Weapon" << endl;
+                cout << "2. Attack/Spell" << endl;
+                cin >> w_or_s;
+            }
+            if (w_or_s == 1 ){
+                Weapon newWep = createIndividualWeapon();
+                char addAttack;
+                cout << "Would you like to create an Attack and assign it to the weapon? (y/n)" << endl;
+                cin >> addAttack;
+                if (addAttack == 'y')
+                {
+                    vector<Attack> newVect;
+                    bool addingToWeapon = true;
+                    while (addingToWeapon)
+                    {
+                        Attack newAttack = createIndividualAttack(allDice);
+                        newVect.push_back(newAttack);
+                        char keepAdding;
+                        cout << "Would you like to another attack to the weapon? (y/n)" << endl;
+                        cin >> keepAdding;
+                        if(keepAdding != 'y'){
+                            addingToWeapon = false;
+                        } 
+                    }
+                    newWep.AddAttackToWeapon(newVect);
+                    cout << "This is your new weapon"<< endl;
+                    cout << newWep << endl;
+                    
+                }
+
+            }
+            else
+            {
+                Attack newAttack = createIndividualAttack(allDice);
+                cout << "This is your new attack" << endl;
+                cout << newAttack << endl;
+            }
             
+
 
 
         }
