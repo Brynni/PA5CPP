@@ -2,6 +2,7 @@
 #include "weapon.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -14,8 +15,7 @@ Weapon::Weapon(string name/* , string type, string modifier, int sides, int bonu
 
 ostream& operator<<(ostream& out, const Weapon w)
 {
-    out << w.name << endl;
-    out << "_________ATTACKS___________" << endl;
+    out << "_________"+ w.name + " attacks___________" << endl;
     int i = 0;
     for (i ;i < w.attacks.size(); i++)
     {

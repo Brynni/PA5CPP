@@ -1373,7 +1373,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n<< endl";
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -1402,6 +1402,9 @@ int main()
                 swordAttacks.push_back(slash);
                 swordAttacks.push_back(franticSlashes);
                 swordAttacks.push_back(stab);
+
+                vector <Attack> warhammerAttacks;
+                Attack crush = Attack("Crush", "Strength", selectIndividualDiceByNickname(allDice,"D12"), 1);
                 
                     //Ranged weapons use Dexterity
                 vector <Attack> bowAttack;
@@ -1414,10 +1417,19 @@ int main()
                 //Create the weapons to be used
                 Weapon sword("Sword");
                 sword.AddAttackToWeapon(swordAttacks);
+                Weapon warhammer("Warhammer");
+                warhammer.AddAttackToWeapon(warhammerAttacks);
                 Weapon bow("Bow");
                 bow.AddAttackToWeapon(bowAttack);
                 cout << sword << endl;
 
+
+                //Test adding weapons to a character and adding unarmed attacks as well
+                Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
+                man.AddWeaponToBeing(sword);
+                man.AddWeaponToBeing(bow);
+                man.AddAttackToBeing(punch);
+                man.printAttacks();
 
             }
 
