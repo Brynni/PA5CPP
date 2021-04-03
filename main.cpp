@@ -8,6 +8,8 @@
 #include "speciesCreature.h"
 #include "role.h"
 #include "weapon.h"
+#include "ui.h"
+
 
 #include <random>
 #include <iostream>
@@ -198,21 +200,7 @@ int main()
 
     while (playing)
     {
-        int user_choice;
-        cout << "Your choices are: " << endl;
-        cout <<"\t 1. Create Role" << endl;
-        cout <<"\t 2. Create Species" << endl;
-        cout <<"\t 3. See lists" << endl;
-        cout <<"\t 4. Create a new individual " << endl;
-        cout <<"\t 5. See list individuals" << endl;
-        cout <<"\t 6. Select Individual for editing / deleting / taking damage test" << endl;
-        cout <<"\t 7. Remove Individual Type" << endl;
-        cout <<"\t 8. Testing area" << endl;
-        cout <<"\t 0. quit" << endl;
-
-        cout << "Enter choice here: ";
-        cin >> user_choice;
-        cout << " " << endl;
+        int user_choice = renderMainMenu();
 
 
         if (user_choice == 1)
@@ -222,9 +210,8 @@ int main()
 
         else if (user_choice == 2)
         {
-            int creature_or_horror;
-            cout << "Would you like your species to be: \n\t1.Creature\n\t2.Eldritch Horror: ";
-            cin >> creature_or_horror;
+            int creature_or_horror = uiCreatureOrHorror();
+
             if (creature_or_horror != 2)
             {
                 creatures.push_back(myFileReader.createSpecies(creatures));
@@ -238,22 +225,12 @@ int main()
 
         else if (user_choice == 3)
         {   
-            int whatList;
-            int detailOrCompact;
-            cout << "Would you like to see list of: " << endl;
-            cout << "1. Species" << endl;
-            cout << "2. Horrors" << endl;
-            cout << "3. Roles" << endl;
-            cout << "Your selection here: ";
-            cin >> whatList;
+            int whatList = uiRenderListOfType();
+            
+            
             if (whatList == 1 && creatures.size()>0)
             {
-                cout << "Would you like see: " << endl;
-                cout << "1. Compact view" << endl;
-                cout << "2. Detailed view" << endl;
-                cout << "Your choice here: ";
-                cin >> detailOrCompact;
-                cout << endl;
+                int detailOrCompact = uiDetailListOrCompactList();
 
                 if (detailOrCompact == 1)
                 {
@@ -286,12 +263,7 @@ int main()
 
             else if(whatList == 3 && roles.size()>0)
             {
-                cout << "Would you like see: " << endl;
-                cout << "1. Compact view" << endl;
-                cout << "2. Detailed view" << endl;
-                cout << "Your choice here: ";
-                cin >> detailOrCompact;
-                cout << endl;
+                int detailOrCompact = uiDetailListOrCompactList();
 
                 if (detailOrCompact == 1)
                 {
@@ -321,23 +293,15 @@ int main()
 
 
         else if (user_choice == 4)
-        {
-            
-            int select_creature_horror_person;
-            cout << "Would you like to select\n\t1.Creature\n\t2.Horror\n\t3.Person"<< endl;
-            cin >>select_creature_horror_person;
+        {    
+            int select_creature_horror_person = uiSelectCHP();
             if(select_creature_horror_person == 1)
             {
                 if(creatures.size() > 0)
                 {
                     Creature cre = selectCreature(creatures);
 
-                    int basicOrCustom;
-
-                    cout << "Would you like to create a basic or a custom Individual? " << endl;
-                    cout << "1. Basic" << endl;
-                    cout << "2. Custom" << endl;
-                    cin >>basicOrCustom;
+                    int basicOrCustom = uiBasicOrCustom();
 
                     if (basicOrCustom == 1)
                     {
@@ -391,21 +355,11 @@ int main()
             {
                 if(roles.size() > 0)
                 {
-                    int npc_pc;
-                    cout <<"Would you like to create: " << endl;
-                    cout <<"1. NPC" << endl;
-                    cout <<"2. Investigator" << endl;
-                    cin >> npc_pc;
-
+                    int npc_pc = uiNPCOrPC();
                     if(npc_pc == 1)
                     {
                         Role sel_role = selectRole(roles);
-                        int basicOrCustom;
-                        cout << "Would you like to create a basic or a custom Individual? " << endl;
-                        cout << "1. Basic" << endl;
-                        cout << "2. Custom" << endl;
-                        cin >>basicOrCustom;
-
+                        int basicOrCustom = uiBasicOrCustom();
                         if (basicOrCustom == 1)
                         {
                             Person human = createPerson(sel_role);
@@ -441,12 +395,7 @@ int main()
                     if (npc_pc == 2)
                     {
                         Role sel_role = selectRole(roles);
-                        int basicOrCustom;
-                        cout << "Would you like to create a basic or a custom Individual? " << endl;
-                        cout << "1. Basic" << endl;
-                        cout << "2. Custom" << endl;
-                        cin >>basicOrCustom;
-                        
+                        int basicOrCustom = uiBasicOrCustom();
                         if(basicOrCustom == 1)
                         {
                             
@@ -493,15 +442,7 @@ int main()
 
         else if (user_choice == 5)
         {
-            int indList;
-            cout << "Would you like to see a list of individuals of type: " << endl;
-            cout << "1. Person " << endl;
-            cout << "2. Creature " << endl;
-            cout << "3. Eldritch Horrors " << endl;
-            cout << "4. Investigators " << endl;
-
-            cin >> indList;
-
+            int indList = uiIndividualList();
             if (indList == 1)
             {
                 printIndividualPersons(individualsPersons);
@@ -534,29 +475,13 @@ int main()
         else if (user_choice == 6)
         {
             cout << user_choice << endl;
-            int whatToEdit;
-            cout << "What type of individual would like to edit? " << endl;
-            cout << "1. Creature" << endl;
-            cout << "2. Person" << endl;
-            cout << "3. Eldritch Horror" << endl;
-            cout << "4. Investigator" << endl;
-            cin >> whatToEdit;
-
+            int whatToEdit = uiEditIndividuals();
             if (whatToEdit == 1)
             {
                 Individuals<Creature> cr = selectIndividualCreature(IndividualsCreatures);
                 Creature & cre = cr.getType();
-                int editing;
                 cr.printA();
-                cout << "What would you like to edit? " << endl;
-                cout << "1. Life" << endl;
-                cout << "2. Strength" << endl;
-                cout << "3. Nature" << endl;
-                cout << "4. Disquiet " << endl;
-                cout << "5. Intelligence " << endl;
-                cout << "Your selection: ";
-
-                cin >> editing;
+                int editing = uiStatToEdit();
 
                 if (editing == 1)
                 {
@@ -619,20 +544,10 @@ int main()
             }
             else if (whatToEdit == 2)
             {
-                int editing;
                 Individuals<Person> p = selectIndividualPerson(individualsPersons);
                 cout << "Selected person: " << endl;
                 p.printA();
-                cout << "What would you like to edit? " << endl;
-                cout << "1. Life" << endl;
-                cout << "2. Strength" << endl;
-                cout << "3. Name" << endl;
-                cout << "4. Intelligence " << endl;
-                cout << "5. Gender" << endl;
-                cout << "6. Fear" << endl;
-                cout << "7. Hurt being for 5 points of damage" << endl;
-                cout << "Your selection: ";
-                cin >> editing;
+                int editing = uiStatToEdit();
                 cout << endl;
 
                 if (editing == 1)
@@ -708,21 +623,10 @@ int main()
 
             else if(whatToEdit == 4)
             {
-                int editing;
                 Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
                 cout << "Selected investigator: " << endl;
                 inv.printA();
-                cout << "What would you like to edit? " << endl;
-                cout << "1. Life" << endl;
-                cout << "2. Strength" << endl;
-                cout << "3. Name" << endl;
-                cout << "4. Intelligence " << endl;
-                cout << "5. Gender" << endl;
-                cout << "6. Fear" << endl;
-                cout << "7. Terror" << endl;
-                cout << "8. Hurt this character for 5 points of damage" << endl;
-                cout << "Your selection: ";
-                cin >> editing;
+                int editing = uiStatToEdit();
                 cout << endl;
 
                 if (editing == 1)

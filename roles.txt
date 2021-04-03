@@ -62,3 +62,20 @@ conMax: 1
 chaMin: 1
 chaMax: 1
 #
+
+roleName: vessib
+lifeMin: 6
+lifeMax: 10
+strengthMin: 1
+strengthMax: 10
+intelligenceMin: 1
+intelligenceMax: 10
+dexMin: 1
+dexMax: 10
+wisMin: 10
+wisMax: 10
+conMin: 10
+conMax: 10
+chaMin: 10
+chaMax: 10
+#

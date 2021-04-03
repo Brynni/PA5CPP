@@ -1,5 +1,6 @@
 #include <iostream>
 #include "person.h"
+#include "role.h"
 using namespace std;
 
 Person::Person(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma, string gender, int fear) : Being(name ,life, strength, intelligence, constitution, dexterity, wisdom, charisma)
@@ -75,30 +76,6 @@ void Person:: updateCurrentLife(int newLifeStat)
     this->currentLife = newLifeStat;
 };
 
-// Person createPerson(Role role)
-// {
-//     string name;
-//     string gender;
-//     cout << "Enter name for the person: ";
-//     cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-//     std::getline(std::cin, name);
-//     cout << endl;
-//     cout << "Enter gender: " ;
-//     std::getline(std::cin, gender);
-
-//     Person p = Person(
-//         name, 
-//         role.generateHealth(), 
-//         role.generateStrength(), 
-//         role.generateIntelligence(), 
-//         role.generateDex(),
-//         role.generateWis(),
-//         role.generateCon(),
-//         role.generateCha(), 
-//         gender, 
-//         role.getFear());
-//     return p;
-// };
 Person createCustomPerson()
 {
     string name;
