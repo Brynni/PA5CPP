@@ -426,10 +426,8 @@ int main()
                         cout << "Invalid choice..." << endl;
                     } 
 
-                        
                     }
                     
-
                 }
             }
 
@@ -539,8 +537,6 @@ int main()
                     cout << "Invalid selection" << endl;
                 }
 
-
-
             }
             else if (whatToEdit == 2)
             {
@@ -610,9 +606,7 @@ int main()
                 else if (editing < 1 || editing > 8)
                 {
                     cout << "Invalid Selection" << endl;
-                }
-
-                
+                }              
             }
 
             else if(whatToEdit == 3)
@@ -703,9 +697,7 @@ int main()
         else if (user_choice == 7)
         {
             
-            int select_creature_horror_person;
-            cout << "Would you like to select\n\t1.Creature\n\t2.Horror\n\t3.Person"<< endl;
-            cin >>select_creature_horror_person;
+            int select_creature_horror_person = uiSelectCHP();
             if(select_creature_horror_person == 1)
             {
                 if(creatures.size() > 0)

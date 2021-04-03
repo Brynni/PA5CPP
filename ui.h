@@ -12,5 +12,13 @@ void printAllTypes();
 int uiIndividualList();
 int uiEditIndividuals();
 int uiStatToEdit();
+int uiAttackAdder();
+int uiCreateAttack();
+int uiCreateHuman();
+int uiCreateEncouter();
+int uiEditEncounter();
+int uiSelectOrRemoveFromEncounter();
+int uiAddOrSaveRoster();
+
 
 
