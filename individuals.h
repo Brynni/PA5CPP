@@ -1,3 +1,6 @@
+#ifndef INDIVIDUALS_624885114
+#define INDIVIDUALS_624885114
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -71,4 +74,6 @@ class Individuals
         int counter;
         string job;
 };
+
+#endif
 

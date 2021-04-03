@@ -1,22 +1,27 @@
 #include "creature.h"
+#include <iostream>
+#include <string>
+#include <limits>
 
 using namespace std;
 
 
-Creature::Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet) : Being(name, life, strength, intelligence, dex, con, wis, cha)
+Creature::Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet, string type) : Being(name, life, strength, intelligence, dex, con, wis, cha)
 {
     this->name = name;
     this->natural = natural;
     this->disquiet = disquiet;
+    this->type = type;
 };
 
 
 // Calls the constructor above
-Creature::Creature() : Creature("animal" , 5, 5, 5, 5, 5, 5, 5, true, 5){};
+Creature::Creature() : Creature("doggy" , 5, 5, 5, 5, 5, 5, 5, true, 5, "animal"){};
 
 ostream& operator<<(ostream& out, const Creature c)
 {
     out << "Creature: " << c.name << endl;
+    out << "Type: " << c.type << endl;
     out << "Life: " << c.life << endl;
     out << "Current hitpoints are: " << c.currentLife << endl;
     out << "Strength: " << c.strength << endl;
@@ -72,9 +77,14 @@ int Creature::getDisquiet()
     return this->disquiet;
 }
 
+string Creature::getType()
+{
+    return this->type;
+}
+
 Creature createCreature(Creature sp)
 {
-    Creature c = Creature(sp.getName(), sp.getLife(),sp.getStrength(), sp.getInt(), sp.getDex(), sp.getCon(), sp.getWis(), sp.getCha(), sp.getNature(), sp.getDisquiet());
+    Creature c = Creature(sp.getName(), sp.getLife(),sp.getStrength(), sp.getInt(), sp.getDex(), sp.getCon(), sp.getWis(), sp.getCha(), sp.getNature(), sp.getDisquiet(), sp.getType());
     return c;
 
 };
@@ -91,6 +101,24 @@ void seeAllCreatures(vector<Creature> creatures)
         }
 };
 
+vector<Creature> seeAllCreaturesOfType(vector<Creature> creatures, string type)
+{
+    vector<Creature> tempCreatures;
+    cout << "Species of type " << type << ": " << endl;
+    int counter = 0;
+    for (Creature sp : creatures )
+    {   
+        if (sp.getType() == type)
+        {
+            counter ++;
+            cout << counter << ". "; 
+            sp.printInfo();
+            tempCreatures.push_back(sp);
+        }
+    }
+    return tempCreatures;
+};
+
 void seeDetailCreatures(vector<Creature> creatures)
 {
     for(Creature sp: creatures)
@@ -103,13 +131,51 @@ Creature createCustomCreature()
 {
     int life, intelligence, natureChoice, strength, disquiet;
     bool nature;
-    string name;
-    int dex, con, wis, cha;
+    string name, type;
+    int dex, con, wis, cha, typeSelect;
+
+
+
+    cout << "Enter name: "; 
+    //Clear the input buffer before hand
+    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
+    cout << endl;
+
+    cin >> typeSelect;
+    
+    cout << "Select type of creature: " <<  endl;
+    cout << "0. Humanoid" <<  endl;
+    cout << "1. Animal" <<  endl;
+    cout << "2. Undead" <<  endl;
+    cout << "3. Monstrosity" <<  endl;
+    while (typeSelect < 0 || typeSelect > 4)
+    {
+        cout << "Invalid selection - the range is 0 - 3" << endl;
+        cout << "Select type of creature: " <<  endl;
+        cin >> typeSelect;
+        cout << endl;
+    } 
+
+    switch(typeSelect) {
+      case 0 :
+         type = "Humanoid"; 
+         break;
+      case 1 :
+         type = "Animal";
+         break;
+      case 2 :
+         type = "Undead";
+         break;
+      case 3 :
+         type = "Monstrosity";
+         break;
+    }
 
     cout << endl;
     cout << "Enter life for creature: " <<  endl;
     cin >> life;
-    while (life < 0 || life > 10)
+    while (life < 0 || life > 1000)
     {
         cout << "Invalid value for life - the range is 0 - 10" << endl;
         cout << "Enter life for creature: " <<  endl;
@@ -118,7 +184,7 @@ Creature createCustomCreature()
     }   
     cout << "Enter strength for creature: " <<  endl;
     cin >> strength;
-    while (strength < 0 || strength > 10)
+    while (strength < 0 || strength > 30)
     {
         cout << "Invalid value for strength - the range is 0 - 10" << endl;
         cout << "Enter life for strength: " <<  endl;
@@ -127,7 +193,7 @@ Creature createCustomCreature()
     }   
     cout << "Enter Intelligence for creature: " <<  endl;
     cin >> intelligence;
-    while (intelligence < 0 || intelligence > 10)
+    while (intelligence < 0 || intelligence > 30)
     {
         cout << "Invalid value for intelligence - the range is 0 - 10" << endl;
         cout << "Enter life for intelligence: " <<  endl;
@@ -196,7 +262,7 @@ Creature createCustomCreature()
         cin >> disquiet;
         cout << endl;
     };
-    Creature beast = Creature(name ,life, strength, intelligence, dex, con, wis, cha, nature, disquiet);  
+    Creature beast = Creature(name ,life, strength, intelligence, dex, con, wis, cha, nature, disquiet, type);  
         return beast;
 }
 
@@ -214,8 +280,22 @@ Creature selectCreature(vector<Creature> creatures)
         cout << "Enter your selection: ";
         cin >> selection;
     }
-
-
     return creatures[selection -1];
-    
+}
+
+Creature selectCreatureWithType(vector<Creature> creatures, string type)
+{
+    vector <Creature> tempCreatures = seeAllCreaturesOfType(creatures, type);
+    int selection;
+    cout << endl;
+    cout << "Enter your selection: ";
+    cin >> selection;
+
+    while (selection < 1 || selection > tempCreatures.size())
+    {
+        cout << "Invalid selection! You must select a creature between 1 and " << tempCreatures.size() << endl; 
+        cout << "Enter your selection: ";
+        cin >> selection;
+    }
+    return tempCreatures[selection - 1];
 }

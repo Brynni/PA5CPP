@@ -165,6 +165,7 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
     string fileStream; 
     string speciesName;
     string tempName;
+    string typeOfCreature;
     int life;
     int strength;
     int intelligence;
@@ -242,8 +243,14 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
                 disquiet = std::stoi(fileStream);
             }
 
+            else if (fileStream == "Type:")
+            {
+                speciesFile >> fileStream;
+                typeOfCreature = fileStream;
+            }
+
             else if (fileStream == "#" && speciesName != ""){
-                Creature creature(speciesName, life, strength, intelligence, dex, con, wis, cha, natural, disquiet);
+                Creature creature(speciesName, life, strength, intelligence, dex, con, wis, cha, natural, disquiet, typeOfCreature);
                 creatures.push_back(creature);
                 speciesName = "";
             }
@@ -258,7 +265,7 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
 
 void FileReader::RemoveCreatureFromFile(Creature sp, string fileName)
 {
-    Creature c = Creature(sp.getName(), sp.getLife(),sp.getStrength(), sp.getInt(), sp.getDex(), sp.getCon(), sp.getWis(), sp.getCha(), sp.getNature(), sp.getDisquiet());
+    Creature c = Creature(sp.getName(), sp.getLife(),sp.getStrength(), sp.getInt(), sp.getDex(), sp.getCon(), sp.getWis(), sp.getCha(), sp.getNature(), sp.getDisquiet(), sp.getType());
     ifstream speciesFile;
     string fileStream; 
     string speciesName;
@@ -660,8 +667,8 @@ Role FileReader::createRole(vector <Role> roles)
 
 Creature FileReader::createSpecies(vector <Creature> species_vector)
 {
-    string name;
-    int life, strength, intelligence, dex, con, wis, cha, naturalInput, disquiet;
+    string name, type;
+    int life, strength, intelligence, dex, con, wis, cha, naturalInput, disquiet, typeSelect;
     bool natural;
     cout << "Enter name: ";
     cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
@@ -674,6 +681,36 @@ Creature FileReader::createSpecies(vector <Creature> species_vector)
         cout << "Enter name: " << endl;
         name = "";
         std::getline(std::cin, name);
+    }
+
+    cin >> typeSelect;
+    
+    cout << "Select type of creature: " <<  endl;
+    cout << "0. Humanoid" <<  endl;
+    cout << "1. Animal" <<  endl;
+    cout << "2. Undead" <<  endl;
+    cout << "3. Monstrosity" <<  endl;
+    while (typeSelect < 0 || typeSelect > 4)
+    {
+        cout << "Invalid selection - the range is 0 - 3" << endl;
+        cout << "Select type of creature: " <<  endl;
+        cin >> typeSelect;
+        cout << endl;
+    } 
+
+    switch(typeSelect) {
+      case 0 :
+         type = "Humanoid"; 
+         break;
+      case 1 :
+         type = "Animal";
+         break;
+      case 2 :
+         type = "Undead";
+         break;
+      case 3 :
+         type = "Monstrosity";
+         break;
     }
 
     cout << "Enter  life for " << name << " ";
@@ -766,7 +803,7 @@ Creature FileReader::createSpecies(vector <Creature> species_vector)
     }
     cout << endl;
 
-    Creature sc = Creature(name, life, strength, intelligence, dex, con, wis, cha,  natural, disquiet);
+    Creature sc = Creature(name, life, strength, intelligence, dex, con, wis, cha,  natural, disquiet, type);
     cout << endl;
     cout << "Here is your species: " << endl;
     cout << sc << endl;

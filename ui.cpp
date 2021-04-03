@@ -1,5 +1,23 @@
 #include "ui.h"
 
+// Helper functions
+
+int getNumberOfCreatures(vector<Individuals<Creature>>individualsCreatures, string name)
+{
+    int counter = 0;
+
+     for (Individuals<Creature> cre : individualsCreatures)
+     {
+        if(cre.getJob() == name)
+        {
+            counter ++;
+        }
+    }
+
+    return counter;
+}
+
+
 int renderMainMenu()
 {
         int user_choice;
@@ -166,16 +184,93 @@ int uiCreateHuman()
         return userChoice;
 }
 
-int uiCreateEncouter()
+int uiCreateEncounter()
 {
         int userChoice;
         cout << "Create Encounter" << endl;
         cout << "__________________________________" << endl;
         cout << "1. Select enemy from the roster" << endl;
         cout << "2. Create new enemy to add to roster" << endl;
+        cout << "3. Save current encounter" << endl;
         cin >> userChoice;
         return userChoice;
 };
+
+string uiSelectBeingType()
+{
+        int typeSelect;
+        string type;
+        cout << "Select type of enemy" << endl;
+        cout << "__________________________________" << endl;
+        cout << "1. Humanoid" << endl;
+        cout << "2. Animal" << endl;
+        cout << "3. Undead" << endl;
+        cout << "4. Monstrosity" << endl;
+        cin >> typeSelect;
+    
+    
+        while (typeSelect < 1 || typeSelect > 4)
+        {
+                cout << "Invalid selection - the range is 0 - 3" << endl;
+                cout << "Select type of creature: " <<  endl;
+                cin >> typeSelect;
+                cout << endl;
+        } 
+
+    switch(typeSelect) {
+      case 1:
+         type = "Humanoid"; 
+         break;
+      case 2:
+         type = "Animal";
+         break;
+      case 3:
+         type = "Undead";
+         break;
+      case 4:
+         type = "Monstrosity";
+         break;
+    }
+    return type;
+}
+
+string uiSelectDifficulty()
+{
+        int typeSelect;
+        string type;
+        cout << "Select difficulty" << endl;
+        cout << "__________________________________" << endl;
+        cout << "1. Easy" << endl;
+        cout << "2. Medium" << endl;
+        cout << "3. Hard" << endl;
+        cout << "4. Impossible" << endl;
+        cin >> typeSelect;
+    
+    
+        while (typeSelect < 1 || typeSelect > 4)
+        {
+                cout << "Invalid selection - the range is 1 - 4" << endl;
+                cout << "Select difficulty: " <<  endl;
+                cin >> typeSelect;
+                cout << endl;
+        } 
+
+    switch(typeSelect) {
+      case 1:
+         type = "Easy"; 
+         break;
+      case 2:
+         type = "Medium";
+         break;
+      case 3:
+         type = "Hard";
+         break;
+      case 4:
+         type = "Impossible";
+         break;
+    }
+    return type;
+}
 
 int uiEditEncounter()
 {
@@ -211,3 +306,53 @@ int uiAddOrSaveRoster()
         cin >> userChoice;
         return userChoice;
 };
+
+
+void uiCreateIndividualCreature(vector <Creature> creatures, vector<Individuals<Creature>>IndividualsCreatures, string typeOfCreature){
+    
+    
+    if(creatures.size() > 0)
+    {
+        Creature cre = selectCreatureWithType(creatures, typeOfCreature);
+
+        int basicOrCustom = uiBasicOrCustom();
+
+        if (basicOrCustom == 1)
+        {
+        Creature beast = createCreature(cre);
+        int countOfCreatures = getNumberOfCreatures(IndividualsCreatures, cre.getName());
+        string name = cre.getName();
+        Individuals<Creature> t = Individuals<Creature>(name, beast, countOfCreatures +1, cre.getName());
+        IndividualsCreatures.push_back(t);
+        t.printA();
+        cout << endl;
+
+        }
+
+        if (basicOrCustom == 2)
+        {
+        string name; 
+        cout << "Enter name for individual: ";
+        cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+        std::getline(std::cin, name);
+        cout << endl;
+        Creature beast = createCustomCreature();
+        int countOfCreatures = getNumberOfCreatures(IndividualsCreatures, cre.getName());
+        Individuals<Creature> t = Individuals<Creature>(name, beast, countOfCreatures +1, cre.getName());
+        IndividualsCreatures.push_back(t);
+        t.printA();
+        cout << endl;
+        }
+
+        else if (basicOrCustom != 1 || basicOrCustom !=2) 
+        {
+            cout << "Invalid choice..." << endl;
+        } 
+                            
+    }
+
+    else
+    {
+        cout << "There are no creatures..." << endl;
+    }
+}

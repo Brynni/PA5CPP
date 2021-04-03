@@ -19,8 +19,6 @@ class Being
         int life, damage, currentLife, strength, intelligence, constitution, dexterity,  wisdom,  charisma;
         vector <Attack> attacks;
         vector <Weapon> weapons;
-        
-        
 
         void AddAttackToBeing(Attack attack);
         void AddWeaponToBeing(Weapon weapon);

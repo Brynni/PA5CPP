@@ -7,8 +7,9 @@ Dex: 15
 Con: 10
 Wis: 10
 Cha: 6
-Unnatural
+Natural
 Disquiet: 6
+Type: Undead
 #
 Name: Wolf
 Creature
@@ -21,6 +22,7 @@ Wis: 12
 Cha: 6
 Natural
 Disquiet: 2
+Type: Animal
 #
 Name: Chthonian
 Creature
@@ -34,6 +36,7 @@ Cha: 9
 Unnatural
 Disquiet: 6
 Eldritch horror
+Type: Monstrosity
 #
 Name: Shoggoth
 Creature
@@ -47,6 +50,7 @@ Cha: 13
 Unnatural
 Disquiet: 6
 Eldritch horror
+Type: Monstrosity
 #
 Name: Color Out of space
 Creature
@@ -68,4 +72,5 @@ Strength: 2
 Intelligence: 3
 Natural
 Disquiet: 3
+Type: Monstrosity
 #

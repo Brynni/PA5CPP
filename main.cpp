@@ -1,6 +1,7 @@
 #include "attack.h"
 #include "being.h"
 #include "dice.h"
+#include "encounter.h"
 #include "fileReader.h"
 #include "individuals.h"
 #include "investigator.h"
@@ -64,21 +65,6 @@ int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string nam
             counter ++;
         }
     }
-    return counter;
-}
-
-int getNumberOfCreatures(vector<Individuals<Creature> >individualsCreatures, string name)
-{
-    int counter = 0;
-
-     for (Individuals<Creature> cre : individualsCreatures)
-     {
-        if(cre.getJob() == name)
-        {
-            counter ++;
-        }
-    }
-
     return counter;
 }
 
@@ -186,6 +172,7 @@ int main()
 
     //All vectors pertaining to game mechanics
     vector <Dice> allDice;
+    vector <Encounter> allEncounters;
 
     srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
     
@@ -517,7 +504,7 @@ int main()
 
                 else if(editing >0 || editing < 7 )
                 {
-                    Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getInt(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet());
+                    Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getInt(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet(), cr.type.getType());
                     string name = cr.getName();
                     string job = cr.getJob();
                     int count = cr.getCounter() - 1;
@@ -766,7 +753,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.create encounter\n"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -823,6 +810,46 @@ int main()
                 man.AddWeaponToBeing(bow);
                 man.AddAttackToBeing(punch);
                 man.printAttacks();
+
+            }
+            if (select_test == 2){
+                cout << "Were gonna make encounters here!" << endl;
+                Encounter newEncounter;
+                bool hasBeenSaved = false;
+                while (!hasBeenSaved)
+                {
+                    int userChoice1 = uiCreateEncounter();
+                    string typeOfCreature = uiSelectBeingType();
+                    
+                    // if he wants to select from the already existing plethora of characters
+                    if (userChoice1 == 1)
+                    {
+                        cout << typeOfCreature << endl;
+                        Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
+                        newEncounter.addEnemyToEncounter(selectedCreature);
+                    }
+                    //If the user wants to create his own custom enemy type
+                    if (userChoice1 == 2)
+                    {
+                        uiCreateIndividualCreature(creatures, IndividualsCreatures, typeOfCreature);
+                    } else {
+                        // Attempt to save
+                        if (newEncounter.creatures.size() == 0)
+                        {
+                            cout << "Error! Nothing added to the encounter! Exiting...." << endl;
+                            hasBeenSaved = true;
+                        } else {
+                            string difficultyLevel = uiSelectDifficulty();
+                            newEncounter.changeDifficulty(difficultyLevel);
+                            allEncounters.push_back(newEncounter);
+                            cout << "Success! Encounter has been saved ...." << endl;
+                            hasBeenSaved = true;
+                        }
+                    }
+                    
+                }   
+                
+
 
             }
 

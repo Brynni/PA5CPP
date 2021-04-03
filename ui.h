@@ -1,4 +1,10 @@
+#ifndef UI_624885114
+#define UI_624885114
 #include <iostream>
+#include <vector>
+#include <limits>
+#include "creature.h"
+#include "individuals.h"
 using namespace std;
 
 int renderMainMenu();
@@ -15,10 +21,17 @@ int uiStatToEdit();
 int uiAttackAdder();
 int uiCreateAttack();
 int uiCreateHuman();
-int uiCreateEncouter();
+int uiCreateEncounter();
 int uiEditEncounter();
 int uiSelectOrRemoveFromEncounter();
 int uiAddOrSaveRoster();
+string uiSelectDifficulty();
+void uiCreateIndividualCreature(vector <Creature> creatures, vector<Individuals<Creature>>IndividualsCreatures, string typeOfCreature);
+int getNumberOfCreatures(vector<Individuals<Creature>>individualsCreatures, string name);
+string uiSelectBeingType();
+
+
+#endif
 
 
 
