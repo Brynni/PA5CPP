@@ -127,3 +127,43 @@ ostream& operator<<(ostream& out, const Role r)
     out << "\t Fear and terror are both default 0" << endl;
     return out;
 }
+
+void seeAllRoles(vector<Role> roles)
+{
+    cout << "Roles"  << endl;
+    int counter = 0;
+    for (Role r : roles)
+    {
+        counter ++;
+        cout << counter << ". " << r.getName() << endl;
+    }
+}
+
+void seeDetailRoles(vector<Role> roles)
+{
+    for(Role r : roles)
+    {
+        cout << r << endl;
+    }
+};
+
+Role selectRole(vector<Role> roles)
+{
+    seeAllRoles(roles);
+    int selection;
+    cout << endl;
+    cout << "Enter your selection: ";
+    cin >> selection;
+
+    while (selection < 1 || selection > roles.size())
+    {
+        cout << "Invalid selection! You must select a between between 1 and " << roles.size() << endl; 
+        cout << "Enter your selection: ";
+        cin >> selection;
+    }
+
+
+    return roles[selection -1];
+    
+}
+

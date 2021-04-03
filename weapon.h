@@ -33,5 +33,5 @@ class Weapon
 
 
 
-
+Weapon createIndividualWeapon ();
 #endif

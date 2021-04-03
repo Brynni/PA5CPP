@@ -2,6 +2,7 @@
 #define CREATURE_12314123
 #include <iostream>
 #include "being.h"
+#include <vector>
 using namespace std;
 
 class Creature : public Being
@@ -22,5 +23,11 @@ class Creature : public Being
         int disquiet;
 
 };
+
+Creature createCreature(Creature sp);
+void seeAllCreatures(vector<Creature> creatures);
+void seeDetailCreatures(vector<Creature> creatures);
+Creature createCustomCreature();
+Creature selectCreature(vector<Creature> creatures);
 
 #endif

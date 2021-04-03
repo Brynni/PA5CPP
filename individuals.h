@@ -71,3 +71,4 @@ class Individuals
         int counter;
         string job;
 };
+

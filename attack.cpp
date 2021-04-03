@@ -3,6 +3,7 @@
 #include <random>
 #include <iostream>
 
+
 using namespace std;
 
 Attack::Attack(string name, string proficiencyAbility, Dice dice, int amountOfDiceThrown)
@@ -22,3 +23,39 @@ ostream& operator<<(ostream& out, const Attack a)
 }
 
 Attack::Attack() : Attack("punch","Strength", Dice(), 1){};
+
+Attack createIndividualAttack (vector<Dice> allDice)
+{
+    string name, proficiencyAbbility; 
+    Dice dice;
+    int amountOfDiceThrown;
+    int profSelector;
+    string modifiers[6] = {"Strength", "Dexterity", "Wisdom", "Constitution", "Charisma", "Intelligence"};
+
+    cout << "Enter name for the attack / spell attack:" << endl;
+    cin >> name;
+    for (int i = 0; i < 6; i++)
+    {
+        cout << i+1 <<".\t"<<modifiers[i] << endl;
+    }
+    
+    cin >> profSelector;
+    while (profSelector < 1 || profSelector > 6 ){
+        cout << "You need to select a modifer" << endl;
+        for (int i = 0; i < 6; i++)
+        {
+            cout << i+1 <<".\t"<<modifiers[i] << endl;
+        }
+        cin >> profSelector;
+    }
+
+
+
+    dice = selectIndividualDice(allDice);
+
+    cout << "How many dices would you like to throw? " << endl;
+    cout << "Enter choice here: ";
+    cin >> amountOfDiceThrown;
+
+    return Attack(name, modifiers[profSelector-1], dice, amountOfDiceThrown); 
+};

@@ -1,6 +1,7 @@
 #ifndef DICE_624885114
 #define DICE_624885114
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Dice
@@ -20,4 +21,8 @@ class Dice
         int sides;
 };
 
+void initializeBaseDice(vector <Dice> &allDice);
+void printIndividualDice(vector <Dice> allDice);
+Dice selectIndividualDice(vector <Dice> allDice);
+Dice selectIndividualDiceByNickname(vector <Dice> allDice, string nickname);
 #endif

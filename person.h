@@ -28,4 +28,6 @@ class Person : public Being
         
 };
 
+
+Person createCustomPerson();
 #endif

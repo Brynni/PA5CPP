@@ -46,5 +46,8 @@ class Role
         int terror;
 };
 
+void seeAllRoles(vector<Role> roles);
+void seeDetailRoles(vector<Role> roles);
+Role selectRole(vector<Role> roles);
 #endif
 

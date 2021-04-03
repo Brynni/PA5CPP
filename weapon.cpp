@@ -34,3 +34,12 @@ Weapon::Weapon() : Weapon("Sword"){};
 void Weapon::AddAttackToWeapon(vector <Attack> newAttacks){
     this->attacks = newAttacks;
 }
+
+Weapon createIndividualWeapon ()
+{
+    string name;
+    cout << "Enter name for the weapon: ";
+    cin >> name;
+    cout << endl;
+    return Weapon(name);
+};

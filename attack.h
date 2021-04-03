@@ -1,9 +1,10 @@
 #ifndef ATTACK_624885114
 #define ATTACK_624885114
 #include <iostream>
-using namespace std;
+#include <vector>
 #include "dice.h"
 
+using namespace std;
 class Attack
 {
     public:
@@ -15,5 +16,8 @@ class Attack
         Dice dice; 
         int amountOfDiceThrown;
 };
+
+
+Attack createIndividualAttack (vector<Dice> allDice);
 
 #endif

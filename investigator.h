@@ -4,6 +4,7 @@
 #include <iostream>
 #include "person.h"
 #include <string>
+#include "role.h"
 
 class Investigator :public Person
 {
@@ -17,6 +18,7 @@ class Investigator :public Person
         void printCharacter();
 };
 
-
+Investigator createInvestigator(Role role);
+Investigator createCustomInvestigator();
 #endif
 
