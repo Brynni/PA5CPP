@@ -48,7 +48,6 @@ void Creature::printInfo()
     cout << this->name << endl;
 }
 
-
 void Creature::updateDisquiet()
 {
     int newDisq;
@@ -117,6 +116,21 @@ vector<Creature> seeAllCreaturesOfType(vector<Creature> creatures, string type)
         }
     }
     return tempCreatures;
+};
+
+int countAllCreaturesOfType(vector<Creature> creatures, string type)
+{
+    vector<Creature> tempCreatures;
+    int counter = 0;
+    for (Creature sp : creatures )
+    {   
+        if (sp.getType() == type)
+        {
+            counter ++;
+            tempCreatures.push_back(sp);
+        }
+    }
+    return counter;
 };
 
 void seeDetailCreatures(vector<Creature> creatures)
@@ -298,4 +312,17 @@ Creature selectCreatureWithType(vector<Creature> creatures, string type)
         cin >> selection;
     }
     return tempCreatures[selection - 1];
+}
+
+Creature selectCreatureWithName(vector<Creature> creatures, string name)
+{
+    Creature tempCreature;
+    for (Creature sp : creatures )
+    {   
+        if (sp.getName() == name)
+        {
+            tempCreature = sp;
+        }
+    }
+    return tempCreature;
 }

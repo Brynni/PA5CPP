@@ -74,3 +74,42 @@ Natural
 Disquiet: 3
 Type: Monstrosity
 #
+Name: Housefly
+Creature
+Life: 1
+Strength: 1
+Intelligence: 1
+Dex: 1
+Con: 1
+Wis: 1
+Cha: 1
+Type: Animal
+Natural
+Disquiet: 1
+#
+Name: Wisp
+Creature
+Life: 5
+Strength: 5
+Intelligence: 5
+Dex: 5
+Con: 5
+Wis: 5
+Cha: 5
+Type: Undead
+Unnatural
+Disquiet: 5
+#
+Name: Dust bunny
+Creature
+Life: 1
+Strength: 1
+Intelligence: 1
+Dex: 1
+Con: 1
+Wis: 1
+Cha: 1
+Type: Animal
+Unnatural
+Disquiet: 1
+#

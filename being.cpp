@@ -123,7 +123,7 @@ void Being::updateInt()
 
 }
 
-string Being::getName()
+const string Being::getName()
 {
     return this->name;
 }

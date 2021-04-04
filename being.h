@@ -35,7 +35,7 @@ class Being
         int getCha();
         int getWis();
         int getCurrentLife();
-        string getName();
+        const string getName();
         void printAttacks();
 
        

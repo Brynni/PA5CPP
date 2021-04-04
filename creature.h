@@ -34,5 +34,7 @@ Creature createCustomCreature();
 Creature selectCreature(vector<Creature> creatures);
 Creature selectCreatureWithType(vector<Creature> creatures, string type);
 vector<Creature> seeAllCreaturesOfType(vector<Creature> creatures, string type);
+int countAllCreaturesOfType(vector<Creature> creatures, string type);
+Creature selectCreatureWithName(vector<Creature> creatures, string name);
 
 #endif

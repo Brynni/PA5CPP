@@ -258,6 +258,52 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
     }
 }
 
+
+void FileReader::ReadEncounterFromFile(vector <Encounter> encounters_vector, vector <Creature> creatures_vector)
+{
+ifstream encounterFile;
+    string fileStream; 
+    string speciesName;
+    string difficulty;
+    Encounter newEncounter;
+    bool readingName = false;
+    encounterFile.open("encounter.txt");
+    if (encounterFile.is_open()){
+        while (encounterFile){
+            encounterFile >> fileStream;
+            if (fileStream == "Difficulty:")
+            {
+                encounterFile >> fileStream;
+                difficulty = fileStream;
+            }
+            if (fileStream == "Enemies-")
+            { 
+                while (fileStream != "Difficulty"){
+                    encounterFile >> fileStream;
+                    difficulty = fileStream;
+                    if (fileStream == "#" && speciesName != ""){
+                        //Creature creature(speciesName, life, strength, intelligence, dex, con, wis, cha, natural, disquiet, typeOfCreature);
+                        newEncounter.addEnemyToEncounter(selectCreatureWithName(creatures_vector, speciesName));
+                        speciesName = "";
+                    }
+                encounters_vector.push_back(newEncounter);
+                }
+            }
+        }
+    }   
+}
+
+
+/* 
+    Would be good to use this for initializing the vector bla
+    for (int i = 0; i < encounters_vector.size(); i++)
+    {
+        for (int j = 0; j < encounters_vector[i].creatures.size();j++)
+        {
+            
+        }
+    } */
+
 /* _________________________________*/
 // Functions for deleting data     //
 /* ______________________________ */
@@ -683,13 +729,12 @@ Creature FileReader::createSpecies(vector <Creature> species_vector)
         std::getline(std::cin, name);
     }
 
-    cin >> typeSelect;
-    
     cout << "Select type of creature: " <<  endl;
     cout << "0. Humanoid" <<  endl;
     cout << "1. Animal" <<  endl;
     cout << "2. Undead" <<  endl;
     cout << "3. Monstrosity" <<  endl;
+    cin >> typeSelect;
     while (typeSelect < 0 || typeSelect > 4)
     {
         cout << "Invalid selection - the range is 0 - 3" << endl;
@@ -812,11 +857,12 @@ Creature FileReader::createSpecies(vector <Creature> species_vector)
                     "Creature\n" + 
                     "Life: " + to_string(life) + "\n" + 
                     "Strength: " + to_string(strength) + "\n" + 
-                    "Intelligence: " + to_string(intelligence) + "\n";
-                    "Dex: " + to_string(dex) + "\n";
-                    "Con: " + to_string(con) + "\n";
-                    "Wis: " + to_string(wis) + "\n";
-                    "Cha: " + to_string(cha) + "\n";
+                    "Intelligence: " + to_string(intelligence) + "\n" +
+                    "Dex: " + to_string(dex) + "\n" +
+                    "Con: " + to_string(con) + "\n" +
+                    "Wis: " + to_string(wis) + "\n" +
+                    "Cha: " + to_string(cha) + "\n" +
+                    "Type: " + type + "\n";
     if (natural == true){
         NewCreature = NewCreature + "Natural" + "\n" + "Disquiet: " + to_string(disquiet) + "\n" + "#";
     }
@@ -828,4 +874,19 @@ Creature FileReader::createSpecies(vector <Creature> species_vector)
     CreatureFile << "\n" << NewCreature;
 
     return sc;
+};
+
+void FileReader::createEncounter(Encounter encounter)
+{
+    string newEncounter;
+    newEncounter += "Difficulty: " + encounter.difficulty + "\n";
+    newEncounter += "Enemies-\n";
+    for (int j = 0; j < encounter.creatures.size();j++)
+    {
+        newEncounter += encounter.creatures[j].getName() + " #\n";
+    }
+
+    std::ofstream EncounterFile;
+    EncounterFile.open("encounter.txt", std::ios::out | std::ios::app);
+    EncounterFile << "\n" << newEncounter;
 };

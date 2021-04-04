@@ -180,6 +180,7 @@ int main()
     FileReader myFileReader; 
     myFileReader.ReadRolesFromFile(roles);
     myFileReader.ReadCreaturesFromFile(creatures);
+    myFileReader.ReadEncounterFromFile(allEncounters, creatures);
     initializeBaseDice(allDice);
     
 
@@ -753,7 +754,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.create encounter\n"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.create encounter"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -813,28 +814,35 @@ int main()
 
             }
             if (select_test == 2){
-                cout << "Were gonna make encounters here!" << endl;
+                //Create Encounter Path
                 Encounter newEncounter;
                 bool hasBeenSaved = false;
                 while (!hasBeenSaved)
                 {
                     int userChoice1 = uiCreateEncounter(newEncounter.creatures.size());
-                    string typeOfCreature = uiSelectBeingType();
-                    
                     // if he wants to select from the already existing plethora of characters
                     if (userChoice1 == 1)
                     {
+                        string typeOfCreature = uiSelectBeingType();
                         cout << typeOfCreature << endl;
-                        Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
-                        newEncounter.addEnemyToEncounter(selectedCreature);
+
+                        //Find how many creatures of the type exist
+                        int tempCreaturesCount = countAllCreaturesOfType(creatures, typeOfCreature);
+                        if (tempCreaturesCount > 0)
+                        {
+                            Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
+                            newEncounter.addEnemyToEncounter(selectedCreature);
+                        } else{
+                            cout << "Error! No creature of type " << typeOfCreature << endl;
+                        }
                     }
                     //If the user wants to create his own custom enemy type
-                    if (userChoice1 == 2)
+                    else if (userChoice1 == 2)
                     {
-                        uiCreateIndividualCreature(creatures, IndividualsCreatures, typeOfCreature);
+                        creatures.push_back(myFileReader.createSpecies(creatures));
                     } 
-                    if (userChoice1 == 3) {
-                        // Attempt to save
+                    // Attempt to save
+                    else if (userChoice1 == 3) {
                         if (newEncounter.creatures.size() == 0)
                         {
                             cout << "Error! Nothing added to the encounter! Exiting...." << endl;
@@ -843,20 +851,16 @@ int main()
                             string difficultyLevel = uiSelectDifficulty();
                             newEncounter.changeDifficulty(difficultyLevel);
                             allEncounters.push_back(newEncounter);
+                            myFileReader.createEncounter(newEncounter);
                             cout << "Success! Encounter has been saved ...." << endl;
+                            cout << newEncounter << endl;
                             hasBeenSaved = true;
                         }
                     } else {
                         cout << "Invalid Choice! Try again!" << endl;
                     }
-                    
                 }   
-                
-
-
             }
-
-            
         }
 
         // Testing area for createing weapons and attacks
