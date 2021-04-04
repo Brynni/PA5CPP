@@ -184,14 +184,17 @@ int uiCreateHuman()
         return userChoice;
 }
 
-int uiCreateEncounter()
+int uiCreateEncounter(int size)
 {
         int userChoice;
         cout << "Create Encounter" << endl;
         cout << "__________________________________" << endl;
         cout << "1. Select enemy from the roster" << endl;
         cout << "2. Create new enemy to add to roster" << endl;
-        cout << "3. Save current encounter" << endl;
+        if (size > 0)
+        {       
+            cout << "3. Save current encounter" << endl;
+        }
         cin >> userChoice;
         return userChoice;
 };

@@ -818,7 +818,7 @@ int main()
                 bool hasBeenSaved = false;
                 while (!hasBeenSaved)
                 {
-                    int userChoice1 = uiCreateEncounter();
+                    int userChoice1 = uiCreateEncounter(newEncounter.creatures.size());
                     string typeOfCreature = uiSelectBeingType();
                     
                     // if he wants to select from the already existing plethora of characters
@@ -832,7 +832,8 @@ int main()
                     if (userChoice1 == 2)
                     {
                         uiCreateIndividualCreature(creatures, IndividualsCreatures, typeOfCreature);
-                    } else {
+                    } 
+                    if (userChoice1 == 3) {
                         // Attempt to save
                         if (newEncounter.creatures.size() == 0)
                         {
@@ -845,6 +846,8 @@ int main()
                             cout << "Success! Encounter has been saved ...." << endl;
                             hasBeenSaved = true;
                         }
+                    } else {
+                        cout << "Invalid Choice! Try again!" << endl;
                     }
                     
                 }   

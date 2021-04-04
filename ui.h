@@ -21,7 +21,7 @@ int uiStatToEdit();
 int uiAttackAdder();
 int uiCreateAttack();
 int uiCreateHuman();
-int uiCreateEncounter();
+int uiCreateEncounter(int size);
 int uiEditEncounter();
 int uiSelectOrRemoveFromEncounter();
 int uiAddOrSaveRoster();
