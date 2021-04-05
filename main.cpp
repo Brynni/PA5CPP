@@ -182,6 +182,9 @@ int main()
     myFileReader.ReadCreaturesFromFile(creatures);
     myFileReader.ReadEncounterFromFile(allEncounters, creatures);
     initializeBaseDice(allDice);
+    /* for (int i = 0; i < allEncounters.size(); i++){
+        cout << allEncounters[i];
+    } */
 
     bool playing = true;
 

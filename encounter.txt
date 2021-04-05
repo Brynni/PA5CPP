@@ -8,3 +8,21 @@ Enemies-
 Wisp #
 Ghoul #
 Pug #
+
+Difficulty: Easy
+Enemies-
+Wisp #
+Wisp #
+Pug #
+
+Difficulty: Impossible
+Enemies-
+Pug #
+Pug #
+Pug #
+
+Difficulty: Medium
+Enemies-
+Ghoul #
+Ghoul #
+Ghoul #

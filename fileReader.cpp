@@ -270,11 +270,9 @@ ifstream encounterFile;
     encounterFile.open("encounter.txt");
     if (encounterFile.is_open()){
         while (encounterFile){
-            cout << fileStream << endl;
             encounterFile >> fileStream;
             if (fileStream == "Difficulty:")
             {
-                cout << "Changing difficulty" << endl;
                 encounterFile >> fileStream;
                 difficulty = fileStream;
                 newEncounter.changeDifficulty(difficulty);
@@ -282,22 +280,19 @@ ifstream encounterFile;
             if (fileStream == "Enemies-")
             { 
                 while (fileStream != "Difficulty" && encounterFile){
-                    //cout << "Name of species: " << speciesName << endl;
                     encounterFile >> fileStream;
                     if (fileStream == "Difficulty:")
                     {
-                        cout << newEncounter;
                         encounters_vector.push_back(newEncounter);
                         newEncounter.clearEncounter();
-                        cout << "Changing difficulty" << endl;
                         encounterFile >> fileStream;
                         difficulty = fileStream;
                         newEncounter.changeDifficulty(difficulty);
                     }
-                    else if (speciesName == "" && fileStream != " Enemies-")
+                    else if (speciesName == "" && fileStream != "Enemies-")
                     {
                         speciesName = fileStream;
-                    } else if (fileStream != "#"){
+                    } else if (fileStream != "#" && fileStream != "Enemies-"){
                         speciesName += " " + fileStream;
                     }
 
@@ -309,7 +304,6 @@ ifstream encounterFile;
                         difficulty = "";
                     }
                 }
-                cout << newEncounter;
                 encounters_vector.push_back(newEncounter);
             }
         }
