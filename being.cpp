@@ -3,6 +3,7 @@
 #include <random>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -188,4 +189,13 @@ void Being::printAttacks(){
     {
         cout << weapons[j];
     }
+}
+
+int Being::getInitiative()
+{
+    int modifier = floor((this->dexterity - 10) / 2);
+    srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
+    int randNum = rand() % 20;
+    return modifier + randNum + 1;
+
 }

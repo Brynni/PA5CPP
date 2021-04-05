@@ -4,8 +4,10 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include "attack.h"
 #include "weapon.h"
+#include "dice.h"
 using namespace std;
 
 
@@ -34,6 +36,7 @@ class Being
         int getCon();
         int getCha();
         int getWis();
+        int getInitiative();
         int getCurrentLife();
         const string getName();
         void printAttacks();

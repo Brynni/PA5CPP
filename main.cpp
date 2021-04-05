@@ -813,6 +813,8 @@ int main()
                 man.AddWeaponToBeing(bow);
                 man.AddAttackToBeing(punch);
                 man.printAttacks();
+                int manInit = man.getInitiative();
+                cout << "This is the initive: " << manInit << endl;
 
             }
             if (select_test == 2){
