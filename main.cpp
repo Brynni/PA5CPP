@@ -182,7 +182,6 @@ int main()
     myFileReader.ReadCreaturesFromFile(creatures);
     myFileReader.ReadEncounterFromFile(allEncounters, creatures);
     initializeBaseDice(allDice);
-    
 
     bool playing = true;
 

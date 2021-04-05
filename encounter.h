@@ -16,6 +16,7 @@ class Encounter
         void addEnemyToEncounter(Creature enemy);
         void changeDifficulty(string newDifficulty);
         void removeEnemyFromEncounter(int index);
+        void clearEncounter();
 };
 
 #endif

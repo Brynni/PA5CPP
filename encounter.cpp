@@ -40,3 +40,8 @@ void Encounter::removeEnemyFromEncounter(int index){
     
     creatures.erase(creatures.begin()+index);
 }
+
+void Encounter::clearEncounter(){
+    vector <Creature> creatures;
+    this->creatures = creatures;
+}

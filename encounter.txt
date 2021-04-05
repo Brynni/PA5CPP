@@ -2,3 +2,9 @@
 Difficulty: Easy
 Enemies-
 Dust bunny #
+
+Difficulty: Hard
+Enemies-
+Wisp #
+Ghoul #
+Pug #

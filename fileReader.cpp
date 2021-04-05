@@ -259,7 +259,7 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
 }
 
 
-void FileReader::ReadEncounterFromFile(vector <Encounter> encounters_vector, vector <Creature> creatures_vector)
+void FileReader::ReadEncounterFromFile(vector <Encounter> &encounters_vector, vector <Creature> creatures_vector)
 {
 ifstream encounterFile;
     string fileStream; 
@@ -270,24 +270,47 @@ ifstream encounterFile;
     encounterFile.open("encounter.txt");
     if (encounterFile.is_open()){
         while (encounterFile){
+            cout << fileStream << endl;
             encounterFile >> fileStream;
             if (fileStream == "Difficulty:")
             {
+                cout << "Changing difficulty" << endl;
                 encounterFile >> fileStream;
                 difficulty = fileStream;
+                newEncounter.changeDifficulty(difficulty);
             }
             if (fileStream == "Enemies-")
             { 
-                while (fileStream != "Difficulty"){
+                while (fileStream != "Difficulty" && encounterFile){
+                    //cout << "Name of species: " << speciesName << endl;
                     encounterFile >> fileStream;
-                    difficulty = fileStream;
-                    if (fileStream == "#" && speciesName != ""){
+                    if (fileStream == "Difficulty:")
+                    {
+                        cout << newEncounter;
+                        encounters_vector.push_back(newEncounter);
+                        newEncounter.clearEncounter();
+                        cout << "Changing difficulty" << endl;
+                        encounterFile >> fileStream;
+                        difficulty = fileStream;
+                        newEncounter.changeDifficulty(difficulty);
+                    }
+                    else if (speciesName == "" && fileStream != " Enemies-")
+                    {
+                        speciesName = fileStream;
+                    } else if (fileStream != "#"){
+                        speciesName += " " + fileStream;
+                    }
+
+                    if (fileStream == "#" && speciesName != "" && speciesName != "#"){
                         //Creature creature(speciesName, life, strength, intelligence, dex, con, wis, cha, natural, disquiet, typeOfCreature);
+                        
                         newEncounter.addEnemyToEncounter(selectCreatureWithName(creatures_vector, speciesName));
                         speciesName = "";
+                        difficulty = "";
                     }
-                encounters_vector.push_back(newEncounter);
                 }
+                cout << newEncounter;
+                encounters_vector.push_back(newEncounter);
             }
         }
     }   
