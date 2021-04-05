@@ -867,7 +867,26 @@ int main()
                 }   
             }
             if (select_test == 3){
-                searchForEncounter(0, allEncounters);
+                int randEnc;
+
+                cout << "Would you like to get a " << endl;
+                cout << "1. Easy encounter" << endl;
+                cout << "2. Medium encounter" << endl;
+                cout << "3. Hard encounter" << endl;
+                cout << "4. Impossible encounter" << endl;
+                cin >> randEnc;
+                while(randEnc < 1 || randEnc > 4){
+                    cout << "INVALID SELECTION!!!!" << endl;
+                    cout << "Would you like to get a " << endl;
+                    cout << "1. Easy encounter" << endl;
+                    cout << "2. Medium encounter" << endl;
+                    cout << "3. Hard encounter" << endl;
+                    cout << "4. Impossible encounter" << endl;
+                    cin >> randEnc;
+                }
+
+                Encounter selEnc = getRandomEncounter(randEnc-1, allEncounters);
+                
             }
         }
 

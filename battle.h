@@ -7,7 +7,7 @@
 using namespace std;
 
 
-void searchForEncounter(int difficultyLevel, vector<Encounter>AllEncounters);
+Encounter getRandomEncounter(int difficultyLevel, vector<Encounter>AllEncounters);
 vector<Encounter> shuffleVector(vector<Encounter>AllEncounters);
 Encounter randomEncounter(vector<Encounter>filteredVector, int difficultyLevel);
 
