@@ -106,6 +106,17 @@ int uiNPCOrPC()
         return npc_pc;
 }  
 
+int uiSelectNPCOrPC()
+{
+        int npc_pc;
+        cout <<"Would you like to select: " << endl;
+        cout << "__________________________________" << endl;
+        cout <<"1. NPC" << endl;
+        cout <<"2. PC" << endl;
+        cin >> npc_pc;
+        return npc_pc;
+}  
+
 void printAllTypes()
 {
         cout << "1. Person " << endl;
@@ -168,7 +179,6 @@ int uiCreateAttack()
         cout << "__________________________________" << endl;
         cout << "1. Unarmed attack" << endl;
         cout << "2. Weapon attack" << endl;
-        cout << "3. Spell attack" << endl;
         cin >> userChoice;
         return userChoice;
 }

@@ -16,11 +16,9 @@ Encounter getRandomEncounter(int difficulty, vector<Encounter>AllEncounters)
 
 vector<Encounter> shuffleVector(vector<Encounter>AllEncounters)
 {
-
+    
     //srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
     random_shuffle(AllEncounters.begin(), AllEncounters.end());
-
-
     return AllEncounters;
 }
 

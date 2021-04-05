@@ -24,52 +24,6 @@
 
 using namespace std;
 
-// Find out the problem here
-Person createPerson(Role role)
-{
-    string name;
-    string gender;
-    cout << "Enter name for the person: ";
-    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-    std::getline(std::cin, name);
-    cout << endl;
-    cout << "Enter gender: " ;
-    std::getline(std::cin, gender);
-
-    Person p = Person(
-        name, 
-        role.generateHealth(), 
-        role.generateStrength(), 
-        role.generateIntelligence(), 
-        role.generateDex(),
-        role.generateWis(),
-        role.generateCon(),
-        role.generateCha(), 
-        gender, 
-        role.getFear());
-    return p;
-}
-
-
-
-
-
-// TODO Get this working 
-int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string name)
-{
-    int counter = 0;
-
-    for (Individuals<Person> p : individualsPersons)
-    {
-        if(p.getJob() == name)
-        {
-            counter ++;
-        }
-    }
-    return counter;
-}
-
-
 void printIndividualPersons(vector <Individuals<Person> > individualPersons)
 {
     int counter = 0;
@@ -167,6 +121,8 @@ int main()
     //All vectors pertaining to beings
     vector <Role> roles;
     vector <Creature> creatures;
+    vector <Attack> attacks;
+    vector <Weapon> weapons;
     vector <Individuals<Investigator>> investigators;
     vector <Individuals<Person> > individualsPersons;
     vector <Individuals<Creature> > IndividualsCreatures;
@@ -186,6 +142,68 @@ int main()
     /* for (int i = 0; i < allEncounters.size(); i++){
         cout << allEncounters[i];
     } */
+
+    // Create an attack vector for unarmed attacks
+    vector <Attack> unarmedHumanAttacks;
+    Attack punch = Attack();
+    unarmedHumanAttacks.push_back(punch);
+    attacks.push_back(punch);
+
+    vector <Attack> unarmedBeastAttacks;
+    Attack bite = Attack("Bite", "Strength", selectIndividualDiceByNickname(allDice,"D6"), 1);
+    Attack scratch = Attack("Scratch", "Strength", selectIndividualDiceByNickname(allDice,"D4"), 1);
+    unarmedBeastAttacks.push_back(bite);
+    unarmedBeastAttacks.push_back(scratch);
+    attacks.push_back(bite);
+    attacks.push_back(scratch);
+
+    // Create an attack vector for weapon attacks
+    
+        //Melee weapons use strength
+    vector <Attack> swordAttacks;
+    Attack slash = Attack("Slash", "Strength", selectIndividualDiceByNickname(allDice,"D8"), 1);
+    Attack franticSlashes = Attack("Frantic slashes", "Strength", selectIndividualDiceByNickname(allDice,"D4"), 3);
+    Attack stab = Attack("Stab", "Strength", selectIndividualDiceByNickname(allDice,"D8"), 1);
+    
+    swordAttacks.push_back(slash);
+    swordAttacks.push_back(franticSlashes);
+    swordAttacks.push_back(stab);
+
+    vector <Attack> warhammerAttacks;
+    Attack crush = Attack("Crush", "Strength", selectIndividualDiceByNickname(allDice,"D12"), 1);
+    
+
+        //Ranged weapons use Dexterity
+    vector <Attack> bowAttack;
+    Attack letBow = Attack("Fire bow", "Dexterity", selectIndividualDiceByNickname(allDice,"D8"), 1);
+    bowAttack.push_back(letBow);
+    
+
+    // Create an attack vector for spells?
+
+
+    //Create the weapons to be used
+    Weapon sword("Sword");
+
+    sword.AddAttacksToWeapon(swordAttacks);
+    Weapon warhammer("Warhammer");
+    warhammer.AddAttacksToWeapon(warhammerAttacks);
+    Weapon bow("Bow");
+    bow.AddAttacksToWeapon(bowAttack);
+    weapons.push_back(sword);
+    weapons.push_back(bow);
+    weapons.push_back(warhammer);
+    
+
+
+    //Test adding weapons to a character and adding unarmed attacks as well
+    /* Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
+    man.AddWeaponToBeing(sword);
+    man.AddWeaponToBeing(bow);
+    man.AddAttackToBeing(punch);
+    man.printAttacks();
+    int manInit = man.getInitiative();
+    cout << "This is the initive: " << manInit << endl; */
 
     bool playing = true;
 
@@ -344,82 +362,8 @@ int main()
 
             else if (select_creature_horror_person == 3)
             {
-                if(roles.size() > 0)
-                {
-                    int npc_pc = uiNPCOrPC();
-                    if(npc_pc == 1)
-                    {
-                        Role sel_role = selectRole(roles);
-                        int basicOrCustom = uiBasicOrCustom();
-                        if (basicOrCustom == 1)
-                        {
-                            Person human = createPerson(sel_role);
-                            int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                            string name = sel_role.getName();
-                            Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getName());
-                            individualsPersons.push_back(t);
-                            t.printA();
-                            cout << endl;
-                        }
-
-                         if (basicOrCustom == 2)
-                        {
-                            string name;
-                            cout << "Enter name for individual: ";
-                            cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-                            std::getline(std::cin, name);   
-                            Person human = createCustomPerson();
-                            int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                            Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getName());
-                            individualsPersons.push_back(t);
-                            t.printA();
-                            cout << endl;
-                        }
-                        else if (basicOrCustom != 1 || basicOrCustom !=2) 
-                        {
-                            cout << "Invalid choice..." << endl;
-                        } 
-                        
-                        
-                    }
-
-                    if (npc_pc == 2)
-                    {
-                        Role sel_role = selectRole(roles);
-                        int basicOrCustom = uiBasicOrCustom();
-                        if(basicOrCustom == 1)
-                        {
-                            
-                            Investigator human = createInvestigator(sel_role);
-                            int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                            string name = sel_role.getName();
-                            Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getName());
-                            investigators.push_back(t);
-                            t.printA();
-                            cout << endl;
-                        }
-
-                        if(basicOrCustom == 2)
-                        {
-                            string name;
-                            cout << "Enter name for your individual: ";
-                            cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-                            std::getline(std::cin, name);
-                            Investigator human = createCustomInvestigator();
-                            int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                            Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getName());
-                            investigators.push_back(t);
-                            t.printA();
-                            cout << endl;
-                        }
-                    else if (basicOrCustom != 1 || basicOrCustom !=2) 
-                    {
-                        cout << "Invalid choice..." << endl;
-                    } 
-
-                    }
-                    
-                }
+                //TODO Remove this
+                cout << "Gone" << endl;
             }
 
             else
@@ -757,68 +701,17 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.create encounter\n\t3.testing random encounters"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.version of path 5. Add attack to Being/object"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
                 cout << "The roll of your selected dice is: " << selectedDice.rollDice() << endl;
             }
             if (select_test == 1){
-                // Create an attack vector for unarmed attacks
-                vector <Attack> unarmedHumanAttacks;
-                Attack punch = Attack();
-                unarmedHumanAttacks.push_back(punch);
-
-                vector <Attack> unarmedBeastAttacks;
-                Attack bite = Attack("Bite", "Strength", selectIndividualDiceByNickname(allDice,"D6"), 1);
-                Attack scratch = Attack("Scratch", "Strength", selectIndividualDiceByNickname(allDice,"D4"), 1);
-                unarmedBeastAttacks.push_back(bite);
-                unarmedBeastAttacks.push_back(scratch);
-
-                // Create an attack vector for weapon attacks
-                
-                    //Melee weapons use strength
-                vector <Attack> swordAttacks;
-                Attack slash = Attack("Slash", "Strength", selectIndividualDiceByNickname(allDice,"D8"), 1);
-                Attack franticSlashes = Attack("Frantic slashes", "Strength", selectIndividualDiceByNickname(allDice,"D4"), 3);
-                Attack stab = Attack("Stab", "Strength", selectIndividualDiceByNickname(allDice,"D8"), 1);
-                
-                swordAttacks.push_back(slash);
-                swordAttacks.push_back(franticSlashes);
-                swordAttacks.push_back(stab);
-
-                vector <Attack> warhammerAttacks;
-                Attack crush = Attack("Crush", "Strength", selectIndividualDiceByNickname(allDice,"D12"), 1);
-                
-                    //Ranged weapons use Dexterity
-                vector <Attack> bowAttack;
-                Attack letBow = Attack("Fire bow", "Dexterity", selectIndividualDiceByNickname(allDice,"D8"), 1);
-                bowAttack.push_back(letBow);
-
-                // Create an attack vector for spells?
-
-
-                //Create the weapons to be used
-                Weapon sword("Sword");
-                sword.AddAttackToWeapon(swordAttacks);
-                Weapon warhammer("Warhammer");
-                warhammer.AddAttackToWeapon(warhammerAttacks);
-                Weapon bow("Bow");
-                bow.AddAttackToWeapon(bowAttack);
-                cout << sword << endl;
-
-
-                //Test adding weapons to a character and adding unarmed attacks as well
-                Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
-                man.AddWeaponToBeing(sword);
-                man.AddWeaponToBeing(bow);
-                man.AddAttackToBeing(punch);
-                man.printAttacks();
-                int manInit = man.getInitiative();
-                cout << "This is the initive: " << manInit << endl;
-
+                cout << "Moved to initiliazier!" << endl;
             }
             if (select_test == 2){
+                //Path 2 completed
                 //Create Encounter Path
                 Encounter newEncounter;
                 bool hasBeenSaved = false;
@@ -888,6 +781,48 @@ int main()
                 Encounter selEnc = getRandomEncounter(randEnc-1, allEncounters);
                 
             }
+            if (select_test == 4){
+                //Path 1 Create Human
+                createPersonAndAddToVector(roles, investigators, individualsPersons);
+            }
+            if (select_test == 5){
+                //Path 5 Add attack to weapon/being
+                int userChoice = uiAttackAdder();
+                if (userChoice == 1)
+                {
+                    string enemyType = uiSelectBeingType();
+                    Creature selectedCreature = selectCreatureWithType(creatures, enemyType);
+                    Attack selectedAttack = selectAttack(attacks);
+                    selectedCreature.AddAttackToBeing(selectedAttack);
+                }
+                if (userChoice == 2)
+                {
+                    int userChoice = uiSelectNPCOrPC();
+                    if (userChoice == 1)
+                    {
+                        
+                        Individuals<Person> p = selectIndividualPerson(individualsPersons);
+                        Attack selectedAttack = selectAttack(attacks);
+                        p.type.AddAttackToBeing(selectedAttack);
+                    }
+                    if (userChoice == 2)
+                    {
+                        Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
+                        Attack selectedAttack = selectAttack(attacks);
+                        inv.type.AddAttackToBeing(selectedAttack);
+                    }
+                }
+                if (userChoice == 3)
+                {
+                    //Todo perhaps add the choice to pick a premade attack for a weapon
+                    // You would have to create a new vector called weapon attacks and allow the old one to be renamed unarmed attacks
+                    Weapon selectedWeapon = selectWeapon(weapons);
+                    Attack newAttack = createIndividualAttack(allDice);
+                    cout << "This is your new attack" << endl;
+                    cout << newAttack << endl;
+                    selectedWeapon.AddAttackToWeapon(newAttack);
+                }
+            }
         }
 
         // Testing area for createing weapons and attacks
@@ -925,7 +860,7 @@ int main()
                             addingToWeapon = false;
                         } 
                     }
-                    newWep.AddAttackToWeapon(newVect);
+                    newWep.AddAttacksToWeapon(newVect);
                     cout << "This is your new weapon"<< endl;
                     cout << newWep << endl;
                     
@@ -937,6 +872,7 @@ int main()
                 Attack newAttack = createIndividualAttack(allDice);
                 cout << "This is your new attack" << endl;
                 cout << newAttack << endl;
+                attacks.push_back(newAttack);
             }
         }
 

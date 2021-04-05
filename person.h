@@ -20,7 +20,6 @@ class Person : public Being
         void updateCurrentLife(int newLifeStat);
         string getGender();
         
-
     protected:
         string name;
         string gender;

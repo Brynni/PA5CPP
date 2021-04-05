@@ -15,9 +15,11 @@ class Attack
         string name, proficiencyAbility;
         Dice dice; 
         int amountOfDiceThrown;
+        void printInfo();
 };
 
-
+void seeAllAttacks(vector<Attack> attacks);
+Attack selectAttack(vector<Attack> attacks);
 Attack createIndividualAttack (vector<Dice> allDice);
 
 #endif

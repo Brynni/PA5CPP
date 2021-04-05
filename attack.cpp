@@ -59,3 +59,38 @@ Attack createIndividualAttack (vector<Dice> allDice)
 
     return Attack(name, modifiers[profSelector-1], dice, amountOfDiceThrown); 
 };
+
+
+void Attack::printInfo()
+{
+    cout << this->name << endl;
+}
+
+void seeAllAttacks(vector<Attack> attacks)
+{
+    cout << "ATTACKS- " << endl;
+    int counter = 0;
+    for (Attack atck : attacks )
+        {   
+            counter ++;
+            cout << counter << ". "; 
+            atck.printInfo();
+        }
+};
+
+Attack selectAttack(vector<Attack> attacks)
+{
+    seeAllAttacks(attacks);
+    int selection;
+    cout << endl;
+    cout << "Enter your selection: ";
+    cin >> selection;
+
+    while (selection < 1 || selection > attacks.size())
+    {
+        cout << "Invalid selection! You must select an attack between 1 and " << attacks.size() << endl; 
+        cout << "Enter your selection: ";
+        cin >> selection;
+    }
+    return attacks[selection -1];
+}

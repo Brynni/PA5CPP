@@ -14,6 +14,7 @@ int uiDetailListOrCompactList();
 int uiSelectCHP();
 int uiBasicOrCustom();
 int uiNPCOrPC();
+int uiSelectNPCOrPC();
 void printAllTypes();
 int uiIndividualList();
 int uiEditIndividuals();

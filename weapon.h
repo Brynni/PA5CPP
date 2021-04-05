@@ -12,8 +12,9 @@ class Weapon
         Weapon();
         Weapon(string name/* , string type, string modifier, int sides, int bonuses */);
         friend ostream& operator<<(ostream& out, const Weapon w);
-
-        void AddAttackToWeapon(vector <Attack> newAttacks);
+        void printInfo();
+        void AddAttacksToWeapon(vector <Attack> newAttacks);
+        void AddAttackToWeapon(Attack newAttack);
         /* int rollAttack();
         string getName();
         string getType();
@@ -32,6 +33,7 @@ class Weapon
 
 
 
-
+void seeAllWeapons(vector<Weapon> weapons);
+Weapon selectWeapon(vector<Weapon> weapons);
 Weapon createIndividualWeapon ();
 #endif

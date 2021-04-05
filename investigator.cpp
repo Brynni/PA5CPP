@@ -226,3 +226,124 @@ Investigator createCustomInvestigator()
     Investigator inv = Investigator(name, life, strength, intelligence, dex, con, wis, cha, gender, fear, terror);
     return inv;     
 }
+
+Person createPerson(Role role)
+{
+    string name;
+    string gender;
+    cout << "Enter name for the person: ";
+    cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
+    cout << endl;
+    cout << "Enter gender: " ;
+    std::getline(std::cin, gender);
+
+    Person p = Person(
+        name, 
+        role.generateHealth(), 
+        role.generateStrength(), 
+        role.generateIntelligence(), 
+        role.generateDex(),
+        role.generateWis(),
+        role.generateCon(),
+        role.generateCha(), 
+        gender, 
+        role.getFear());
+    return p;
+}
+
+int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string name)
+{
+    int counter = 0;
+
+    for (Individuals<Person> p : individualsPersons)
+    {
+        if(p.getJob() == name)
+        {
+            counter ++;
+        }
+    }
+    return counter;
+}
+
+
+
+void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investigator>> investigators, vector <Individuals<Person> > individualsPersons)
+{
+    if(roles.size() > 0)
+    {
+        int npc_pc = uiNPCOrPC();
+        if(npc_pc == 1)
+        {
+            Role sel_role = selectRole(roles);
+            int basicOrCustom = uiBasicOrCustom();
+            if (basicOrCustom == 1)
+            {
+                
+                Person human = createPerson(sel_role);
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
+                string name = sel_role.getName();
+                Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getName());
+                individualsPersons.push_back(t);
+                t.printA();
+                cout << endl;
+            }
+
+                if (basicOrCustom == 2)
+            {
+                string name;
+                cout << "Enter name for individual: ";
+                cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+                std::getline(std::cin, name);   
+                Person human = createCustomPerson();
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
+                Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getName());
+                individualsPersons.push_back(t);
+                t.printA();
+                cout << endl;
+            }
+            else if (basicOrCustom != 1 || basicOrCustom !=2) 
+            {
+                cout << "Invalid choice..." << endl;
+            } 
+        }
+        if (npc_pc == 2)
+        {
+            Role sel_role = selectRole(roles);
+            int basicOrCustom = uiBasicOrCustom();
+            if(basicOrCustom == 1)
+            {
+                
+                Investigator human = createInvestigator(sel_role);
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
+                string name = sel_role.getName();
+                Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getName());
+                
+                investigators.push_back(t);
+                t.printA();
+                cout << endl;
+            }
+
+            if(basicOrCustom == 2)
+            {
+                string name;
+                cout << "Enter name for your individual: ";
+                cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+                std::getline(std::cin, name);
+                Investigator human = createCustomInvestigator();
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
+                Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getName());
+                investigators.push_back(t);
+                t.printA();
+                cout << endl;
+            }
+            else if (basicOrCustom != 1 || basicOrCustom !=2) 
+            {
+                cout << "Invalid choice..." << endl;
+            } 
+        } 
+    } else
+    {
+        cout << "Invalid selection" << endl;
+    }
+}

@@ -2,7 +2,11 @@
 #define INVESTIGATOR_12314123
 
 #include <iostream>
+#include <vector>
 #include "person.h"
+#include "investigator.h"
+#include "individuals.h"
+#include "ui.h"
 #include <string>
 #include "role.h"
 
@@ -20,5 +24,8 @@ class Investigator :public Person
 
 Investigator createInvestigator(Role role);
 Investigator createCustomInvestigator();
+Person createPerson(Role role);
+int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string name);
+void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investigator>> investigators, vector <Individuals<Person> > individualsPersons);
 #endif
 

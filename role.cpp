@@ -2,7 +2,6 @@
 #include "vector"
 #include <random>
 #include <chrono>
-#include "person.h"
 #include <string>
 
 using namespace std;

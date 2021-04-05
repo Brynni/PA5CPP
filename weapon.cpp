@@ -31,8 +31,12 @@ ostream& operator<<(ostream& out, const Weapon w)
 
 Weapon::Weapon() : Weapon("Sword"){};
 
-void Weapon::AddAttackToWeapon(vector <Attack> newAttacks){
+void Weapon::AddAttacksToWeapon(vector <Attack> newAttacks){
     this->attacks = newAttacks;
+}
+
+void Weapon::AddAttackToWeapon(Attack newAttack){
+    this->attacks.push_back(newAttack);
 }
 
 Weapon createIndividualWeapon ()
@@ -43,3 +47,37 @@ Weapon createIndividualWeapon ()
     cout << endl;
     return Weapon(name);
 };
+
+void Weapon::printInfo()
+{
+    cout << this->name << endl;
+}
+
+void seeAllWeapons(vector<Weapon> weapons)
+{
+    cout << "WEAPONS: " << endl;
+    int counter = 0;
+    for (Weapon wp : weapons )
+        {   
+            counter ++;
+            cout << counter << ". "; 
+            wp.printInfo();
+        }
+};
+
+Weapon selectWeapon(vector<Weapon> weapons)
+{
+    seeAllWeapons(weapons);
+    int selection;
+    cout << endl;
+    cout << "Enter your selection: ";
+    cin >> selection;
+
+    while (selection < 1 || selection > weapons.size())
+    {
+        cout << "Invalid selection! You must select a weapon between 1 and " << weapons.size() << endl; 
+        cout << "Enter your selection: ";
+        cin >> selection;
+    }
+    return weapons[selection -1];
+}
