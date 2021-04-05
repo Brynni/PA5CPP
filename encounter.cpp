@@ -44,4 +44,26 @@ void Encounter::removeEnemyFromEncounter(int index){
 void Encounter::clearEncounter(){
     vector <Creature> creatures;
     this->creatures = creatures;
+};
+
+int Encounter::getNumericValueForDifficulty(){
+    int retVal;
+    if (this->difficulty == "Easy")
+    {
+        retVal = 0;
+    }
+    if (this->difficulty == "Medium")
+    {
+        retVal = 1;
+    }
+    if (this->difficulty == "Hard")
+    {
+        retVal = 2;
+    }
+    if (this->difficulty == "Impossible")
+    {
+        retVal = 3;
+    }
+
+    return retVal;
 }

@@ -1,4 +1,5 @@
 #include "attack.h"
+#include "battle.h"
 #include "being.h"
 #include "dice.h"
 #include "encounter.h"
@@ -756,7 +757,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.create encounter"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.create encounter\n\t3.testing random encounters"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -864,6 +865,9 @@ int main()
                         cout << "Invalid Choice! Try again!" << endl;
                     }
                 }   
+            }
+            if (select_test == 3){
+                searchForEncounter(0, allEncounters);
             }
         }
 

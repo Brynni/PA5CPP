@@ -26,3 +26,26 @@ Enemies-
 Ghoul #
 Ghoul #
 Ghoul #
+
+Difficulty: Easy
+Enemies-
+Wisp #
+Wisp #
+Wisp #
+Pug #
+Pug #
+Pug #
+
+Difficulty: Easy
+Enemies-
+Wisp #
+Wisp #
+Wisp #
+Wisp #
+Pug #
+Pug #
+Pug #
+Pug #
+Pug #
+Pug #
+Pug #

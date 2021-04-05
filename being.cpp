@@ -193,7 +193,7 @@ void Being::printAttacks(){
 
 int Being::getInitiative()
 {
-    int modifier = floor((this->dexterity - 10) / 2);
+    int modifier = floor(this->dexterity /2 -5);
     srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
     int randNum = rand() % 20;
     return modifier + randNum + 1;

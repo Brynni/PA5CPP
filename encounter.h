@@ -17,6 +17,7 @@ class Encounter
         void changeDifficulty(string newDifficulty);
         void removeEnemyFromEncounter(int index);
         void clearEncounter();
+        int getNumericValueForDifficulty();
 };
 
 #endif
