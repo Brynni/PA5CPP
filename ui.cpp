@@ -125,6 +125,17 @@ void printAllTypes()
         cout << "4. Investigators " << endl;    
 }
 
+int uiPrintAllTypes ()
+{
+        int userChoice;
+        cout << "What type of individual would you like to edit/remove?" << endl;
+        cout << "__________________________________" << endl;
+        cout << "1. NPC/PC" << endl;
+        cout << "2. Enemy" << endl;
+        cin >> userChoice;
+        return userChoice;
+}
+
 int uiIndividualList()
 {
         int userChoice;

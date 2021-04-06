@@ -82,3 +82,6 @@ Pug #
 Pug #
 Pug #
 Pug #
+Difficulty: Easy
+Enemies-
+Wolf #
