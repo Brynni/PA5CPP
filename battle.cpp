@@ -46,21 +46,25 @@ void battleEnv(Encounter randomEnc, vector<Investigator>& characters)
 
 int * generateInitiveOrder(Encounter randomEnc, vector<Investigator>& characters )
 {
-
+    int * fornotcrashing;
+    return fornotcrashing; 
 };
 
 bool checkIfEncounterIsOver(vector<Investigator> &characters,  vector<Creature> &enemies)
 {
     bool isItOver;
+    return isItOver;
 
 };
 
 bool checkIfAllCharactersAreDead(vector<Investigator>& characters)
 {
     bool areAllCharactersDead;
+    return areAllCharactersDead;
 
 };
 bool checkIfAllEnemiesAreDead(Encounter enc)
 {
     bool areAllEnemiesDead;
+    return areAllEnemiesDead;
 };
