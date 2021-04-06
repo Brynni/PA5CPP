@@ -18,6 +18,9 @@ class Encounter
         void removeEnemyFromEncounter(int index);
         void clearEncounter();
         int getNumericValueForDifficulty();
+        void printInfo();
 };
+
+void seeAllEncounters(vector<Encounter> encounters);
 
 #endif

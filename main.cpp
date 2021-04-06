@@ -59,6 +59,22 @@ void printIndividualCreature(vector <Individuals<Creature> > individualCreature)
     }
 }
 
+Encounter& selectIndividualEncounter(vector <Encounter> encounters)
+{
+    seeAllEncounters(encounters);
+    cout << endl;
+    int selection;
+    cout << "Select what encounter you would like to select for editing: ";
+    cin >> selection;
+    while(selection < 1 || selection > encounters.size())
+    {
+        cout << "Invalid Selection!, your range is 1 - " << encounters.size() << endl;
+        cout << "Select what encounter you would like to select for editing: ";
+        cin >> selection;
+    }
+
+    return encounters[selection-1];
+}
 
 Individuals<Creature> selectIndividualCreature(vector <Individuals<Creature> > individualCreatures)
 {
@@ -503,7 +519,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being\n\t7. Not final version of path 7. Edit/delete encounter"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -830,6 +846,74 @@ int main()
                     } else {
                         cout << "Error! No enemies found in system!" << endl;
                     }
+                }
+            }
+            if (select_test == 7)
+            {
+                //TODO write to file the change
+                if (allEncounters.size() > 0)
+                {
+                    cout << "Edit/remove encounters" << endl;
+                    Encounter selectedEncounter = selectIndividualEncounter(allEncounters);
+                    int userChoice = uiEditEncounter();
+                    if (userChoice == 1)
+                    {
+                        cout << "What creature do you wish you remove?" << endl;
+                        seeAllCreatures(selectedEncounter.creatures);
+                        int userChoice2;
+                        cin >> userChoice2;
+                        if (userChoice2 >= 0 &&  userChoice2 < selectedEncounter.creatures.size()){
+                            selectedEncounter.creatures.erase (selectedEncounter.creatures.begin()+userChoice2-1);
+                            cout << selectedEncounter.creatures.size() << endl;
+                            cout << "all enemies! Reprinted" << endl;
+                        } else {
+                            cout << "Error selection out of range!" << endl;
+                        }
+                    }
+                    else if (userChoice == 2)
+                    {
+                        string typeOfCreature = uiSelectBeingType();
+                        cout << typeOfCreature << endl;
+
+                        //Find how many creatures of the type exist
+                        int tempCreaturesCount = countAllCreaturesOfType(creatures, typeOfCreature);
+                        if (tempCreaturesCount > 0)
+                        {
+                            Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
+                            selectedEncounter.addEnemyToEncounter(selectedCreature);
+                        } else{
+                            cout << "Error! No creature of type " << typeOfCreature << endl;
+                        }
+                    }
+                    else if (userChoice == 3)
+                    {
+                        string newDifficulty = uiSelectDifficulty();
+                        selectedEncounter.changeDifficulty(newDifficulty);
+                        
+                    }
+                    else if (userChoice == 4)
+                    {
+                        for (int i = 0; i < allEncounters.size();i++)
+                        {
+                            bool encounterMatches = false;
+                            if (allEncounters[i].difficulty == selectedEncounter.difficulty && allEncounters[i].creatures.size() == selectedEncounter.creatures.size()){
+                                encounterMatches = true;
+                                for (int j = 0; j < selectedEncounter.creatures.size();j++){
+                                    if (allEncounters[i].creatures[j].getName() != selectedEncounter.creatures[j].getName())
+                                    {
+                                        encounterMatches = false;
+                                    }
+                                }
+                                if (encounterMatches){
+                                    allEncounters.erase (allEncounters.begin()+i);
+                                }
+                            }
+                        }
+                    } else {
+                        cout << "Error! Invalid selection!" << endl;
+                    }
+                } else {
+                    cout << "Error! No encounters found!" << endl;
                 }
             }
         }

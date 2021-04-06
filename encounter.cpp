@@ -67,3 +67,32 @@ int Encounter::getNumericValueForDifficulty(){
 
     return retVal;
 }
+void Encounter::printInfo()
+{
+    string encounter;
+    for (int i = 0; i < this->creatures.size(); i++)
+    {
+        if (i==this->creatures.size()-1)
+        {
+            encounter += this->creatures[i].getName();
+        } else {
+            encounter += this->creatures[i].getName() + ", ";
+        }
+        
+    }
+    encounter += "(" + this->difficulty + ")\n";
+    cout << encounter;
+
+}
+
+void seeAllEncounters(vector<Encounter> encounters)
+{
+    cout << "______List Of Encounters______" << endl;
+    int counter = 0;
+    for (Encounter enc : encounters )
+        {   
+            counter ++;
+            cout << counter << ". "; 
+            enc.printInfo();
+        }
+};
