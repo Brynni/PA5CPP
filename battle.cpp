@@ -2,6 +2,7 @@
 #include <algorithm> 
 #include <random>
 #include <chrono>
+#include <algorithm>
 using namespace std;
 
 Encounter getRandomEncounter(int difficulty, vector<Encounter>AllEncounters)
@@ -41,13 +42,38 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
 
 void battleEnv(Encounter randomEnc, vector<Investigator>& characters)
 {
+    vector<Creature>&creatures = randomEnc.creatures;
+    vector<Being>beingCre;
+    vector<Being>beingCha;
+    transform(creatures.begin(), creatures.end(), beingCre.begin(), [](Creature x){return (Being)x;});
+    transform(characters.begin(), characters.end(), beingCha.begin(), [](Investigator x){return (Being)x;});
+    for (Being b: beingCha)
+    {
+        beingCre.push_back(b);
+    }
+
+    vector<Being> initiveOrder = generateInitiveOrder(beingCre);
 
 };
 
-int * generateInitiveOrder(Encounter randomEnc, vector<Investigator>& characters )
+vector<Being> generateInitiveOrder(vector<Being>& allCharacters)
 {
-    int * fornotcrashing;
-    return fornotcrashing; 
+    // We send everything in here and generate a string array;
+    // the strings are of type <e/c><i> e = enemey c = character and <i> is the index in correct corresponding vect 
+    vector<Being>initOrder;
+    int size = allCharacters.size();
+    int* initArr = new int [];
+    int counter = 0;
+    for (Being b: allCharacters)
+    {
+        initArr[counter] = b.getInitiative();
+        counter ++;
+    }
+    for (int i = 0; i<size; i++)
+    {
+        cout << initArr << endl;
+    }
+
 };
 
 bool checkIfEncounterIsOver(vector<Investigator> &characters,  vector<Creature> &enemies)
@@ -67,4 +93,14 @@ bool checkIfAllEnemiesAreDead(Encounter enc)
 {
     bool areAllEnemiesDead;
     return areAllEnemiesDead;
+};
+
+bool checkIfSingleEnemeyIsDead(Creature enemey)
+{
+    return true;
+}
+
+bool checkIfSingleCharacterIsDead(Investigator character)
+{
+    return true;
 };

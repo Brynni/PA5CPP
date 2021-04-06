@@ -19,6 +19,7 @@ class Being
         friend ostream& operator<<(ostream& out, const Being b);
         string name;
         int life, damage, currentLife, strength, intelligence, constitution, dexterity,  wisdom,  charisma;
+        int initiveRoll;
         vector <Attack> attacks;
         vector <Weapon> weapons;
 

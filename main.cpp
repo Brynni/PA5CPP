@@ -519,7 +519,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being\n\t7. Not final version of path 7. Edit/delete encounter"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being\n\t7. Not final version of path 7. Edit/delete encounter\n\t8.BattleTest"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -915,6 +915,33 @@ int main()
                 } else {
                     cout << "Error! No encounters found!" << endl;
                 }
+            }
+            // Battle test hereeee
+            else if(select_test == 8)
+            {
+                // Start by seleting encounter
+                int randEnc;
+
+                cout << "Would you like to get a " << endl;
+                cout << "1. Easy encounter" << endl;
+                cout << "2. Medium encounter" << endl;
+                cout << "3. Hard encounter" << endl;
+                cout << "4. Impossible encounter" << endl;
+                cin >> randEnc;
+                while(randEnc < 1 || randEnc > 4){
+                    cout << "INVALID SELECTION!!!!" << endl;
+                    cout << "Would you like to get a " << endl;
+                    cout << "1. Easy encounter" << endl;
+                    cout << "2. Medium encounter" << endl;
+                    cout << "3. Hard encounter" << endl;
+                    cout << "4. Impossible encounter" << endl;
+                    cin >> randEnc;
+                }
+
+                Encounter selEnc = getRandomEncounter(randEnc-1, allEncounters);
+                vector<Investigator> selInv;
+                
+
             }
         }
 

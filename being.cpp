@@ -21,6 +21,7 @@ Being::Being(string name, int life, int strength, int intelligence, int dexterit
     this->charisma = charisma;
     this->attacks = attacks;
     this->weapons = weapons;
+    this->initiveRoll = this->getInitiative();
 
 };
 
