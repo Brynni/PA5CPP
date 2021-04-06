@@ -797,9 +797,35 @@ int main()
                 {
                     if (creatures.size() != 0){
                         // start by listing all creatures
-                        seeAllCreatures(creatures);
-                        // select a creature to edit
+                        //TODO CREATURE STUFFFFFFFFFF
+                        string type = uiSelectBeingType();
+                        Creature cre = selectCreatureWithType(creatures, type);
                         // select stat to edit
+                        int index = 0;
+                        for (Creature cr : creatures)
+                        {
+                            if (cr.getName() == cre.getName())
+                            {
+                                break;
+                            }
+                            index ++;
+                        }
+                        cout<< index << endl;
+                
+                        string statToEdit = uiUpdateStat();
+                        if (statToEdit != "cancel")
+                        {
+                            cre.updateStat(statToEdit);
+                            Creature newCre = createCreature(cre);
+                             for (int i=0; i<creatures.size();i++)
+                                {
+                                    if (creatures[i].getName() == cre.getName())
+                                    {
+                                        creatures.erase(creatures.begin() + i);
+                                        creatures.push_back(newCre); 
+                                    }
+                                }
+                        }
                         
 
                     } else {

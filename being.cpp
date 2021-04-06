@@ -80,12 +80,13 @@ void Being::healDamage(int healingPoints)
 void Being::updateLife()
 {
     int newLife;
+    cout << "Current Life is: " << this->life << endl;
     cout << "Enter new life: " ;
     cin >> newLife;
 
-    while(newLife > 10 || newLife < 0)
+    while(newLife > 100 || newLife < 0)
     {
-        cout << "Please enter a valid life, the range is 0 -10" << endl;
+        cout << "Please enter a valid life, the range is 0 -100" << endl;
         cin >> newLife;
     }
     this->life = newLife;
@@ -96,12 +97,13 @@ void Being::updateStrength()
 {
    
     int newStrength;
+    cout << "Current Strength is: " << this->strength << endl;
     cout << "Enter new strength: " ;
     cin >> newStrength;
 
-    while(newStrength > 30 || newStrength < 0)
+    while(newStrength > 20 || newStrength < 0)
     {
-        cout << "Please enter a valid strength, the range is 1-30" << endl;
+        cout << "Please enter a valid strength, the range is 1-20" << endl;
         cin >> newStrength;
     }
     this->strength = newStrength;
@@ -112,12 +114,13 @@ void Being::updateInt()
 {
    
     int newInt;
+    cout << "Current Intelligence is: " << this->intelligence << endl;
     cout << "Enter new Intelligence : " ;
     cin >> newInt;
 
-    while(newInt > 10 || newInt < 0)
+    while(newInt > 20 || newInt < 0)
     {
-        cout << "Please enter a valid Intelligence, the range is 0 -10" << endl;
+        cout << "Please enter a valid Intelligence, the range is 1 - 20" << endl;
         cin >> newInt;
     }
     this->intelligence = newInt;
@@ -199,3 +202,107 @@ int Being::getInitiative()
     return modifier + randNum + 1;
 
 }
+
+void Being::updateStat(string ability)
+{
+    //Life
+    if (ability == "Life")
+    {
+        this->updateLife();
+    }
+
+    if (ability == "Strength")
+    {
+        this->updateStrength();
+    }
+
+    if (ability == "Intelligence")
+    {
+        this->updateInt();
+    }
+
+    if (ability == "Constitution")
+    {
+        this->updateCon();
+    }
+    if (ability == "Dexterity")
+    {
+        this->updateDex();
+    }
+    if (ability == "Wisdom")
+    {
+        this->updateWis();
+    }
+    if (ability == "Charisma")
+    {
+        this->updateCha();
+    }
+
+
+    //Strength
+    //Intelligence
+    //Constitution
+    //Dexterity
+    //Wisdom
+    //Charisma
+}
+
+void Being::updateCon()
+{
+    int newVal;
+    cout << "Current Constitution is: " << this->constitution << endl;
+    cout << "Enter new Constitution : " ;
+    cin >> newVal;
+
+    while(newVal > 20 || newVal < 0)
+    {
+        cout << "Please enter a valid Constitution, the range is 0 - 20" << endl;
+        cin >> newVal;
+    }
+    this->constitution = newVal;
+
+};
+
+void Being::updateDex()
+{
+    int newVal;
+    cout << "Current Dexterity is: " << this->dexterity << endl;
+    cout << "Enter new Dexterity : " ;
+    cin >> newVal;
+
+    while(newVal > 20 || newVal < 0)
+    {
+        cout << "Please enter a valid Dexterity, the range is 0 - 20" << endl;
+        cin >> newVal;
+    }
+    this->dexterity = newVal;
+};
+
+void Being::updateWis()
+{
+    int newVal;
+    cout << "Current Wisdom is: " << this->wisdom << endl;
+    cout << "Enter new Wisdom : " ;
+    cin >> newVal;
+
+    while(newVal > 20 || newVal < 0)
+    {
+        cout << "Please enter a valid Wisdom, the range is 0 - 20" << endl;
+        cin >> newVal;
+    }
+    this->wisdom = newVal;
+};
+void Being::updateCha()
+{
+    int newVal;
+    cout << "Current Charisma is: " << this->charisma << endl;
+    cout << "Enter new Charisma : " ;
+    cin >> newVal;
+
+    while(newVal > 20 || newVal < 0)
+    {
+        cout << "Please enter a valid Charisma, the range is 0 - 20" << endl;
+        cin >> newVal;
+    }
+    this->charisma = newVal;
+};

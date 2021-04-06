@@ -39,6 +39,11 @@ class Being
         int getInitiative();
         int getCurrentLife();
         const string getName();
+        void updateStat(string ability);
+        void updateCon();
+        void updateDex();
+        void updateWis();
+        void updateCha();
         void printAttacks();
 
        
