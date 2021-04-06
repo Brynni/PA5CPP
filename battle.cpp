@@ -40,39 +40,33 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
 }
 
 
-void battleEnv(Encounter randomEnc, vector<Investigator>& characters)
+void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& characters)
 {
-    vector<Creature>&creatures = randomEnc.creatures;
-    vector<Being>beingCre;
-    vector<Being>beingCha;
-    transform(creatures.begin(), creatures.end(), beingCre.begin(), [](Creature x){return (Being)x;});
-    transform(characters.begin(), characters.end(), beingCha.begin(), [](Investigator x){return (Being)x;});
-    for (Being b: beingCha)
+    cout << "" << endl;
+    cout << "Enemies" << endl;
+    for (Creature cre: randomEnc.creatures)
     {
-        beingCre.push_back(b);
+        cout << cre << endl;
+        cout << "Initive roll: "<<cre.getInitiative() << endl;
+        cout << "" << endl;
     }
-
-    vector<Being> initiveOrder = generateInitiveOrder(beingCre);
+    cout << "" << endl;
+    cout << "Characters" << endl;
+    for (Individuals<Investigator> inv:  characters)
+    {
+        cout << inv.type << endl;
+        cout << "Initive roll: " << inv.type.getInitiative() << endl;
+        cout << "" << endl;
+    }
 
 };
 
-vector<Being> generateInitiveOrder(vector<Being>& allCharacters)
+vector<string> generateInitiveOrder(vector<Being> allCharacters)
 {
     // We send everything in here and generate a string array;
     // the strings are of type <e/c><i> e = enemey c = character and <i> is the index in correct corresponding vect 
-    vector<Being>initOrder;
-    int size = allCharacters.size();
-    int* initArr = new int [];
-    int counter = 0;
-    for (Being b: allCharacters)
-    {
-        initArr[counter] = b.getInitiative();
-        counter ++;
-    }
-    for (int i = 0; i<size; i++)
-    {
-        cout << initArr << endl;
-    }
+    vector<string>bla;
+    return bla;
 
 };
 

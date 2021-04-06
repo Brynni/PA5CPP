@@ -907,7 +907,9 @@ int main()
             // Battle test hereeee
             else if(select_test == 8)
             {
-                // Start by seleting encounter
+                if (investigators.size() > 0)
+
+                {// Start by seleting encounter
                 int randEnc;
 
                 cout << "Would you like to get a " << endl;
@@ -927,8 +929,34 @@ int main()
                 }
 
                 Encounter selEnc = getRandomEncounter(randEnc-1, allEncounters);
-                vector<Investigator> selInv;
-                
+                vector<Individuals<Investigator>> selInv;
+                bool keepAdding = true;
+                int addingNum;
+                while (keepAdding)
+                {
+                    cout << "Add Characters" << endl;
+                    Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
+                    selInv.push_back(inv);
+                    cout << "Keep adding?" << endl;
+                    cout <<"1. yes" << endl;
+                    cout <<"2. no" << endl;
+                    cin >> addingNum;
+                    while (addingNum > 2 || addingNum < 1)
+                    {
+                        cout << "invalid selection" << endl;
+                        cout << "Keep adding?" << endl;
+                        cout <<"1. yes" << endl;
+                        cout <<"2. no" << endl;
+                        cin >> addingNum;
+                    }
+
+                    if (addingNum == 2)
+                    {
+                        keepAdding = false;
+                    }
+                }
+                battleEnv(selEnc, selInv);}
+
 
             }
         }
