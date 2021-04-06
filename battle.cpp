@@ -36,5 +36,4 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
     i1 = std::search(v1.begin(), v1.end(), v2.begin(), v2.end());
     cout << filteredVector[i1-v1.begin()] << endl;
     return filteredVector[i1-v1.begin()];
-
 }

@@ -55,24 +55,24 @@ ostream& operator <<(ostream& out, const Investigator i)
 }
 
 void Investigator::printCharacter(){
-    cout << "ACROBATICS " << floor((dexterity-10)/2) << endl;
-    cout << "ANIMAL HANDLING " << floor((wisdom-10)/2) << endl;
-    cout << "ARCANA " << floor((intelligence-10)/2)  << endl;
-    cout << "ATHLETICS " << floor((strength-10)/2) << endl;
-    cout << "DECEPTION "<< floor((charisma-10)/2) << endl;
-    cout <<"HISTORY "<< floor((intelligence-10)/2) << endl;
-    cout <<"INSIGHT "<<floor((wisdom-10)/2) << endl;
-    cout <<"INTIMIDATION "<< floor((charisma-10)/2) << endl;
-    cout <<"INVESTIGATION " <<floor((intelligence-10)/2)  << endl;
-    cout <<"MEDICINE " << floor((wisdom-10)/2)<< endl;
-    cout <<"NATURE " <<floor((intelligence-10)/2)  << endl;
-    cout <<"PERCEPTION " <<floor((wisdom-10)/2) << endl;
-    cout <<"PERFORMANCE " << floor((charisma-10)/2)<< endl;
-    cout <<"PERSUASION " << floor((charisma-10)/2)<< endl;
-    cout <<"RELIGION " <<floor((intelligence-10)/2)  << endl;
-    cout <<"SLEIGHT OF HAND " << floor((dexterity-10)/2) << endl;
-    cout <<"STEALH " << floor((dexterity-10)/2) << endl;
-    cout <<"SURVIVAL " <<floor((wisdom-10)/2) << endl;
+    cout << "ACROBATICS " << floor((dexterity/2)-5) << endl;
+    cout << "ANIMAL HANDLING " << floor((wisdom/2)-5) << endl;
+    cout << "ARCANA " << floor((intelligence/2)-5)  << endl;
+    cout << "ATHLETICS " << floor((strength/2)-5) << endl;
+    cout << "DECEPTION "<< floor((charisma/2)-5) << endl;
+    cout <<"HISTORY "<< floor((intelligence/2)-5) << endl;
+    cout <<"INSIGHT "<<floor((wisdom/2)-5) << endl;
+    cout <<"INTIMIDATION "<< floor((charisma/2)-5) << endl;
+    cout <<"INVESTIGATION " <<floor((intelligence/2)-5)  << endl;
+    cout <<"MEDICINE " << floor((wisdom/2)-5)<< endl;
+    cout <<"NATURE " <<floor((intelligence/2)-5)  << endl;
+    cout <<"PERCEPTION " <<floor((wisdom/2)-5) << endl;
+    cout <<"PERFORMANCE " << floor((charisma/2)-5)<< endl;
+    cout <<"PERSUASION " << floor((charisma/2)-5)<< endl;
+    cout <<"RELIGION " <<floor((intelligence/2)-5)  << endl;
+    cout <<"SLEIGHT OF HAND " << floor((dexterity/2)-5) << endl;
+    cout <<"STEALH " << floor((dexterity/2)-5) << endl;
+    cout <<"SURVIVAL " <<floor((wisdom/2)-5) << endl;
 }
 
 Investigator createInvestigator(Role role)
