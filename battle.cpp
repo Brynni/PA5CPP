@@ -37,3 +37,30 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
     cout << filteredVector[i1-v1.begin()] << endl;
     return filteredVector[i1-v1.begin()];
 }
+
+
+void battleEnv(Encounter randomEnc, vector<Investigator>& characters)
+{
+
+};
+
+int * generateInitiveOrder(Encounter randomEnc, vector<Investigator>& characters )
+{
+
+};
+
+bool checkIfEncounterIsOver(vector<Investigator> &characters,  vector<Creature> &enemies)
+{
+    bool isItOver;
+
+};
+
+bool checkIfAllCharactersAreDead(vector<Investigator>& characters)
+{
+    bool areAllCharactersDead;
+
+};
+bool checkIfAllEnemiesAreDead(Encounter enc)
+{
+    bool areAllEnemiesDead;
+};

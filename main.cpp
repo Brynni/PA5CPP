@@ -827,7 +827,6 @@ int main()
                                 }
                         }
                         
-
                     } else {
                         cout << "Error! No enemies found in system!" << endl;
                     }
