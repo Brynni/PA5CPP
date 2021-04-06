@@ -31,7 +31,7 @@ string uiSelectDifficulty();
 void uiCreateIndividualCreature(vector <Creature> creatures, vector<Individuals<Creature>>IndividualsCreatures, string typeOfCreature);
 int getNumberOfCreatures(vector<Individuals<Creature>>individualsCreatures, string name);
 string uiSelectBeingType();
-
+string uiUpdateStat();
 
 #endif
 

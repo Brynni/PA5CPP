@@ -235,7 +235,7 @@ string uiSelectBeingType()
     
         while (typeSelect < 1 || typeSelect > 4)
         {
-                cout << "Invalid selection - the range is 0 - 3" << endl;
+                cout << "Invalid selection - the range is 1 - 4" << endl;
                 cout << "Select type of creature: " <<  endl;
                 cin >> typeSelect;
                 cout << endl;
@@ -380,3 +380,64 @@ void uiCreateIndividualCreature(vector <Creature> creatures, vector<Individuals<
         cout << "There are no creatures..." << endl;
     }
 }
+
+string uiUpdateStat()
+{
+        int selector;
+        string statToEdit;
+        cout << "What stat would you like to edit?" << endl;
+        cout << "1. Life "<< endl;
+        cout << "2. Strength" << endl;
+        cout << "3. Intelligence" << endl;
+        cout << "4. Constitution" << endl;
+        cout << "5. Dexterity" << endl;
+        cout << "6. Wisdom "<< endl;
+        cout << "7. Charisma" << endl;
+        cout << "8. cancel" << endl;
+        cin >> selector;
+        while (selector < 1 || selector > 8)
+        {
+                cout << "INVALID SELECTION" << endl;
+                cout << "What stat would you like to edit?" << endl;
+                cout << "1. Life "<< endl;
+                cout << "2. Strength" << endl;
+                cout << "3. Intelligence" << endl;
+                cout << "4. Constitution" << endl;
+                cout << "5. Dexterity" << endl;
+                cout << "6. Wisdom "<< endl;
+                cout << "7. Charisma" << endl;
+                cout << "8. cancel" << endl;
+                cin >> selector; 
+        }
+
+        switch(selector) {
+        case 1:
+                statToEdit = "Life"; 
+                break;
+        case 2:
+                statToEdit = "Strength";
+                break;
+        case 3:
+                statToEdit = "Intelligence";
+                break;
+        case 4:
+                statToEdit = "Constitution";
+                break;
+        case 5:
+                statToEdit = "Dexterity";
+                break;
+        case 6:
+                statToEdit = "Wisdom";
+                break;
+        case 7:
+                statToEdit = "Charisma";
+                break;
+        case 8:
+                statToEdit = "cancel";
+                break;
+        }
+        
+
+        return statToEdit;
+
+};
