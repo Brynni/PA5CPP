@@ -113,3 +113,16 @@ Type: Animal
 Unnatural
 Disquiet: 1
 #
+Name: Sargon
+Creature
+Life: 15
+Strength: 15
+Intelligence: 15
+Dex: 15
+Con: 15
+Wis: 15
+Cha: 15
+Type: Animal
+Natural
+Disquiet: 1
+#

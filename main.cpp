@@ -60,21 +60,21 @@ void printIndividualCreature(vector <Individuals<Creature> > individualCreature)
 }
 
 
-Individuals<Creature> selectIndividualCreature(vector <Individuals<Creature> > individualCreature)
+Individuals<Creature> selectIndividualCreature(vector <Individuals<Creature> > individualCreatures)
 {
-    printIndividualCreature(individualCreature);
+    printIndividualCreature(individualCreatures);
     cout << endl;
     int selection;
     cout << "Select what creature you would like to select for editing: ";
     cin >> selection;
-    while(selection < 1 || selection > individualCreature.size())
+    while(selection < 1 || selection > individualCreatures.size())
     {
-        cout << "Invalid Selection!, your range is 1 - " << individualCreature.size() << endl;
+        cout << "Invalid Selection!, your range is 1 - " << individualCreatures.size() << endl;
         cout << "Select what creature you would like to select for editing: ";
         cin >> selection;
     }
 
-    return individualCreature[selection -1];
+    return individualCreatures[selection -1];
 }
 
 Individuals<Person> selectIndividualPerson(vector <Individuals<Person> > individualPersons)
@@ -324,7 +324,7 @@ int main()
 
                     }
 
-                    if (basicOrCustom == 2)
+                    else if (basicOrCustom == 2)
                     {
                         string name; 
                         cout << "Enter name for individual: ";
@@ -338,9 +338,6 @@ int main()
                         t.printA();
                         cout << endl;
                     }
-
-
-                    
 
                     else if (basicOrCustom != 1 || basicOrCustom !=2) 
                     {
@@ -411,137 +408,14 @@ int main()
             int whatToEdit = uiEditIndividuals();
             if (whatToEdit == 1)
             {
-                Individuals<Creature> cr = selectIndividualCreature(IndividualsCreatures);
-                Creature & cre = cr.getType();
-                cr.printA();
-                int editing = uiStatToEdit();
-
-                if (editing == 1)
-                {
-                   cr.type.updateLife();
-                    
-                }
-
-                if (editing == 2)
-                {
-                    cr.type.updateStrength();
-                }
-
-                if (editing == 3)
-                {
-                    
-                    cr.type.updateNature();
-                    
-                }
-
-                if (editing == 4)
-                {
-                    
-                    cr.type.updateDisquiet();
-                }
-
-                if (editing == 5)
-                {
-                    cr.type.updateInt();
-                }
-
-                if (editing == 6)
-                {
-                    cr.type.takeDamage(5);
-                }
-
-                else if(editing >0 || editing < 7 )
-                {
-                    Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getInt(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet(), cr.type.getType());
-                    string name = cr.getName();
-                    string job = cr.getJob();
-                    int count = cr.getCounter() - 1;
-                    Individuals<Creature> t = Individuals<Creature>(name, newCre, count +1, job);
-                    for (int i=0; i<IndividualsCreatures.size();i++)
-                    {
-                        if (IndividualsCreatures[i].getName() == cr.getName())
-                        {
-                            IndividualsCreatures.erase(IndividualsCreatures.begin() + i);
-                            IndividualsCreatures.push_back(t);
-                        }
-                    }
-                    sort(IndividualsCreatures.begin(), IndividualsCreatures.end());
-                }
-                else if(editing <= 0 || editing > 5)
-                {
-                    cout << "Invalid selection" << endl;
-                }
+                //TODO REMOVE
+                cout << "blah" << endl;
 
             }
             else if (whatToEdit == 2)
             {
-                Individuals<Person> p = selectIndividualPerson(individualsPersons);
-                cout << "Selected person: " << endl;
-                p.printA();
-                int editing = uiStatToEdit();
-                cout << endl;
-
-                if (editing == 1)
-                {
-                    p.type.updateLife();
-                }
-
-                if (editing == 2)
-                {
-                    p.type.updateStrength();
-                }
-
-                if (editing == 3)
-                {
-                    p.type.updateName();
-                }
-
-                if (editing == 4)
-                {
-                    p.type.updateInt();
-                }
-
-                if (editing == 5)
-                {
-                    p.type.updateGender();
-                }
-
-                if (editing == 6)
-                {
-                    p.type.updateFear();
-                }
-
-                if (editing == 7)
-                {
-                    p.type.takeDamage(5);
-                }
-
-                else if (editing > 0 && editing < 8)
-                {
-                    Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getDex(), p.type.getCon(), p.type.getWis(), p.type.getCha(), p.type.getGender(), p.type.getFear());
-                    string name = p.getName();
-                    string job = p.getJob();
-                    int count = p.getCounter();
-                    Individuals<Person> t = Individuals<Person>(name, newP, count, job);
-                    for (int i=0; i<individualsPersons.size();i++)
-                    {
-                        if (individualsPersons[i].getName() == p.getName() && individualsPersons[i].getCounter() == p.getCounter() )
-                        {
-                        individualsPersons.erase(individualsPersons.begin() + i);
-                        individualsPersons.push_back(t);
-                        }
-                    }
-                    cout << "updated Person" << endl;
-                    t.printA();
-                    
-                    cout << endl;
-                    sort(individualsPersons.begin(), individualsPersons.end());
-                }
-
-                else if (editing < 1 || editing > 8)
-                {
-                    cout << "Invalid Selection" << endl;
-                }              
+                //TODO remove
+                cout << "Taken away" << endl;
             }
 
             else if(whatToEdit == 3)
@@ -552,80 +426,8 @@ int main()
 
             else if(whatToEdit == 4)
             {
-                Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
-                cout << "Selected investigator: " << endl;
-                inv.printA();
-                int editing = uiStatToEdit();
-                cout << endl;
-
-                if (editing == 1)
-                {
-                    inv.type.updateLife();
-                }
-
-                if (editing == 2)
-                {
-                    inv.type.updateStrength();
-                }
-
-                if (editing == 3)
-                {
-                    inv.type.updateName();
-                }
-
-                if (editing == 4)
-                {
-                    inv.type.updateInt();
-                }
-
-                if (editing == 5)
-                {
-                    inv.type.updateGender();
-                }
-
-                if (editing == 6)
-                {
-                    inv.type.updateFear();
-                }
-
-                if (editing == 7)
-                {
-                    inv.type.updateTerror();
-                }
-
-                if (editing == 8)
-                {
-                    inv.type.takeDamage(5);
-                }
-
-                if (editing > 0 && editing < 9)
-                {
-                    Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getDex(), inv.type.getCon(), inv.type.getWis(), inv.type.getCha(),  inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
-                    string name = inv.getName();
-                    string job = inv.getJob();
-                    int count = inv.getCounter();
-                    newI.updateCurrentLife(inv.type.getCurrentLife());
-                    newI.printCharacter();
-                    Individuals<Investigator> t = Individuals<Investigator>(name, newI, count, job);
-                    for (int i=0; i<investigators.size();i++)
-                    {
-                        if (investigators[i].getName() == inv.getName() && investigators[i].getCounter() == inv.getCounter() )
-                        {
-                            investigators.erase(investigators.begin() + i);
-                            investigators.push_back(t);
-                            
-                        }
-                    }
-                    cout << "updated Updated Investigator" << endl;
-                    t.printA();
-                    cout << endl;
-                    sort(investigators.begin(), investigators.end());
-                }
-
-                else if (editing < 1 || editing > 8)
-                {
-                    cout << "Invalid Selection" << endl;
-                }
+                //TODO Remove
+                
             }
         }
 
@@ -701,7 +503,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.version of path 5. Add attack to Being/object"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -821,6 +623,240 @@ int main()
                     cout << "This is your new attack" << endl;
                     cout << newAttack << endl;
                     selectedWeapon.AddAttackToWeapon(newAttack);
+                }
+            }
+            if (select_test == 6)
+            {
+                //Select Being to edit/remove
+                int userchoice1 = uiPrintAllTypes ();
+                if (userchoice1 == 1)
+                {
+                    int userchoice2 = uiNPCOrPC();
+                    if (userchoice2 == 1)
+                    {
+                        cout << "selected NPC" << endl;
+                        if (individualsPersons.size() != 0)
+                        {
+                            Individuals<Person> p = selectIndividualPerson(individualsPersons);
+                            cout << "Selected person: " << endl;
+                            p.printA();
+                            int editing = uiStatToEdit();
+                            cout << endl;
+
+                            if (editing == 1)
+                            {
+                                p.type.updateLife();
+                            }
+
+                            else if (editing == 2)
+                            {
+                                p.type.updateStrength();
+                            }
+
+                            else if (editing == 3)
+                            {
+                                p.type.updateName();
+                            }
+
+                            else if (editing == 4)
+                            {
+                                p.type.updateInt();
+                            }
+
+                            else if (editing == 5)
+                            {
+                                p.type.updateGender();
+                            }
+
+                            else if (editing == 6)
+                            {
+                                p.type.updateFear();
+                            }
+
+                            else if (editing == 7)
+                            {
+                                p.type.takeDamage(5);
+                            }
+
+                            else if (editing > 0 && editing < 8)
+                            {
+                                Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getDex(), p.type.getCon(), p.type.getWis(), p.type.getCha(), p.type.getGender(), p.type.getFear());
+                                string name = p.getName();
+                                string job = p.getJob();
+                                int count = p.getCounter();
+                                Individuals<Person> t = Individuals<Person>(name, newP, count, job);
+                                for (int i=0; i<individualsPersons.size();i++)
+                                {
+                                    if (individualsPersons[i].getName() == p.getName() && individualsPersons[i].getCounter() == p.getCounter() )
+                                    {
+                                    individualsPersons.erase(individualsPersons.begin() + i);
+                                    individualsPersons.push_back(t);
+                                    }
+                                }
+                                cout << "updated Person" << endl;
+                                t.printA();
+                                
+                                cout << endl;
+                                sort(individualsPersons.begin(), individualsPersons.end());
+                            }
+
+                            else if (editing < 1 || editing > 8)
+                            {
+                                cout << "Invalid Selection" << endl;
+                            }
+                        } else {
+                            cout << "Error! No NPC's found in system!" << endl;
+                        } 
+                                      
+                    }
+                    if (userchoice2 == 2)
+                    {
+                        cout << "selected PC" << endl;
+                        if (investigators.size() != 0)
+                        {
+                            Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
+                            cout << "Selected investigator: " << endl;
+                            inv.printA();
+                            int editing = uiStatToEdit();
+                            cout << endl;
+
+                            if (editing == 1)
+                            {
+                                inv.type.updateLife();
+                            }
+
+                            else if (editing == 2)
+                            {
+                                inv.type.updateStrength();
+                            }
+
+                            else if (editing == 3)
+                            {
+                                inv.type.updateName();
+                            }
+
+                            else if (editing == 4)
+                            {
+                                inv.type.updateInt();
+                            }
+
+                            else if (editing == 5)
+                            {
+                                inv.type.updateGender();
+                            }
+
+                            else if (editing == 6)
+                            {
+                                inv.type.updateFear();
+                            }
+
+                            else if (editing == 7)
+                            {
+                                inv.type.updateTerror();
+                            }
+
+                            else if (editing == 8)
+                            {
+                                inv.type.takeDamage(5);
+                            }
+
+                            else if (editing > 0 && editing < 9)
+                            {
+                                Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getDex(), inv.type.getCon(), inv.type.getWis(), inv.type.getCha(),  inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
+                                string name = inv.getName();
+                                string job = inv.getJob();
+                                int count = inv.getCounter();
+                                newI.updateCurrentLife(inv.type.getCurrentLife());
+                                newI.printCharacter();
+                                Individuals<Investigator> t = Individuals<Investigator>(name, newI, count, job);
+                                for (int i=0; i<investigators.size();i++)
+                                {
+                                    if (investigators[i].getName() == inv.getName() && investigators[i].getCounter() == inv.getCounter() )
+                                    {
+                                        investigators.erase(investigators.begin() + i);
+                                        investigators.push_back(t);
+                                        
+                                    }
+                                }
+                                cout << "updated Updated Investigator" << endl;
+                                t.printA();
+                                cout << endl;
+                                sort(investigators.begin(), investigators.end());
+                            }
+
+                            else if (editing < 1 || editing > 8)
+                            {
+                                cout << "Invalid Selection" << endl;
+                            }
+                        } else {
+                            cout << "Error! No PC's found in system!" << endl;
+                        }
+                    }
+                }
+                if (userchoice1 == 2)
+                {
+                    if (IndividualsCreatures.size() != 0){
+                        Individuals<Creature> cr = selectIndividualCreature(IndividualsCreatures);
+                        Creature & cre = cr.getType();
+                        cr.printA();
+                        int editing = uiStatToEdit();
+                        if (editing == 1)
+                        {
+                            cr.type.updateLife();
+                        }
+
+                        else if (editing == 2)
+                        {
+                            cr.type.updateStrength();
+                        }
+
+                        else if (editing == 3)
+                        {
+                            
+                            cr.type.updateNature();
+                            
+                        }
+
+                        else if (editing == 4)
+                        {
+                            
+                            cr.type.updateDisquiet();
+                        }
+
+                        else if (editing == 5)
+                        {
+                            cr.type.updateInt();
+                        }
+
+                        else if (editing == 6)
+                        {
+                            cr.type.takeDamage(5);
+                        }
+
+                        else if(editing >0 || editing < 7 )
+                        {
+                            Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getInt(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet(), cr.type.getType());
+                            string name = cr.getName();
+                            string job = cr.getJob();
+                            int count = cr.getCounter() - 1;
+                            Individuals<Creature> t = Individuals<Creature>(name, newCre, count +1, job);
+                            for (int i=0; i<IndividualsCreatures.size();i++)
+                            {
+                                if (IndividualsCreatures[i].getName() == cr.getName())
+                                {
+                                    IndividualsCreatures.erase(IndividualsCreatures.begin() + i);
+                                    IndividualsCreatures.push_back(t);
+                                }
+                            }
+                            sort(IndividualsCreatures.begin(), IndividualsCreatures.end());
+                        }
+                        else if(editing <= 0 || editing > 5)
+                        {
+                            cout << "Invalid selection" << endl;
+                        }
+                    } else {
+                        cout << "Error! No enemies found in system!" << endl;
+                    }
                 }
             }
         }
