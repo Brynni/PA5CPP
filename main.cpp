@@ -795,65 +795,13 @@ int main()
                 }
                 if (userchoice1 == 2)
                 {
-                    if (IndividualsCreatures.size() != 0){
-                        Individuals<Creature> cr = selectIndividualCreature(IndividualsCreatures);
-                        Creature & cre = cr.getType();
-                        cr.printA();
-                        int editing = uiStatToEdit();
-                        if (editing == 1)
-                        {
-                            cr.type.updateLife();
-                        }
+                    if (creatures.size() != 0){
+                        // start by listing all creatures
+                        seeAllCreatures(creatures);
+                        // select a creature to edit
+                        // select stat to edit
+                        
 
-                        else if (editing == 2)
-                        {
-                            cr.type.updateStrength();
-                        }
-
-                        else if (editing == 3)
-                        {
-                            
-                            cr.type.updateNature();
-                            
-                        }
-
-                        else if (editing == 4)
-                        {
-                            
-                            cr.type.updateDisquiet();
-                        }
-
-                        else if (editing == 5)
-                        {
-                            cr.type.updateInt();
-                        }
-
-                        else if (editing == 6)
-                        {
-                            cr.type.takeDamage(5);
-                        }
-
-                        else if(editing >0 || editing < 7 )
-                        {
-                            Creature newCre = Creature (cr.type.getName(), cr.type.getLife(), cr.type.getStrength(), cr.type.getInt(), cr.type.getDex(), cr.type.getCon(), cr.type.getWis(), cr.type.getCha(), cr.type.getNature(), cr.type.getDisquiet(), cr.type.getType());
-                            string name = cr.getName();
-                            string job = cr.getJob();
-                            int count = cr.getCounter() - 1;
-                            Individuals<Creature> t = Individuals<Creature>(name, newCre, count +1, job);
-                            for (int i=0; i<IndividualsCreatures.size();i++)
-                            {
-                                if (IndividualsCreatures[i].getName() == cr.getName())
-                                {
-                                    IndividualsCreatures.erase(IndividualsCreatures.begin() + i);
-                                    IndividualsCreatures.push_back(t);
-                                }
-                            }
-                            sort(IndividualsCreatures.begin(), IndividualsCreatures.end());
-                        }
-                        else if(editing <= 0 || editing > 5)
-                        {
-                            cout << "Invalid selection" << endl;
-                        }
                     } else {
                         cout << "Error! No enemies found in system!" << endl;
                     }
