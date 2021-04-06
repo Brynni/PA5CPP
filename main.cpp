@@ -778,7 +778,7 @@ int main()
                                         
                                     }
                                 }
-                                cout << "updated Updated Investigator" << endl;
+                                cout << " Updated Investigator" << endl;
                                 t.printA();
                                 cout << endl;
                                 sort(investigators.begin(), investigators.end());

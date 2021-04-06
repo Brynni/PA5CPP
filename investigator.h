@@ -26,6 +26,6 @@ Investigator createInvestigator(Role role);
 Investigator createCustomInvestigator();
 Person createPerson(Role role);
 int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string name);
-void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investigator>> investigators, vector <Individuals<Person> > individualsPersons);
+void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investigator>> &investigators, vector <Individuals<Person> >& individualsPersons);
 #endif
 

@@ -126,3 +126,107 @@ Type: Animal
 Natural
 Disquiet: 1
 #
+Name: Jolli
+Creature
+Life: 56
+Strength: 12
+Intelligence: 10
+Dex: 9
+Con: 8
+Wis: 7
+Cha: 10
+Type: Undead
+Natural
+Disquiet: 3
+#
+Name: 123
+Creature
+Life: 10
+Strength: 10
+Intelligence: 10
+Dex: 10
+Con: 10
+Wis: 10
+Cha: 10
+Type: Undead
+Natural
+Disquiet: 2
+#
+Name: Ari
+Creature
+Life: 10
+Strength: 10
+Intelligence: 10
+Dex: 10
+Con: 10
+Wis: 10
+Cha: 10
+Type: Humanoid
+Natural
+Disquiet: 10
+#
+Name: qweq
+Creature
+Life: 12
+Strength: 10
+Intelligence: 10
+Dex: 8
+Con: 10
+Wis: 10
+Cha: 10
+Type: Undead
+Natural
+Disquiet: 10
+#
+Name: 555
+Creature
+Life: 123
+Strength: 20
+Intelligence: 10
+Dex: 10
+Con: 10
+Wis: 10
+Cha: 10
+Type: Monstrosity
+Natural
+Disquiet: 10
+#
+Name: 22222
+Creature
+Life: 1
+Strength: 1
+Intelligence: 1
+Dex: 1
+Con: 1
+Wis: 1
+Cha: 1
+Type: Animal
+Natural
+Disquiet: 1
+#
+Name: 123333
+Creature
+Life: 1
+Strength: 1
+Intelligence: 1
+Dex: 1
+Con: 1
+Wis: 1
+Cha: 1
+Type: Animal
+Natural
+Disquiet: 1
+#
+Name: imabadboi
+Creature
+Life: 10
+Strength: 10
+Intelligence: 10
+Dex: 10
+Con: 10
+Wis: 10
+Cha: 10
+Type: Humanoid
+Natural
+Disquiet: 10
+#

@@ -268,9 +268,10 @@ int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string nam
 
 
 
-void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investigator>> investigators, vector <Individuals<Person> > individualsPersons)
+void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investigator>> &investigators, vector <Individuals<Person> > &individualsPersons)
 {
     if(roles.size() > 0)
+    //Individuals<Person> t;
     {
         int npc_pc = uiNPCOrPC();
         if(npc_pc == 1)
@@ -318,9 +319,17 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
                 int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
                 string name = sel_role.getName();
                 Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getName());
-                
+                for(Individuals<Investigator> inv: investigators)
+                {
+                    inv.printA();
+                }
                 investigators.push_back(t);
                 t.printA();
+                for(Individuals<Investigator> inv: investigators)
+                {
+                    inv.printA();
+                }
+
                 cout << endl;
             }
 
@@ -337,13 +346,10 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
                 t.printA();
                 cout << endl;
             }
-            else if (basicOrCustom != 1 || basicOrCustom !=2) 
+            else if (basicOrCustom  < 1 || basicOrCustom > 2) 
             {
                 cout << "Invalid choice..." << endl;
             } 
         } 
-    } else
-    {
-        cout << "Invalid selection" << endl;
-    }
+    } 
 }

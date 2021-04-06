@@ -85,3 +85,37 @@ Pug #
 Difficulty: Easy
 Enemies-
 Wolf #
+
+Difficulty: Hard
+Enemies-
+Color Out of space #
+
+Difficulty: Easy
+Enemies-
+Wisp #
+
+Difficulty: Easy
+Enemies-
+Ari #
+
+Difficulty: Medium
+Enemies-
+qweq #
+
+Difficulty: Impossible
+Enemies-
+Ari #
+
+Difficulty: Easy
+Enemies-
+22222 #
+
+Difficulty: Impossible
+Enemies-
+Dust bunny #
+imabadboi #
+
+Difficulty: Impossible
+Enemies-
+Sargon #
+imabadboi #
