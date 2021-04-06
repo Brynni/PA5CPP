@@ -42,23 +42,68 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
 
 void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& characters)
 {
-    cout << "" << endl;
-    cout << "Enemies" << endl;
+    
+    cout << "Before BONGO Sort! " << endl;
+    for (int i = 0; i < characters.size();i++)
+    {
+        cout << characters[i].type; 
+    }
+
+    sort(characters.begin(), characters.end(), [](const Individuals<Investigator>& begin, const Individuals<Investigator>& end)
+    {
+        return begin.type.initiativeRoll > end.type.initiativeRoll;
+    });
+    
+    cout << "After Sort! " << endl;
+    for (int i = 0; i < characters.size();i++)
+    {
+        cout << characters[i].type; 
+    }
+
+    cout << "Before BONGO Sort 2! " << endl;
+    for (int i = 0; i < randomEnc.creatures.size();i++)
+    {
+        cout << randomEnc.creatures[i]; 
+    }
+
+    sort(randomEnc.creatures.begin(), randomEnc.creatures.end(), [](const Creature& begin, const Creature& end)
+    {
+        return begin.initiativeRoll > end.initiativeRoll;
+    });
+    
+    cout << "After Sort 2! " << endl;
+    for (int i = 0; i < randomEnc.creatures.size();i++)
+    {
+        cout << randomEnc.creatures[i]; 
+    }
+    
     for (Creature cre: randomEnc.creatures)
     {
-        cout << cre << endl;
-        cout << "Initive roll: "<<cre.getInitiative() << endl;
-        cout << "" << endl;
+        Creature beast = createCreature(cre);
+        cout << "Name: " <<cre.getName() <<" Initiative roll: "<<cre.getInitiative()<< endl;
     }
     cout << "" << endl;
     cout << "Characters" << endl;
     for (Individuals<Investigator> inv:  characters)
     {
-        cout << inv.type << endl;
-        cout << "Initive roll: " << inv.type.getInitiative() << endl;
-        cout << "" << endl;
+        cout << "Name: " << inv.type.getName() << " Initiative roll: " << inv.type.getInitiative() << endl;
     }
 
+    int countOfAlreadyGivenOrder = 0;
+    int i = 0;
+    int j = 0;
+    while (countOfAlreadyGivenOrder != randomEnc.creatures.size() + characters.size())
+    {
+        if (randomEnc.creatures[i].getInitiative() > characters[j].type.getInitiative())
+        {
+            randomEnc.creatures[i].updateAttackOrder(countOfAlreadyGivenOrder);
+            i++;
+        } else {
+            characters[j].type.updateAttackOrder(countOfAlreadyGivenOrder);
+            j++;
+        }
+        countOfAlreadyGivenOrder++;
+    }
 };
 
 vector<string> generateInitiveOrder(vector<Being> allCharacters)
@@ -66,6 +111,7 @@ vector<string> generateInitiveOrder(vector<Being> allCharacters)
     // We send everything in here and generate a string array;
     // the strings are of type <e/c><i> e = enemey c = character and <i> is the index in correct corresponding vect 
     vector<string>bla;
+    //vector<Being*> initOrder;
     return bla;
 
 };

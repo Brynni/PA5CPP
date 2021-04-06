@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "creature.h"
+#include "investigator.h"
 using namespace std;
 
 class Encounter
@@ -12,6 +13,7 @@ class Encounter
         Encounter(string difficulty);
         string difficulty;
         vector <Creature> creatures;
+        vector <Investigator> heroes;
         friend ostream& operator<<(ostream& out, const Encounter e);
         void addEnemyToEncounter(Creature enemy);
         void changeDifficulty(string newDifficulty);

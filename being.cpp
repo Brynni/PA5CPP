@@ -21,7 +21,8 @@ Being::Being(string name, int life, int strength, int intelligence, int dexterit
     this->charisma = charisma;
     this->attacks = attacks;
     this->weapons = weapons;
-    this->initiveRoll = this->getInitiative();
+    this->initiativeRoll = this->getInitiative();
+    this->attackOrder = 0;
 
 };
 
@@ -306,4 +307,9 @@ void Being::updateCha()
         cin >> newVal;
     }
     this->charisma = newVal;
+};
+
+void Being::updateAttackOrder(int orderInAttackOrder)
+{
+    this->attackOrder = orderInAttackOrder;
 };

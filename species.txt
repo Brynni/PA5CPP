@@ -70,6 +70,10 @@ Creature
 Life: 1
 Strength: 2
 Intelligence: 3
+Dex: 1
+Con: 1
+Wis: 1
+Cha: 1
 Natural
 Disquiet: 3
 Type: Monstrosity

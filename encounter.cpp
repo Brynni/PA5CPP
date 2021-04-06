@@ -10,21 +10,30 @@ Encounter::Encounter(string difficulty)
     vector <Creature> creatures;
     this->difficulty = difficulty;
     this->creatures = creatures;
+    this->heroes = heroes; 
 }
 
 ostream& operator<<(ostream& out, const Encounter e)
 {
     out << "______ENCOUNTER______\n";
     out << "Difficulty: " << e.difficulty << endl;
-    out << "---Enemies---" << endl;
+    
     Creature singleCreature;
+    Investigator singleHero;
     int counter = 0;
-    for (int i = 0; i < e.creatures.size(); i++)
-    {   
-        counter++;
-        singleCreature = e.creatures[i];
-        out << counter << ". " << "Name: "<< singleCreature.getName() << " Hitpoints: " <<singleCreature.getCurrentLife() << "/" << singleCreature.getLife() << endl;
+    if (e.creatures.size() > 0)
+    {
+        out << "---Enemies---" << endl;
+        for (int i = 0; i < e.creatures.size(); i++)
+        {   
+            counter++;
+            singleCreature = e.creatures[i];
+            out << counter << ". " << "Name: "<< singleCreature.getName() << " Hitpoints: " <<singleCreature.getCurrentLife() << "/" << singleCreature.getLife() << endl;
+        }
+    } else {
+        out << "----No Enemies In Encounter----" << endl;
     }
+    
     return out;
 }
 
@@ -32,13 +41,13 @@ void Encounter::addEnemyToEncounter(Creature enemy){
     this->creatures.push_back(enemy);
 }
 
-void Encounter::changeDifficulty(string newDifficulty){
-    this->difficulty = newDifficulty;
-}
-
 void Encounter::removeEnemyFromEncounter(int index){
     
     creatures.erase(creatures.begin()+index);
+}
+
+void Encounter::changeDifficulty(string newDifficulty){
+    this->difficulty = newDifficulty;
 }
 
 void Encounter::clearEncounter(){

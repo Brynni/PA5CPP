@@ -32,7 +32,7 @@ bool checkForNameRole(vector <Role> roles, string name)
     {
         for (Role x_role : roles)
         {
-            if (name == x_role.getName())
+            if (name == x_role.getRoleName())
             {
                 return true;
             }
@@ -503,7 +503,7 @@ void FileReader::RemovePersonRoleFromFile(Role role, string filename)
                 chaMax = std::stoi(fileStream);
             }
 
-            else if (fileStream == "#" && roleName != "" && roleName != role.getName()){
+            else if (fileStream == "#" && roleName != "" && roleName != role.getRoleName()){
                 
                 NewRole =   NewRole + 
                             "roleName: " + roleName + "\n" + 

@@ -43,7 +43,7 @@ void printIndividualInvestigator(vector <Individuals<Investigator> > investigato
     for (Individuals<Investigator> i: investigators)
     {
         counter ++;
-        cout << counter << ". " << i.getName() << " " <<  endl;
+        cout << counter << ". " << i.type.getName() << " " <<  endl;
     }
 }
 
@@ -115,16 +115,33 @@ Individuals<Investigator> selectIndividualInvestigator(vector <Individuals<Inves
     printIndividualInvestigator(investigators);
     cout << endl;
     int selection;
-    cout << "Select what Investigator you would like to select for editing: ";
+    cout << "Select an PC: ";
     cin >> selection;
     while(selection < 1 || selection > investigators.size())
     {
         cout << "Invalid Selection!, your range is 1 - " << investigators.size() << endl;
-        cout << "Select what creature you would like to select for editing: ";
+        cout << "Select an PC: ";
         cin >> selection;
     }
 
     return investigators[selection -1];
+}
+
+int getIndexOfInvestigator(vector <Individuals<Investigator> > investigators)
+{
+    printIndividualInvestigator(investigators);
+    cout << endl;
+    int selection;
+    cout << "Select an PC: ";
+    cin >> selection;
+    while(selection < 1 || selection > investigators.size())
+    {
+        cout << "Invalid Selection!, your range is 1 - " << investigators.size() << endl;
+        cout << "Select an PC: ";
+        cin >> selection;
+    }
+
+    return (selection -1);
 }
 
 
@@ -142,6 +159,7 @@ int main()
     vector <Individuals<Investigator>> investigators;
     vector <Individuals<Person> > individualsPersons;
     vector <Individuals<Creature> > IndividualsCreatures;
+    vector <Individuals<Investigator>> gameInvestigators;
 
     //All vectors pertaining to game mechanics
     vector <Dice> allDice;
@@ -313,7 +331,6 @@ int main()
             }
 
             cout << endl;
-
         }
 
 
@@ -493,7 +510,7 @@ int main()
                     //Remove the role from the role vector as per the Occamz razor sollution
                     for (int i = 0; i < roles.size(); i++)
                     {
-                        if (roles[i].getName() == sel_role.getName())
+                        if (roles[i].getRoleName() == sel_role.getRoleName())
                         {
                             roles.erase (roles.begin() + i);
                         }
@@ -519,7 +536,7 @@ int main()
         else if (user_choice == 8)
         {
             int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being\n\t7. Not final version of path 7. Edit/delete encounter\n\t8.BattleTest"<< endl;
+            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being\n\t7. Not final version of path 7. Edit/delete encounter\n\t8.Battle Test\n\t9.Select/remove Character for game session -- Path 8"<< endl;
             cin >>select_test;
             if (select_test == 0){
                 Dice selectedDice = selectIndividualDice(allDice);
@@ -907,8 +924,7 @@ int main()
             // Battle test hereeee
             else if(select_test == 8)
             {
-                if (investigators.size() > 0)
-
+                if (gameInvestigators.size() > 0)
                 {// Start by seleting encounter
                 int randEnc;
 
@@ -935,7 +951,7 @@ int main()
                 while (keepAdding)
                 {
                     cout << "Add Characters" << endl;
-                    Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
+                    Individuals<Investigator> inv = selectIndividualInvestigator(gameInvestigators);
                     selInv.push_back(inv);
                     cout << "Keep adding?" << endl;
                     cout <<"1. yes" << endl;
@@ -955,13 +971,43 @@ int main()
                         keepAdding = false;
                     }
                 }
-                battleEnv(selEnc, selInv);}
-
-
+                battleEnv(selEnc, selInv);
+                } else {
+                    cout << "Error! No investigator found!" << endl;
+                }
+            }
+            else if(select_test == 9)
+            {
+                int userChoice = uiSelectOrRemoveFromEncounter();
+                if (userChoice == 1)
+                {
+                    //Add character to game
+                    if (investigators.size() != 0)
+                    {
+                        gameInvestigators.push_back(selectIndividualInvestigator(investigators));
+                    } else {
+                        cout << "Error! No investigators in the system!" << endl;
+                    } 
+                }
+                if (userChoice == 2)
+                {
+                    //Remove character from game
+                    if (gameInvestigators.size() != 0)
+                    {
+                        for (int i = 0; i < gameInvestigators.size(); i++)
+                        {
+                            int userChoice2 = getIndexOfInvestigator(gameInvestigators);
+                            gameInvestigators.erase (gameInvestigators.begin()+userChoice2);
+                        }
+                    } else{
+                        cout << "Error! No investigators in the system!" << endl;
+                    }
+                    
+                }
             }
         }
 
-        // Testing area for createing weapons and attacks
+        // Testing area for creating weapons and attacks
         else if (user_choice == 9)
         {
             int w_or_s; 

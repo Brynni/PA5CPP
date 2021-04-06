@@ -57,7 +57,7 @@ int Role::getTerror()
 
 
 
-string Role::getName()
+string Role::getRoleName()
 {
     return this->roleName;
 }
@@ -134,7 +134,7 @@ void seeAllRoles(vector<Role> roles)
     for (Role r : roles)
     {
         counter ++;
-        cout << counter << ". " << r.getName() << endl;
+        cout << counter << ". " << r.getRoleName() << endl;
     }
 }
 

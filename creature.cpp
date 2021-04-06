@@ -39,7 +39,7 @@ ostream& operator<<(ostream& out, const Creature c)
     {
         out << "Natural: False" << endl;
     }
-    out << "Disquiet: " << c.disquiet;
+    out << "Disquiet: " << c.disquiet << endl;
     return out;
 }
 

@@ -17,7 +17,7 @@ class Role
             int dexMin, int dexMax, int wisMin, int wisMax, int conMin, int conMax, int chaMin, int chaMax);
         friend ostream& operator<<(ostream& out, const Role r);
         Role generateNewRole();
-        string getName();
+        string getRoleName();
         void printInfo();
         int generateHealth();
         int generateStrength();

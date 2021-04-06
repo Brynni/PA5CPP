@@ -282,9 +282,9 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
             {
                 
                 Person human = createPerson(sel_role);
-                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                string name = sel_role.getName();
-                Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getName());
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getRoleName());
+                string name = sel_role.getRoleName();
+                Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getRoleName());
                 individualsPersons.push_back(t);
                 t.printA();
                 cout << endl;
@@ -297,8 +297,8 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
                 cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, name);   
                 Person human = createCustomPerson();
-                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getName());
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getRoleName());
+                Individuals<Person> t = Individuals<Person>(name, human, countOfRole +1, sel_role.getRoleName());
                 individualsPersons.push_back(t);
                 t.printA();
                 cout << endl;
@@ -316,9 +316,9 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
             {
                 
                 Investigator human = createInvestigator(sel_role);
-                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                string name = sel_role.getName();
-                Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getName());
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getRoleName());
+                string name = sel_role.getRoleName();
+                Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getRoleName());
                 for(Individuals<Investigator> inv: investigators)
                 {
                     inv.printA();
@@ -340,8 +340,8 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
                 cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, name);
                 Investigator human = createCustomInvestigator();
-                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getName());
-                Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getName());
+                int countOfRole = getNumberOfRoles(individualsPersons, sel_role.getRoleName());
+                Individuals<Investigator> t = Individuals<Investigator>(name, human, countOfRole +1, sel_role.getRoleName());
                 investigators.push_back(t);
                 t.printA();
                 cout << endl;
