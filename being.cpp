@@ -175,7 +175,9 @@ int Being::getCurrentLife()
 }
 
 void Being::AddAttackToBeing(Attack &attack){
-    this->attacks.push_back(attack);
+    //this->attacks.push_back(attack);
+    vector<Attack>&newAttacks = this->attacks;
+    newAttacks.push_back(attack);
 }
 
 void Being::AddWeaponToBeing(Weapon &weapon)

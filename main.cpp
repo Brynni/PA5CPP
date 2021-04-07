@@ -600,6 +600,7 @@ int main()
                     Creature selectedCreature = selectCreatureWithType(creatures, enemyType);
                     Attack selectedAttack = selectAttack(attacks);
                     selectedCreature.AddAttackToBeing(selectedAttack);
+                    selectedCreature.printAttacks();
                 }
                 if (userChoice == 2)
                 {
