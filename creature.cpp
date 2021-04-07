@@ -6,7 +6,7 @@
 using namespace std;
 
 
-Creature::Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet, string type) : Being(name, life, strength, intelligence, dex, con, wis, cha)
+Creature::Creature(const string & name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet, const string & type) : Being(name, life, strength, intelligence, dex, con, wis, cha)
 {
     this->name = name;
     this->natural = natural;
@@ -18,7 +18,7 @@ Creature::Creature(string name, int life, int strength, int intelligence, int de
 // Calls the constructor above
 Creature::Creature() : Creature("doggy" , 5, 5, 5, 5, 5, 5, 5, true, 5, "animal"){};
 
-ostream& operator<<(ostream& out, const Creature c)
+ostream& operator<<(ostream& out, const Creature &c)
 {
     out << "Creature: " << c.name << endl;
     out << "Type: " << c.type << endl;
@@ -88,7 +88,7 @@ Creature createCreature(Creature sp)
 
 };
 
-void seeAllCreatures(vector<Creature> creatures)
+void seeAllCreatures(const vector<Creature>& creatures)
 {
     cout << "Species of type creature: " << endl;
     int counter = 0;
@@ -100,7 +100,7 @@ void seeAllCreatures(vector<Creature> creatures)
         }
 };
 
-vector<Creature> seeAllCreaturesOfType(vector<Creature> creatures, string type)
+vector<Creature> seeAllCreaturesOfType(const vector<Creature> & creatures, const string &type)
 {
     vector<Creature> tempCreatures;
     cout << "Species of type " << type << ": " << endl;
@@ -118,7 +118,7 @@ vector<Creature> seeAllCreaturesOfType(vector<Creature> creatures, string type)
     return tempCreatures;
 };
 
-int countAllCreaturesOfType(vector<Creature> creatures, string type)
+int countAllCreaturesOfType(const vector<Creature> & creatures, const string & type)
 {
     vector<Creature> tempCreatures;
     int counter = 0;
@@ -280,7 +280,7 @@ Creature createCustomCreature()
         return beast;
 }
 
-Creature selectCreature(vector<Creature> creatures)
+Creature selectCreature(const vector<Creature> &creatures)
 {
     seeAllCreatures(creatures);
     int selection;
@@ -297,7 +297,7 @@ Creature selectCreature(vector<Creature> creatures)
     return creatures[selection -1];
 }
 
-Creature selectCreatureWithType(vector<Creature> creatures, string type)
+Creature selectCreatureWithType(const vector<Creature>&creatures, const string &type)
 {
     vector <Creature> tempCreatures = seeAllCreaturesOfType(creatures, type);
     int selection;
@@ -314,7 +314,7 @@ Creature selectCreatureWithType(vector<Creature> creatures, string type)
     return tempCreatures[selection - 1];
 }
 
-Creature selectCreatureWithName(vector<Creature> creatures, string name)
+Creature selectCreatureWithName(const vector<Creature> &creatures, const string &name)
 {
     Creature tempCreature;
     for (Creature sp : creatures )

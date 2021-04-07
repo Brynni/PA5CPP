@@ -5,7 +5,7 @@
 #include <algorithm>
 using namespace std;
 
-Encounter getRandomEncounter(int difficulty, vector<Encounter>AllEncounters)
+Encounter getRandomEncounter(int difficulty, const vector<Encounter>&AllEncounters)
 {
     vector<Encounter> shuffledVector = shuffleVector(AllEncounters);
     Encounter randEnc = randomEncounter(shuffledVector, difficulty);
@@ -160,15 +160,15 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
     
 };
 
-vector<string> generateInitiveOrder(vector<Being> allCharacters)
-{
-    // We send everything in here and generate a string array;
-    // the strings are of type <e/c><i> e = enemey c = character and <i> is the index in correct corresponding vect 
-    vector<string>bla;
-    //vector<Being*> initOrder;
-    return bla;
+// vector<string> generateInitiveOrder(vector<Being> allCharacters)
+// {
+//     // We send everything in here and generate a string array;
+//     // the strings are of type <e/c><i> e = enemey c = character and <i> is the index in correct corresponding vect 
+//     vector<string>bla;
+//     //vector<Being*> initOrder;
+//     return bla;
 
-};
+// };
 
 bool checkIfEncounterIsOver(vector<Individuals<Investigator>> &characters,  vector<Creature> &enemies)
 {
@@ -217,12 +217,12 @@ bool checkIfAllEnemiesAreDead(vector <Creature>& creatures)
     return areAllEnemiesDead;
 };
 
-bool checkIfSingleEnemeyIsDead(Creature enemey)
+bool checkIfSingleEnemeyIsDead(const Creature &enemey)
 {
     return true;
 }
 
-bool checkIfSingleCharacterIsDead(Investigator character)
+bool checkIfSingleCharacterIsDead(Investigator &character)
 {
     return true;
 };

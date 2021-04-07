@@ -15,8 +15,8 @@ class Being
 {
     public:
         Being();
-        Being(string name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma);
-        friend ostream& operator<<(ostream& out, const Being b);
+        Being(const string &name, int life, int strength, int intelligence, int constitution, int dexterity, int wisdom, int charisma);
+        friend ostream& operator<<(ostream& out, const Being &b);
         string name;
         int life, damage, currentLife, strength, intelligence, constitution, dexterity,  wisdom,  charisma;
         int initiativeRoll, attackOrder;
@@ -40,7 +40,7 @@ class Being
         int getInitiative();
         int getCurrentLife();
         const string getName();
-        void updateStat(string ability);
+        void updateStat(const string &ability);
         void updateCon();
         void updateDex();
         void updateWis();

@@ -9,12 +9,13 @@ class Creature : public Being
 {
     public:
         Creature();
-        Creature(string name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet, string type);
-        friend ostream& operator<<(ostream& out, const Creature c);
+        Creature(const string& name, int life, int strength, int intelligence, int dex, int con, int wis, int cha, bool natural, int disquiet, const string & type);
+        friend ostream& operator<<(ostream& out, const Creature &c);
         //void updateLife(Creature& cre);
         void updateDisquiet();
         void updateNature();
         void printInfo();
+        void seeDetailCreatures(vector<Creature> creatures);
         int getDisquiet();
         string getType();
         bool getNature();
@@ -28,13 +29,13 @@ class Creature : public Being
 };
 
 Creature createCreature(Creature sp);
-void seeAllCreatures(vector<Creature> creatures);
+void seeAllCreatures(const vector<Creature>& creatures);
 void seeDetailCreatures(vector<Creature> creatures);
 Creature createCustomCreature();
-Creature selectCreature(vector<Creature> creatures);
-Creature selectCreatureWithType(vector<Creature> creatures, string type);
-vector<Creature> seeAllCreaturesOfType(vector<Creature> creatures, string type);
-int countAllCreaturesOfType(vector<Creature> creatures, string type);
-Creature selectCreatureWithName(vector<Creature> creatures, string name);
+Creature selectCreature(const vector<Creature> &creatures);
+Creature selectCreatureWithType(const vector<Creature>& creatures, const string& type);
+vector<Creature> seeAllCreaturesOfType(const vector<Creature>& creatures, const string& type);
+int countAllCreaturesOfType(const vector<Creature> & creatures, const string & type);
+Creature selectCreatureWithName(const vector<Creature> &creatures, const string & name);
 
 #endif
