@@ -23,8 +23,8 @@ class Being
         vector <Attack> attacks;
         vector <Weapon> weapons;
 
-        void AddAttackToBeing(Attack attack);
-        void AddWeaponToBeing(Weapon weapon);
+        void AddAttackToBeing(Attack &attack);
+        void AddWeaponToBeing(Weapon &weapon);
         void takeDamage(int attackDamage);
         void healDamage(int healingPoints);
         void updateLife();

@@ -174,11 +174,11 @@ int Being::getCurrentLife()
     return this->currentLife;
 }
 
-void Being::AddAttackToBeing(Attack attack){
+void Being::AddAttackToBeing(Attack &attack){
     this->attacks.push_back(attack);
 }
 
-void Being::AddWeaponToBeing(Weapon weapon)
+void Being::AddWeaponToBeing(Weapon &weapon)
 {
     this->weapons.push_back(weapon);
 }

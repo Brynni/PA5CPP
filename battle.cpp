@@ -53,6 +53,8 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
     {
         return begin.type.initiativeRoll > end.type.initiativeRoll;
     });
+
+    
     
     cout << "After Sort! " << endl;
     for (int i = 0; i < characters.size();i++)
@@ -71,23 +73,15 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         return begin.initiativeRoll > end.initiativeRoll;
     });
     
+    
     cout << "After Sort 2! " << endl;
     for (int i = 0; i < randomEnc.creatures.size();i++)
     {
-        cout << randomEnc.creatures[i]; 
+        cout << randomEnc.creatures[i];
+        cout << randomEnc.creatures[i].attackOrder; 
     }
     
-    for (Creature cre: randomEnc.creatures)
-    {
-        Creature beast = createCreature(cre);
-        cout << "Name: " <<cre.getName() <<" Initiative roll: "<<cre.getInitiative()<< endl;
-    }
-    cout << "" << endl;
-    cout << "Characters" << endl;
-    for (Individuals<Investigator> inv:  characters)
-    {
-        cout << "Name: " << inv.type.getName() << " Initiative roll: " << inv.type.getInitiative() << endl;
-    }
+    
     
     cout << "Giving attack order!" << endl;
     int countOfAlreadyGivenOrder = 0;
@@ -99,62 +93,108 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         {
             randomEnc.creatures[i].updateAttackOrder(countOfAlreadyGivenOrder);
             i++;
-        } else {
+            countOfAlreadyGivenOrder++;
+        } 
+        else if (j < characters.size()){
             characters[j].type.updateAttackOrder(countOfAlreadyGivenOrder);
             j++;
+            countOfAlreadyGivenOrder++;
         }
-        countOfAlreadyGivenOrder++;
+        else if(j == characters.size()){
+            randomEnc.creatures[i].updateAttackOrder(countOfAlreadyGivenOrder);
+            i++;
+            countOfAlreadyGivenOrder++;
+        }
+        
     }
-    cout << "The amount of creatures:  " << countOfAlreadyGivenOrder << endl;
-    cout << "Starting the battle itself" << endl;
+
+    sort(characters.begin(), characters.end(), [](const Individuals<Investigator>& begin, const Individuals<Investigator>& end)
+    {
+        return begin.type.attackOrder < end.type.attackOrder;
+    });
+
+    sort(randomEnc.creatures.begin(), randomEnc.creatures.end(), [](const Creature& begin, const Creature& end)
+    {
+        return begin.attackOrder < end.attackOrder;
+    });
+
+    for (Creature cre: randomEnc.creatures)
+    {
+        Creature beast = createCreature(cre);
+        cout << "Name: " <<cre.getName() <<  " Attack order: " << cre.attackOrder << " Initiative roll: "<<cre.getInitiative()<< endl;
+    }
+    cout << "" << endl;
+    cout << "Characters" << endl;
+    for (Individuals<Investigator> inv:  characters)
+    {
+        cout << "Name: " << inv.type.getName() << " Attack order: " << inv.type.attackOrder << " Initiative roll: " << inv.type.getInitiative() << endl;
+    }
+
+    //cout << "The amount of creatures:  " << countOfAlreadyGivenOrder << endl;
+    //cout << "Starting the battle itself" << endl;
     bool encounterIsFinished = false;
     while (encounterIsFinished == false)
     {
-        cout << "in the while loop!" << endl;
+        //cout << "in the while loop!" << endl;
         int currentOrder = 0;
         int attackSelect;
         int i = 0;
         int j = 0;
-        for (i, j; currentOrder < countOfAlreadyGivenOrder;)
+        for (i, j; currentOrder + 1 < countOfAlreadyGivenOrder;)
         {
-            cout << "in the for loop! " << endl;
+            //cout << "in the for loop! " << endl;
+            cout << "current order -- " << currentOrder << endl;
+            if (randomEnc.creatures.size() != i)
+            {
+                cout << "Enemies attack order --" << randomEnc.creatures[i].getAttackOrder() << endl;
+            } else {
+                cout << "Enemies attack order --" << randomEnc.creatures[i - 1].getAttackOrder() << endl;
+            }
+
+            if (characters.size() != j)
+            {
+                cout << "Heroes attack order --" << characters[j].type.getAttackOrder() << endl;
+            } else {
+                cout << "Heroes attack order --" << characters[j-1].type.getAttackOrder() << endl;
+            }
+            
             if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()==currentOrder)
             {
+                i++;
+                currentOrder++;
                 if (randomEnc.creatures[i].attacks.size() > 0){
                     randomEnc.creatures[i].printAttacks();
                     cin >> attackSelect;
                     Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect];
                     Individuals<Investigator> selectedInvestigator = selectIndividualInvestigator(characters);
                     selectedInvestigator.type.takeDamage(selectedAttack.outPutDamage());
+                    
+                    
                 } else {
                     cout << randomEnc.creatures[i].getName() << " has no attacks" << endl;
                 }
-                i++;
-
+                
             }
             else if(j < characters.size() && characters[j].type.getAttackOrder()==currentOrder)
             {
+                j++;
+                currentOrder++;
                 if (characters[i].type.attacks.size() > 0) {
                 characters[j].type.printAttacks();
                 cin >> attackSelect;
                 Attack selectedAttack = characters[j].type.attacks[attackSelect];
                 Creature selectedCreature = selectCreature(randomEnc.creatures);
                 selectedCreature.takeDamage(selectedAttack.outPutDamage());
-                j++; 
                 } else {
                     cout << "This human has no attacks" << endl;
                 }
             }
-            currentOrder++;
+            
             if (checkIfEncounterIsOver(characters, randomEnc.creatures))
             {
                 cout << "Battle is over!" << endl;
                 encounterIsFinished = true;
-            }
-            if (currentOrder == countOfAlreadyGivenOrder)
-            {
-                currentOrder = 0;
-            }
+            } 
         }
     }
     
