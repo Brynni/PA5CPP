@@ -9,8 +9,8 @@ class Attack
 {
     public:
         Attack();
-        Attack(string name, string proficiencyAbility, Dice dice, int amountOfDiceThrown);
-        friend ostream& operator<<(ostream& out, const Attack a);
+        Attack(const string &name, const string & proficiencyAbility, const Dice & dice, int amountOfDiceThrown);
+        friend ostream& operator<<(ostream& out, const Attack & a);
 
         string name, proficiencyAbility;
         Dice dice; 
@@ -21,6 +21,6 @@ class Attack
 
 void seeAllAttacks(vector<Attack> attacks);
 Attack selectAttack(vector<Attack> attacks);
-Attack createIndividualAttack (vector<Dice> allDice);
+Attack createIndividualAttack (const vector<Dice>& allDice);
 
 #endif

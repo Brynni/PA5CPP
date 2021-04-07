@@ -10,7 +10,7 @@ template<class T>
 class Individuals
 {
     public:
-        Individuals(string name, T type, int counter, string job){
+        Individuals(const string & name, const T & type, int counter, const string & job){
             this->name = name;
             this->type = type;
             this->counter = counter;

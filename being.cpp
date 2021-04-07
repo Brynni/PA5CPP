@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Being::Being(string name, int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma)
+Being::Being(const string &name, int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma)
 {   
     std::vector <Attack> attacks;
     this->name = name;
@@ -30,7 +30,7 @@ Being::Being(string name, int life, int strength, int intelligence, int dexterit
 Being::Being() : Being ("being", 5,5,5,5,5,5,5){};
 
 
-ostream& operator<<(ostream& out, const Being b)
+ostream& operator<<(ostream& out, const Being &b)
 {
     out << "Being\n";
     out << "Max Life: " << b.life << endl;
@@ -205,7 +205,7 @@ int Being::getInitiative()
 
 }
 
-void Being::updateStat(string ability)
+void Being::updateStat(const string& ability)
 {
     //Life
     if (ability == "Life")

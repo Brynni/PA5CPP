@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Attack::Attack(string name, string proficiencyAbility, Dice dice, int amountOfDiceThrown)
+Attack::Attack(const string& name, const string& proficiencyAbility, const Dice& dice, int amountOfDiceThrown)
 {   
     this->name = name;
     this->proficiencyAbility = proficiencyAbility;
@@ -14,7 +14,7 @@ Attack::Attack(string name, string proficiencyAbility, Dice dice, int amountOfDi
     this->amountOfDiceThrown = amountOfDiceThrown;
 };
 
-ostream& operator<<(ostream& out, const Attack a)
+ostream& operator<<(ostream& out, const Attack & a)
 {
     out << "|" << a.name << "|" << endl;
     out << "Lowest possible damage: 1 Highest possible damage " << a.dice.sides * a.amountOfDiceThrown << endl; 
@@ -24,7 +24,7 @@ ostream& operator<<(ostream& out, const Attack a)
 
 Attack::Attack() : Attack("punch","Strength", Dice(), 1){};
 
-Attack createIndividualAttack (vector<Dice> allDice)
+Attack createIndividualAttack (const vector<Dice>& allDice)
 {
     string name, proficiencyAbbility; 
     Dice dice;

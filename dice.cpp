@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Dice::Dice(string name, string nickname, int sides)
+Dice::Dice(const string &name, const string& nickname, int sides)
 {
     this->name = name;
     this->nickname = nickname;
@@ -14,7 +14,7 @@ Dice::Dice(string name, string nickname, int sides)
 
 Dice::Dice() : Dice("mobius strip", "D1", 1){};
 
-ostream& operator<<(ostream& out, const Dice d)
+ostream& operator<<(ostream& out, const Dice &d)
 {
     out << "Dice\n";
     out << "Name: " << d.name << endl;
@@ -45,7 +45,7 @@ string Dice::getNickname()
     return this->nickname;
 }
 
-void initializeBaseDice(vector <Dice> &allDice)
+void initializeBaseDice( vector <Dice> &allDice)
 {
     Dice d20( "ICOSAHEDRON", "D20", 20);
     Dice d12( "DODECAHEDRON", "D12", 12);
@@ -72,7 +72,7 @@ void printIndividualDice(vector <Dice> allDice)
     }
 };
 
-Dice selectIndividualDice(vector <Dice> allDice)
+Dice selectIndividualDice(const vector <Dice> &allDice)
 {
     printIndividualDice(allDice);
     cout << endl;
@@ -89,7 +89,7 @@ Dice selectIndividualDice(vector <Dice> allDice)
     return allDice[selection -1];
 }
 
-Dice selectIndividualDiceByNickname(vector <Dice> allDice, string nickname)
+Dice selectIndividualDiceByNickname(vector <Dice> allDice, const string& nickname)
 {
     for (int i = 0; i < allDice.size(); i++)
     {

@@ -8,8 +8,8 @@ class Dice
 {
     public:
         Dice();
-        Dice(string name, string nickname, int sides);
-        friend ostream& operator<<(ostream& out, const Dice d);
+        Dice(const string & name, const string & nickname, int sides);
+        friend ostream& operator<<(ostream& out, const Dice& d);
         
         int rollDice();
         string getName();
@@ -23,6 +23,6 @@ class Dice
 
 void initializeBaseDice(vector <Dice> &allDice);
 void printIndividualDice(vector <Dice> allDice);
-Dice selectIndividualDice(vector <Dice> allDice);
-Dice selectIndividualDiceByNickname(vector <Dice> allDice, string nickname);
+Dice selectIndividualDice(const vector <Dice>& allDice);
+Dice selectIndividualDiceByNickname(vector <Dice> allDice, const string & nickname);
 #endif
