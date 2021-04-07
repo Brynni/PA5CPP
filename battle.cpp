@@ -127,7 +127,7 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                     Individuals<Investigator> selectedInvestigator = selectIndividualInvestigator(characters);
                     selectedInvestigator.type.takeDamage(selectedAttack.outPutDamage());
                 } else {
-                    cout << "This being has no attacks" << endl;
+                    cout << randomEnc.creatures[i].getName() << " has no attacks" << endl;
                 }
                 i++;
 
@@ -183,7 +183,6 @@ bool checkIfEncounterIsOver(vector<Individuals<Investigator>> &characters,  vect
 
 bool checkIfAllCharactersAreDead(vector<Individuals<Investigator>>& characters)
 {
-    cout << "Checking if heroes are dead "<< endl;
     bool areAllCharactersDead = false;
     int deadCharacterCount = 0;
     for (int i = 0; i < characters.size();i++)
@@ -202,7 +201,6 @@ bool checkIfAllCharactersAreDead(vector<Individuals<Investigator>>& characters)
 };
 bool checkIfAllEnemiesAreDead(vector <Creature>& creatures)
 {
-    cout << "Checking if creatures are dead "<< endl;
     bool areAllEnemiesDead=false;
     int deadCharacterCount = 0;
     for (int i = 0; i < creatures.size();i++)
