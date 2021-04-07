@@ -13,3 +13,6 @@ Pug #
 Wisp #
 Wisp #
 Pug #
+Difficulty: Impossible
+Enemies-
+Ari #

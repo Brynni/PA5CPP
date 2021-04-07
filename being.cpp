@@ -10,6 +10,7 @@ using namespace std;
 Being::Being(const string &name, int life, int strength, int intelligence, int dexterity, int constitution, int wisdom, int charisma)
 {   
     std::vector <Attack> attacks;
+    std::vector <Weapon> weapons;
     this->name = name;
     this->life = life;
     this->currentLife = life;
@@ -175,10 +176,7 @@ int Being::getCurrentLife()
 }
 
 void Being::AddAttackToBeing(Attack &attack){
-    //this->attacks.push_back(attack);
-    vector<Attack>&newAttacks = this->attacks;
-    newAttacks.push_back(attack);
-    this->attacks = newAttacks;
+    this->attacks.push_back(attack);
 }
 
 void Being::AddWeaponToBeing(Weapon &weapon)
@@ -187,6 +185,7 @@ void Being::AddWeaponToBeing(Weapon &weapon)
 }
 
 void Being::printAttacks(){
+    cout << attacks.size();
     cout << "_____________UNARMED ATTACKS_____________" << endl;
     for (int i=0; i < attacks.size(); i++)
     {
@@ -321,10 +320,4 @@ int Being::getAttackOrder()
 {
     return this->attackOrder;
 };
-
-vector<Attack> &Being::getAttacksVector()
-{
-   return attacks;
-}
-
 
