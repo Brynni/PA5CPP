@@ -105,16 +105,19 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         }
         countOfAlreadyGivenOrder++;
     }
+    cout << "The amount of creatures:  " << countOfAlreadyGivenOrder << endl;
     cout << "Starting the battle itself" << endl;
-    while (checkIfEncounterIsOver(characters, randomEnc.creatures))
+    bool encounterIsFinished = false;
+    while (encounterIsFinished == false)
     {
-        
-        int i = 0;
-        int j = 0;
+        cout << "in the while loop!" << endl;
         int currentOrder = 0;
         int attackSelect;
-        for (i,j;i+j<countOfAlreadyGivenOrder;)
+        int i = 0;
+        int j = 0;
+        for (i, j; currentOrder < countOfAlreadyGivenOrder;)
         {
+            cout << "in the for loop! " << endl;
             if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()==currentOrder)
             {
                 if (randomEnc.creatures[i].attacks.size() > 0){
@@ -143,8 +146,18 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                 }
             }
             currentOrder++;
+            if (checkIfEncounterIsOver(characters, randomEnc.creatures))
+            {
+                cout << "Battle is over!" << endl;
+                encounterIsFinished = true;
+            }
+            if (currentOrder == countOfAlreadyGivenOrder)
+            {
+                currentOrder = 0;
+            }
         }
     }
+    
 };
 
 vector<string> generateInitiveOrder(vector<Being> allCharacters)
