@@ -42,7 +42,17 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
 
 void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& characters)
 {
-    
+    for (Individuals<Investigator> inv : characters)
+    {
+        inv.type.printAttacks();
+    }
+
+    for (Creature c : randomEnc.creatures)
+    {
+        c.printAttacks();
+    }
+
+
     cout << "Before BONGO Sort! " << endl;
     for (int i = 0; i < characters.size();i++)
     {

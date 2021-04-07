@@ -48,6 +48,8 @@ class Being
         void printAttacks();
         void updateAttackOrder(int orderInAttackOrder);
         int getAttackOrder();
+        vector<Attack>&getAttacksVector();
+        vector <Weapon> & getWeaponsVector();
 
        
 

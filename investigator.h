@@ -28,6 +28,6 @@ Person createPerson(Role role);
 int getNumberOfRoles(vector<Individuals<Person> > individualsPersons, string name);
 void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investigator>> &investigators, vector <Individuals<Person> >& individualsPersons);
 void printIndividualInvestigator(vector <Individuals<Investigator> > investigators);
-Individuals<Investigator> selectIndividualInvestigator(vector <Individuals<Investigator> > investigators);
+Individuals<Investigator> &selectIndividualInvestigator(vector <Individuals<Investigator> >& investigators);
 #endif
 

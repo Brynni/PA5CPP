@@ -81,7 +81,7 @@ Individuals<Creature> selectIndividualCreature(vector <Individuals<Creature> > i
     return individualCreatures[selection -1];
 }
 
-Individuals<Person> selectIndividualPerson(vector <Individuals<Person> > individualPersons)
+Individuals<Person>& selectIndividualPerson(vector <Individuals<Person> > individualPersons)
 {
     printIndividualPersons(individualPersons);
     cout << endl;
@@ -597,10 +597,17 @@ int main()
                 if (userChoice == 1)
                 {
                     string enemyType = uiSelectBeingType();
-                    Creature selectedCreature = selectCreatureWithType(creatures, enemyType);
+                    Creature &selectedCreature = selectCreatureWithType(creatures, enemyType);
                     Attack selectedAttack = selectAttack(attacks);
-                    selectedCreature.AddAttackToBeing(selectedAttack);
+                    cout << "BEFORE UPDATE ATTACKS" << endl;
                     selectedCreature.printAttacks();
+                    vector<Attack> theAttacksVector = selectedCreature.getAttacksVector();
+                    theAttacksVector.push_back(selectedAttack);
+                    //selectedCreature.printAttacks();
+                    selectedCreature.getAttacksVector() = theAttacksVector;
+                    cout << "AFTER UPDATE" << endl;
+                    selectedCreature.printAttacks();
+
                 }
                 if (userChoice == 2)
                 {
@@ -608,15 +615,26 @@ int main()
                     if (userChoice == 1)
                     {
                         
-                        Individuals<Person> p = selectIndividualPerson(individualsPersons);
+                        Individuals<Person> & p = selectIndividualPerson(individualsPersons);
                         Attack selectedAttack = selectAttack(attacks);
-                        p.type.AddAttackToBeing(selectedAttack);
+                        vector<Attack> theAttacksVector = p.getType().getAttacksVector();
+                        theAttacksVector.push_back(selectedAttack);
+                        p.getType().printAttacks();
+                        p.getType().getAttacksVector() = theAttacksVector;
+                        p.type.printAttacks();
                     }
                     if (userChoice == 2)
                     {
-                        Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
+                        
+                        Individuals<Investigator>& inv = selectIndividualInvestigator(investigators);
                         Attack selectedAttack = selectAttack(attacks);
-                        inv.type.AddAttackToBeing(selectedAttack);
+                        vector<Attack> theAttacksVector = inv.getType().getAttacksVector();
+                        theAttacksVector.push_back(selectedAttack);
+                        inv.getType().printAttacks();
+                        inv.getType().getAttacksVector() = theAttacksVector;
+                        inv.type.printAttacks();
+
+
                     }
                 }
                 if (userChoice == 3)
@@ -923,8 +941,10 @@ int main()
                 while (keepAdding)
                 {
                     cout << "Add Characters" << endl;
-                    Individuals<Investigator> inv = selectIndividualInvestigator(gameInvestigators);
+                    Individuals<Investigator>& inv = selectIndividualInvestigator(gameInvestigators);
                     selInv.push_back(inv);
+                    // This is the shit we need to fix
+                    inv.type.printAttacks();
                     cout << "Keep adding?" << endl;
                     cout <<"1. yes" << endl;
                     cout <<"2. no" << endl;

@@ -178,6 +178,7 @@ void Being::AddAttackToBeing(Attack &attack){
     //this->attacks.push_back(attack);
     vector<Attack>&newAttacks = this->attacks;
     newAttacks.push_back(attack);
+    this->attacks = newAttacks;
 }
 
 void Being::AddWeaponToBeing(Weapon &weapon)
@@ -320,3 +321,10 @@ int Being::getAttackOrder()
 {
     return this->attackOrder;
 };
+
+vector<Attack> &Being::getAttacksVector()
+{
+   return attacks;
+}
+
+

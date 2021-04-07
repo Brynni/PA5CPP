@@ -366,7 +366,7 @@ void printIndividualInvestigator(vector <Individuals<Investigator> > investigato
     }
 }
 
-Individuals<Investigator> selectIndividualInvestigator(vector <Individuals<Investigator> > investigators)
+Individuals<Investigator>& selectIndividualInvestigator(vector <Individuals<Investigator> > &investigators)
 {
     printIndividualInvestigator(investigators);
     cout << endl;
@@ -379,6 +379,6 @@ Individuals<Investigator> selectIndividualInvestigator(vector <Individuals<Inves
         cout << "Select an PC: ";
         cin >> selection;
     }
-
-    return investigators[selection -1];
+    Individuals<Investigator>&toReturn = investigators[selection -1];
+    return toReturn;
 }
