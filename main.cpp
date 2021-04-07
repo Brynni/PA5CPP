@@ -991,11 +991,7 @@ int main()
                     //Add character to game
                     if (investigators.size() != 0)
                     {
-                        //TODO Check this out
-                        investigators[0].type.printAttacks();
-                        selectIndividualInvestigator(investigators).type.printAttacks();
                         gameInvestigators.push_back(selectIndividualInvestigator(investigators));
-                        gameInvestigators[0].type.printAttacks();
                     } else {
                         cout << "Error! No investigators in the system!" << endl;
                     } 
