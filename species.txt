@@ -67,6 +67,8 @@ Eldritch horror
 #
 Name: Pug
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 1
 Strength: 2
 Intelligence: 3

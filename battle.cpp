@@ -155,21 +155,6 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         int j = 0;
         for (i, j; currentOrder + 1 < countOfAlreadyGivenOrder;)
         {
-            //cout << "in the for loop! " << endl;
-            cout << "current order -- " << currentOrder << endl;
-            if (randomEnc.creatures.size() != i)
-            {
-                cout << "Enemies attack order --" << randomEnc.creatures[i].getAttackOrder() << endl;
-            } else {
-                cout << "Enemies attack order --" << randomEnc.creatures[i - 1].getAttackOrder() << endl;
-            }
-
-            if (characters.size() != j)
-            {
-                cout << "Heroes attack order --" << characters[j].type.getAttackOrder() << endl;
-            } else {
-                cout << "Heroes attack order --" << characters[j-1].type.getAttackOrder() << endl;
-            }
             
             if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()==currentOrder)
             {
@@ -196,8 +181,13 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                 characters[j].type.printAttacks();
                 cin >> attackSelect;
                 Attack selectedAttack = characters[j].type.attacks[attackSelect];
-                selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
-                
+                cout << selectedAttack;
+                //selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
+                cout << randomEnc;
+                cout << "Select a creature to attack!" << endl;
+                int selectedCreatureIndex;
+                cin >> selectedCreatureIndex;
+                randomEnc.creatures[selectedCreatureIndex].takeDamage(selectedAttack.outPutDamage());
                 } else {
                     cout << "This human has no attacks" << endl;
                 }

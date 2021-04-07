@@ -1,18 +1,8 @@
 Difficulty: Easy
 Enemies-
-Wisp #
-Wisp #
-Pug #
 Pug #
 Pug #
 Wisp #
-Wisp #
-Pug #
-Pug #
-Pug #
-Wisp #
-Wisp #
-Pug #
 Difficulty: Impossible
 Enemies-
 Ari #

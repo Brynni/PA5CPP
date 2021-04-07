@@ -137,16 +137,6 @@ int main()
     vector <Encounter> allEncounters;
 
     srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
-    
-    //Initialize all the needed data for the game to function
-    FileReader myFileReader; 
-    myFileReader.ReadRolesFromFile(roles);
-    myFileReader.ReadCreaturesFromFile(creatures);
-    myFileReader.ReadEncounterFromFile(allEncounters, creatures);
-    initializeBaseDice(allDice);
-    /* for (int i = 0; i < allEncounters.size(); i++){
-        cout << allEncounters[i];
-    } */
 
     // Create an attack vector for unarmed attacks
     vector <Attack> unarmedHumanAttacks;
@@ -200,7 +190,12 @@ int main()
     weapons.push_back(warhammer);
     
     
-
+    //Initialize all the needed data for the game to function
+    FileReader myFileReader; 
+    myFileReader.ReadRolesFromFile(roles);
+    myFileReader.ReadCreaturesFromFile(creatures, attacks);
+    myFileReader.ReadEncounterFromFile(allEncounters, creatures);
+    initializeBaseDice(allDice);
 
     //Test adding weapons to a character and adding unarmed attacks as well
     /* Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);

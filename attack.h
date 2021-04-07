@@ -17,6 +17,7 @@ class Attack
         int amountOfDiceThrown;
         void printInfo();
         int outPutDamage();
+        const string getName();
 };
 
 void seeAllAttacks(vector<Attack> attacks);

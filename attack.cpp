@@ -24,6 +24,10 @@ ostream& operator<<(ostream& out, const Attack & a)
 
 Attack::Attack() : Attack("punch","Strength", Dice(), 1){};
 
+const string Attack::getName(){
+    return this->name;
+}
+
 Attack createIndividualAttack (const vector<Dice>& allDice)
 {
     string name, proficiencyAbbility; 

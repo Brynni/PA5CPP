@@ -11,7 +11,7 @@ class FileReader
 {
     public:
         void ReadRolesFromFile(vector <Role> &roles);
-        void ReadCreaturesFromFile(vector <Creature> &creatures);
+        void ReadCreaturesFromFile(vector <Creature> &creatures, vector <Attack> attacks);
         void ReadEncounterFromFile(vector <Encounter> &encounters_vector, vector <Creature> creatures_vector);
         void RemoveCreatureFromFile(Creature sp, string fileName);
         void RemovePersonRoleFromFile(Role role, string filename);
