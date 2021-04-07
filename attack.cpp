@@ -66,6 +66,16 @@ void Attack::printInfo()
     cout << this->name << endl;
 }
 
+int Attack::outPutDamage()
+{
+    int totalDamage = 0;
+    for (int i = 0; i < amountOfDiceThrown; i++)
+    {
+        totalDamage += dice.rollDice();
+    }
+    return totalDamage;
+}
+
 void seeAllAttacks(vector<Attack> attacks)
 {
     cout << "ATTACKS- " << endl;

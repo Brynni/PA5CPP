@@ -353,3 +353,32 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
         } 
     } 
 }
+
+
+void printIndividualInvestigator(vector <Individuals<Investigator> > investigators)
+{
+    int counter = 0;
+    cout << "Printing Individuals of type investigator" << endl;
+    for (Individuals<Investigator> i: investigators)
+    {
+        counter ++;
+        cout << counter << ". " << i.type.getName() << " " <<  endl;
+    }
+}
+
+Individuals<Investigator> selectIndividualInvestigator(vector <Individuals<Investigator> > investigators)
+{
+    printIndividualInvestigator(investigators);
+    cout << endl;
+    int selection;
+    cout << "Select an PC: ";
+    cin >> selection;
+    while(selection < 1 || selection > investigators.size())
+    {
+        cout << "Invalid Selection!, your range is 1 - " << investigators.size() << endl;
+        cout << "Select an PC: ";
+        cin >> selection;
+    }
+
+    return investigators[selection -1];
+}

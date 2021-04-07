@@ -313,3 +313,8 @@ void Being::updateAttackOrder(int orderInAttackOrder)
 {
     this->attackOrder = orderInAttackOrder;
 };
+
+int Being::getAttackOrder()
+{
+    return this->attackOrder;
+};

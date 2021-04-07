@@ -16,9 +16,9 @@ vector<Encounter> shuffleVector(vector<Encounter>AllEncounters);
 Encounter randomEncounter(vector<Encounter>filteredVector, int difficultyLevel);
 void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>> &characters);
 vector<Being> generateInitiveOrder(vector<Creature>&enemies, vector<Investigator>& characters );
-bool checkIfEncounterIsOver(vector<Investigator>& characters, Encounter enc);
-bool checkIfAllCharactersAreDead(vector<Investigator>& characters);
-bool checkIfAllEnemiesAreDead(Encounter enc);
+bool checkIfEncounterIsOver(vector<Individuals<Investigator>>& characters, vector <Creature>& enemies);
+bool checkIfAllCharactersAreDead(vector<Individuals<Investigator>>& characters);
+bool checkIfAllEnemiesAreDead(vector <Creature>& enemies);
 bool checkIfSingleEnemeyIsDead(Creature enemey);
 bool checkIfSingleCharacterIsDead(Creature enemey);
 

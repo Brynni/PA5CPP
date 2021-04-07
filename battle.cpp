@@ -88,13 +88,14 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
     {
         cout << "Name: " << inv.type.getName() << " Initiative roll: " << inv.type.getInitiative() << endl;
     }
-
+    
+    cout << "Giving attack order!" << endl;
     int countOfAlreadyGivenOrder = 0;
     int i = 0;
     int j = 0;
     while (countOfAlreadyGivenOrder != randomEnc.creatures.size() + characters.size())
     {
-        if (randomEnc.creatures[i].getInitiative() > characters[j].type.getInitiative())
+        if (i < randomEnc.creatures.size() && randomEnc.creatures[i].getInitiative() > characters[j].type.getInitiative())
         {
             randomEnc.creatures[i].updateAttackOrder(countOfAlreadyGivenOrder);
             i++;
@@ -103,6 +104,46 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
             j++;
         }
         countOfAlreadyGivenOrder++;
+    }
+    cout << "Starting the battle itself" << endl;
+    while (checkIfEncounterIsOver(characters, randomEnc.creatures))
+    {
+        
+        int i = 0;
+        int j = 0;
+        int currentOrder = 0;
+        int attackSelect;
+        for (i,j;i+j<countOfAlreadyGivenOrder;)
+        {
+            if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()==currentOrder)
+            {
+                if (randomEnc.creatures[i].attacks.size() > 0){
+                    randomEnc.creatures[i].printAttacks();
+                    cin >> attackSelect;
+                    Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect];
+                    Individuals<Investigator> selectedInvestigator = selectIndividualInvestigator(characters);
+                    selectedInvestigator.type.takeDamage(selectedAttack.outPutDamage());
+                } else {
+                    cout << "This being has no attacks" << endl;
+                }
+                i++;
+
+            }
+            else if(j < characters.size() && characters[j].type.getAttackOrder()==currentOrder)
+            {
+                if (characters[i].type.attacks.size() > 0) {
+                characters[j].type.printAttacks();
+                cin >> attackSelect;
+                Attack selectedAttack = characters[j].type.attacks[attackSelect];
+                Creature selectedCreature = selectCreature(randomEnc.creatures);
+                selectedCreature.takeDamage(selectedAttack.outPutDamage());
+                j++; 
+                } else {
+                    cout << "This human has no attacks" << endl;
+                }
+            }
+            currentOrder++;
+        }
     }
 };
 
@@ -116,22 +157,52 @@ vector<string> generateInitiveOrder(vector<Being> allCharacters)
 
 };
 
-bool checkIfEncounterIsOver(vector<Investigator> &characters,  vector<Creature> &enemies)
+bool checkIfEncounterIsOver(vector<Individuals<Investigator>> &characters,  vector<Creature> &enemies)
 {
-    bool isItOver;
+    bool isItOver = false;
+    if (checkIfAllCharactersAreDead(characters) || checkIfAllEnemiesAreDead(enemies))
+    {
+        isItOver = true;
+    }
     return isItOver;
 
 };
 
-bool checkIfAllCharactersAreDead(vector<Investigator>& characters)
+bool checkIfAllCharactersAreDead(vector<Individuals<Investigator>>& characters)
 {
-    bool areAllCharactersDead;
+    cout << "Checking if heroes are dead "<< endl;
+    bool areAllCharactersDead = false;
+    int deadCharacterCount = 0;
+    for (int i = 0; i < characters.size();i++)
+    {
+        if (characters[i].type.getCurrentLife()==0)
+        {
+            deadCharacterCount++;
+        }
+    }
+    if (deadCharacterCount == characters.size())
+    {
+        areAllCharactersDead = true;        
+    }
     return areAllCharactersDead;
 
 };
-bool checkIfAllEnemiesAreDead(Encounter enc)
+bool checkIfAllEnemiesAreDead(vector <Creature>& creatures)
 {
-    bool areAllEnemiesDead;
+    cout << "Checking if creatures are dead "<< endl;
+    bool areAllEnemiesDead=false;
+    int deadCharacterCount = 0;
+    for (int i = 0; i < creatures.size();i++)
+    {
+        if (creatures[i].getCurrentLife()==0)
+        {
+            deadCharacterCount++;
+        }
+    }
+    if (deadCharacterCount == creatures.size())
+    {
+        areAllEnemiesDead = true;        
+    }
     return areAllEnemiesDead;
 };
 

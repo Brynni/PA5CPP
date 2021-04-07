@@ -36,18 +36,6 @@ void printIndividualPersons(vector <Individuals<Person> > individualPersons)
     }
 }
 
-void printIndividualInvestigator(vector <Individuals<Investigator> > investigators)
-{
-    int counter = 0;
-    cout << "Printing Individuals of type investigator" << endl;
-    for (Individuals<Investigator> i: investigators)
-    {
-        counter ++;
-        cout << counter << ". " << i.type.getName() << " " <<  endl;
-    }
-}
-
-
 void printIndividualCreature(vector <Individuals<Creature> > individualCreature)
 {
     int counter = 0;
@@ -108,23 +96,6 @@ Individuals<Person> selectIndividualPerson(vector <Individuals<Person> > individ
     }
 
     return individualPersons[selection -1];
-}
-
-Individuals<Investigator> selectIndividualInvestigator(vector <Individuals<Investigator> > investigators)
-{
-    printIndividualInvestigator(investigators);
-    cout << endl;
-    int selection;
-    cout << "Select an PC: ";
-    cin >> selection;
-    while(selection < 1 || selection > investigators.size())
-    {
-        cout << "Invalid Selection!, your range is 1 - " << investigators.size() << endl;
-        cout << "Select an PC: ";
-        cin >> selection;
-    }
-
-    return investigators[selection -1];
 }
 
 int getIndexOfInvestigator(vector <Individuals<Investigator> > investigators)

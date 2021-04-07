@@ -47,6 +47,7 @@ class Being
         void updateCha();
         void printAttacks();
         void updateAttackOrder(int orderInAttackOrder);
+        int getAttackOrder();
 
        
 

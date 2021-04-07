@@ -16,6 +16,7 @@ class Attack
         Dice dice; 
         int amountOfDiceThrown;
         void printInfo();
+        int outPutDamage();
 };
 
 void seeAllAttacks(vector<Attack> attacks);
