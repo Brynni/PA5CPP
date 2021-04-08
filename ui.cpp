@@ -25,15 +25,15 @@ int renderMainMenu()
         cout << "__________________________________" << endl;
         cout << "Your choices are: " << endl;
         cout << "__________________________________" << endl;
-        cout <<"\t 1. Create Role" << endl;
-        cout <<"\t 2. Create Species" << endl;
-        cout <<"\t 3. See lists" << endl;
-        cout <<"\t 4. Create a new individual " << endl;
-        cout <<"\t 5. See list individuals" << endl;
-        cout <<"\t 6. Select Individual for editing / deleting / taking damage test" << endl;
-        cout <<"\t 7. Remove Individual Type" << endl;
-        cout <<"\t 8. Testing area" << endl;
-        cout <<"\t 0. quit" << endl;
+        cout <<"\t 1. Create a new character (NPC/PC)" << endl;
+        cout <<"\t 2. Create a new encounter" << endl;
+        cout <<"\t 3. Create a new attack/weapon" << endl;
+        cout <<"\t 4. Add Attack to character/weapon " << endl;
+        cout <<"\t 5. Edit or remove character" << endl;
+        cout <<"\t 6. Edit encounter" << endl;
+        cout <<"\t 7. Select or remove playable character to/from game session" << endl;
+        cout <<"\t 8. Start encounter!" << endl;
+        cout <<"\t 0. Quit" << endl;
         cout << "__________________________________" << endl;
 
         cout << "Enter choice here: ";
