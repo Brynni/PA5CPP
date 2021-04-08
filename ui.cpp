@@ -29,10 +29,11 @@ int renderMainMenu()
         cout <<"\t 2. Create a new encounter" << endl;
         cout <<"\t 3. Create a new attack/weapon" << endl;
         cout <<"\t 4. Add Attack to character/weapon " << endl;
-        cout <<"\t 5. Edit or remove character" << endl;
-        cout <<"\t 6. Edit encounter" << endl;
-        cout <<"\t 7. Select or remove playable character to/from game session" << endl;
-        cout <<"\t 8. Start encounter!" << endl;
+        cout <<"\t 5. Add Weapon to character/enemy " << endl;
+        cout <<"\t 6. Edit or remove character" << endl;
+        cout <<"\t 7. Edit encounter" << endl;
+        cout <<"\t 8. Select or remove playable character to/from game session" << endl;
+        cout <<"\t 9. Start encounter!" << endl;
         cout <<"\t 0. Quit" << endl;
         cout << "__________________________________" << endl;
 
@@ -179,6 +180,17 @@ int uiAttackAdder ()
         cout << "1. Enemy" << endl;
         cout << "2. PC/NPC" << endl;
         cout << "3. Weapon" << endl;
+        cin >> userChoice;
+        return userChoice;
+}
+
+int uiWeaponAdder ()
+{
+        int userChoice;
+        cout << "Which do you want to add weapon to?" << endl;
+        cout << "__________________________________" << endl;
+        cout << "1. Enemy" << endl;
+        cout << "2. PC/NPC" << endl;
         cin >> userChoice;
         return userChoice;
 }

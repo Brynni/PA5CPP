@@ -392,8 +392,47 @@ int main()
                 selectedWeapon.AddAttackToWeapon(newAttack);
             }
         }
+
+        if (user_choice == 5){
+            //Path 4 Add attack to weapon/being
+            int userChoice = uiWeaponAdder();
+            if (userChoice == 1)
+            {
+                string enemyType = uiSelectBeingType();
+                int selectedCreature = selectCreatureWithIndex(creatures);
+                Weapon selectedWeapon = selectWeapon(weapons);
+                cout << "BEFORE UPDATE ATTACKS" << endl;
+                creatures[selectedCreature].printAttacks();
+                creatures[selectedCreature].AddWeaponToBeing(selectedWeapon);
+                //selectedCreature.printAttacks();
+                cout << "AFTER UPDATE" << endl;
+                creatures[selectedCreature].printAttacks();
+
+            }
+            if (userChoice == 2)
+            {
+                int userChoice = uiSelectNPCOrPC();
+                if (userChoice == 1)
+                {
+                    
+                    Individuals<Person>  p = selectIndividualPerson(individualsPersons);
+                    Weapon selectedWeapon = selectWeapon(weapons);
+                    p.getType().printAttacks();
+                    p.type.AddWeaponToBeing(selectedWeapon);
+                    p.type.printAttacks();
+                }
+                if (userChoice == 2)
+                {
+                    Individuals<Investigator>& inv = selectIndividualInvestigator(investigators);
+                    Weapon selectedWeapon = selectWeapon(weapons);
+                    inv.type.AddWeaponToBeing(selectedWeapon);
+                    inv.getType().printAttacks();
+                    inv.type.printAttacks();
+                }
+            }
+        }
         
-        if (user_choice == 5)
+        if (user_choice == 6)
         {
             //Path 5 Select Being to edit/remove
             int userchoice1 = uiPrintAllTypes ();
@@ -514,7 +553,7 @@ int main()
             }
         }
 
-        if (user_choice == 6)
+        if (user_choice == 7)
         {
             //Path 6 edit/remove encounter
             //TODO write to file the change
@@ -572,7 +611,7 @@ int main()
             }
         }
 
-        else if(user_choice == 7)
+        else if(user_choice == 8)
         {
             int userChoice = uiSelectOrRemoveFromEncounter();
             if (userChoice == 1)
@@ -603,7 +642,7 @@ int main()
             }
         }
 
-        else if(user_choice == 8)
+        else if(user_choice == 9)
         {
             if (gameInvestigators.size() > 0)
             {// Start by seleting encounter
