@@ -42,11 +42,14 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
 
 void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& characters)
 {
+    cout << "Printing Character Attacks!" << endl;
     for (Individuals<Investigator> inv : characters)
     {
+        
         inv.type.printAttacks();
     }
 
+    cout << "Printing Enemy Attacks!" << endl;
     for (Creature c : randomEnc.creatures)
     {
         c.printAttacks();
@@ -152,52 +155,43 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         int j = 0;
         for (i, j; currentOrder + 1 < countOfAlreadyGivenOrder;)
         {
-            //cout << "in the for loop! " << endl;
-            cout << "current order -- " << currentOrder << endl;
-            if (randomEnc.creatures.size() != i)
-            {
-                cout << "Enemies attack order --" << randomEnc.creatures[i].getAttackOrder() << endl;
-            } else {
-                cout << "Enemies attack order --" << randomEnc.creatures[i - 1].getAttackOrder() << endl;
-            }
-
-            if (characters.size() != j)
-            {
-                cout << "Heroes attack order --" << characters[j].type.getAttackOrder() << endl;
-            } else {
-                cout << "Heroes attack order --" << characters[j-1].type.getAttackOrder() << endl;
-            }
             
             if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()==currentOrder)
             {
-                i++;
+                
                 currentOrder++;
                 if (randomEnc.creatures[i].attacks.size() > 0){
                     randomEnc.creatures[i].printAttacks();
+                    cout << "Please enter attack selection: ";
                     cin >> attackSelect;
                     Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect];
-                    Individuals<Investigator> selectedInvestigator = selectIndividualInvestigator(characters);
-                    selectedInvestigator.type.takeDamage(selectedAttack.outPutDamage());
+                    selectIndividualInvestigator(characters).type.takeDamage(selectedAttack.outPutDamage());
                     
                     
                 } else {
                     cout << randomEnc.creatures[i].getName() << " has no attacks" << endl;
                 }
+                i++;
                 
             }
             else if(j < characters.size() && characters[j].type.getAttackOrder()==currentOrder)
             {
-                j++;
                 currentOrder++;
-                if (characters[i].type.attacks.size() > 0) {
+                if (characters[j].type.attacks.size() > 0) {
                 characters[j].type.printAttacks();
                 cin >> attackSelect;
                 Attack selectedAttack = characters[j].type.attacks[attackSelect];
-                Creature selectedCreature = selectCreature(randomEnc.creatures);
-                selectedCreature.takeDamage(selectedAttack.outPutDamage());
+                cout << selectedAttack;
+                //selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
+                cout << randomEnc;
+                cout << "Select a creature to attack!" << endl;
+                int selectedCreatureIndex;
+                cin >> selectedCreatureIndex;
+                randomEnc.creatures[selectedCreatureIndex].takeDamage(selectedAttack.outPutDamage());
                 } else {
                     cout << "This human has no attacks" << endl;
                 }
+                j++;
             }
             
             if (checkIfEncounterIsOver(characters, randomEnc.creatures))

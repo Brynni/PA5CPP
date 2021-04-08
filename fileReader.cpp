@@ -41,7 +41,22 @@ bool checkForNameRole(vector <Role> roles, string name)
     return false;
 }
 
-
+int selectAttackByName(vector<Attack> &attacks, const string &name)
+{
+    Attack tempAttack;
+    int counter = 0; 
+    int indexOfAttack = 0;
+    for (Attack atk : attacks )
+    {   
+        if (atk.getName() == name)
+        {
+            tempAttack = atk;
+            indexOfAttack = counter;
+        }
+        counter++;
+    }
+    return indexOfAttack;
+}
 
 /* _________________________________*/
 // Functions for loading the data  //
@@ -159,13 +174,18 @@ void FileReader::ReadRolesFromFile(vector <Role> &roles){
 }
 
 
-void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
+void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures, vector <Attack> attacks){
 
     ifstream speciesFile;
     string fileStream; 
     string speciesName;
     string tempName;
     string typeOfCreature;
+    string weaponsTemp;
+    string weaponsNames;
+    string attacksTemp;
+    string attacksNames;
+    std::vector<std::string> words;
     int life;
     int strength;
     int intelligence;
@@ -174,11 +194,14 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
     bool natural;
     int disquiet;
     bool readingName = false;
+    bool readingAttacks = false;
+    bool readingWeapons = false;
     speciesFile.open("species.txt");
     if (speciesFile.is_open()){
         while (speciesFile){
             speciesFile >> fileStream;
             if (fileStream == "Life:"){
+                readingWeapons = false;
                 speciesFile >> fileStream;
                 life = std::stoi(fileStream);
             }
@@ -202,7 +225,6 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
                 {
                     speciesName = speciesName + " " + tempName;
                 }
-                
             }
 
             else if (fileStream == "Strength:"){
@@ -249,10 +271,71 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures){
                 typeOfCreature = fileStream;
             }
 
+            else if (fileStream == "Weapons:" || readingWeapons == true)
+            {
+                readingAttacks = false;
+                if (fileStream == "Weapons:")
+                {
+                    speciesFile >> fileStream;
+                }
+                readingWeapons = true;
+                weaponsNames = "";
+                weaponsNames = fileStream;
+                words.push_back(weaponsNames);
+                if (weaponsTemp == "")
+                {
+                    weaponsTemp = weaponsNames;
+                }
+                else
+                {
+                    weaponsTemp = weaponsTemp + " " + attacksNames;
+                }
+            }
+
+            else if (fileStream == "Attacks:" || readingAttacks == true)
+            {
+                if (fileStream == "Attacks:")
+                {
+                    speciesFile >> fileStream;
+                }
+                readingAttacks = true;
+                attacksNames = "";
+                attacksNames = fileStream;
+                if (attacksTemp == "")
+                {
+                    attacksTemp = attacksNames;
+                }
+                else
+                {
+                    attacksTemp = attacksTemp + " " + attacksNames;
+                }
+            }
+
             else if (fileStream == "#" && speciesName != ""){
                 Creature creature(speciesName, life, strength, intelligence, dex, con, wis, cha, natural, disquiet, typeOfCreature);
+                
+                cout << speciesName << endl;
+                
+                
+                if (attacksTemp != "")
+                {
+                    cout << "Attacks: " << attacksTemp << endl;
+                    for (int i = 0; i < words.size(); i++)
+                    {
+                        int indexOfCreature = selectAttackByName(attacks, words[i]);
+                        creature.AddAttackToBeing(attacks[indexOfCreature]);
+                    }
+                    creature.printAttacks();
+                }
+                if (weaponsTemp != "")
+                {
+                    cout << "Weapons: " << weaponsTemp << endl;
+                }
                 creatures.push_back(creature);
+                attacksTemp = "";
+                weaponsTemp = "";
                 speciesName = "";
+                
             }
         }
     }

@@ -26,9 +26,9 @@ ostream& operator<<(ostream& out, const Encounter e)
         out << "---Enemies---" << endl;
         for (int i = 0; i < e.creatures.size(); i++)
         {   
-            counter++;
             singleCreature = e.creatures[i];
             out << counter << ". " << "Name: "<< singleCreature.getName() << " Hitpoints: " <<singleCreature.getCurrentLife() << "/" << singleCreature.getLife() << endl;
+            counter++;
         }
     } else {
         out << "----No Enemies In Encounter----" << endl;

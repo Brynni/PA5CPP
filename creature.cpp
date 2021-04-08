@@ -280,7 +280,24 @@ Creature createCustomCreature()
         return beast;
 }
 
-Creature selectCreature(const vector<Creature> &creatures)
+int selectCreatureWithIndex(const vector<Creature> &creatures)
+{
+    seeAllCreatures(creatures);
+    int selection;
+    cout << endl;
+    cout << "Enter your selection: ";
+    cin >> selection;
+
+    while (selection < 1 || selection > creatures.size())
+    {
+        cout << "Invalid selection! You must select a creature between 1 and " << creatures.size() << endl; 
+        cout << "Enter your selection: ";
+        cin >> selection;
+    }
+    return selection -1;
+}
+
+Creature & selectCreature(vector<Creature> &creatures)
 {
     seeAllCreatures(creatures);
     int selection;

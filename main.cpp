@@ -137,16 +137,6 @@ int main()
     vector <Encounter> allEncounters;
 
     srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
-    
-    //Initialize all the needed data for the game to function
-    FileReader myFileReader; 
-    myFileReader.ReadRolesFromFile(roles);
-    myFileReader.ReadCreaturesFromFile(creatures);
-    myFileReader.ReadEncounterFromFile(allEncounters, creatures);
-    initializeBaseDice(allDice);
-    /* for (int i = 0; i < allEncounters.size(); i++){
-        cout << allEncounters[i];
-    } */
 
     // Create an attack vector for unarmed attacks
     vector <Attack> unarmedHumanAttacks;
@@ -199,7 +189,13 @@ int main()
     weapons.push_back(bow);
     weapons.push_back(warhammer);
     
-
+    
+    //Initialize all the needed data for the game to function
+    FileReader myFileReader; 
+    myFileReader.ReadRolesFromFile(roles);
+    myFileReader.ReadCreaturesFromFile(creatures, attacks);
+    myFileReader.ReadEncounterFromFile(allEncounters, creatures);
+    initializeBaseDice(allDice);
 
     //Test adding weapons to a character and adding unarmed attacks as well
     /* Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
@@ -209,6 +205,25 @@ int main()
     man.printAttacks();
     int manInit = man.getInitiative();
     cout << "This is the initive: " << manInit << endl; */
+
+    Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
+    man.AddWeaponToBeing(sword);
+    man.AddWeaponToBeing(bow);
+    man.AddAttackToBeing(punch);
+    man.printAttacks();
+    int manInit = man.getInitiative();
+    cout << "This is the initive: " << manInit << endl;
+    Investigator newI = Investigator (man.getName(), man.getLife(), man.getStrength(), man.getInt(), man.getDex(), man.getCon(), man.getWis(), man.getCha(),  man.getGender(), man.getFear(), man.getTerror());
+    
+    newI.updateCurrentLife(man.getCurrentLife());
+    newI.printCharacter();
+    newI.AddWeaponToBeing(sword);
+    newI.AddWeaponToBeing(bow);
+    newI.AddAttackToBeing(punch);
+    Individuals<Investigator> t = Individuals<Investigator>("", newI, 1, "");
+
+    investigators.push_back(t);
+
 
     bool playing = true;
 
@@ -597,16 +612,14 @@ int main()
                 if (userChoice == 1)
                 {
                     string enemyType = uiSelectBeingType();
-                    Creature &selectedCreature = selectCreatureWithType(creatures, enemyType);
+                    int selectedCreature = selectCreatureWithIndex(creatures);
                     Attack selectedAttack = selectAttack(attacks);
                     cout << "BEFORE UPDATE ATTACKS" << endl;
-                    selectedCreature.printAttacks();
-                    vector<Attack> theAttacksVector = selectedCreature.getAttacksVector();
-                    theAttacksVector.push_back(selectedAttack);
+                    creatures[selectedCreature].printAttacks();
+                    creatures[selectedCreature].AddAttackToBeing(selectedAttack);
                     //selectedCreature.printAttacks();
-                    selectedCreature.getAttacksVector() = theAttacksVector;
                     cout << "AFTER UPDATE" << endl;
-                    selectedCreature.printAttacks();
+                    creatures[selectedCreature].printAttacks();
 
                 }
                 if (userChoice == 2)
@@ -617,10 +630,8 @@ int main()
                         
                         Individuals<Person> & p = selectIndividualPerson(individualsPersons);
                         Attack selectedAttack = selectAttack(attacks);
-                        vector<Attack> theAttacksVector = p.getType().getAttacksVector();
-                        theAttacksVector.push_back(selectedAttack);
                         p.getType().printAttacks();
-                        p.getType().getAttacksVector() = theAttacksVector;
+                        p.type.AddAttackToBeing(selectedAttack);
                         p.type.printAttacks();
                     }
                     if (userChoice == 2)
@@ -628,10 +639,8 @@ int main()
                         
                         Individuals<Investigator>& inv = selectIndividualInvestigator(investigators);
                         Attack selectedAttack = selectAttack(attacks);
-                        vector<Attack> theAttacksVector = inv.getType().getAttacksVector();
-                        theAttacksVector.push_back(selectedAttack);
+                        inv.type.AddAttackToBeing(selectedAttack);
                         inv.getType().printAttacks();
-                        inv.getType().getAttacksVector() = theAttacksVector;
                         inv.type.printAttacks();
 
 
@@ -941,10 +950,11 @@ int main()
                 while (keepAdding)
                 {
                     cout << "Add Characters" << endl;
-                    Individuals<Investigator>& inv = selectIndividualInvestigator(gameInvestigators);
-                    selInv.push_back(inv);
+                    
+                    selInv.push_back(selectIndividualInvestigator(gameInvestigators));
+                    
                     // This is the shit we need to fix
-                    inv.type.printAttacks();
+                    selInv[0].type.printAttacks();
                     cout << "Keep adding?" << endl;
                     cout <<"1. yes" << endl;
                     cout <<"2. no" << endl;
@@ -988,6 +998,7 @@ int main()
                     {
                         for (int i = 0; i < gameInvestigators.size(); i++)
                         {
+
                             int userChoice2 = getIndexOfInvestigator(gameInvestigators);
                             gameInvestigators.erase (gameInvestigators.begin()+userChoice2);
                         }

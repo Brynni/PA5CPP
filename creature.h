@@ -31,8 +31,9 @@ class Creature : public Being
 Creature createCreature(Creature sp);
 void seeAllCreatures(const vector<Creature>& creatures);
 void seeDetailCreatures(vector<Creature> creatures);
+int selectCreatureWithIndex(const vector<Creature> &creatures);
 Creature createCustomCreature();
-Creature selectCreature(const vector<Creature> &creatures);
+Creature & selectCreature(vector<Creature> &creatures);
 Creature & selectCreatureWithType(const vector<Creature>& creatures, const string& type);
 vector<Creature> seeAllCreaturesOfType(const vector<Creature>& creatures, const string& type);
 int countAllCreaturesOfType(const vector<Creature> & creatures, const string & type);
