@@ -21,6 +21,7 @@ int uiIndividualList();
 int uiEditIndividuals();
 int uiStatToEdit();
 int uiAttackAdder();
+int uiWeaponAdder();
 int uiCreateAttack();
 int uiCreateHuman();
 int uiCreateEncounter(int size);

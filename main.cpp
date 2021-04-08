@@ -235,711 +235,74 @@ int main()
     {
         int user_choice = renderMainMenu();
 
-
-        if (user_choice == 1)
-        {
-            roles.push_back(myFileReader.createRole(roles));
-        }
-
-        else if (user_choice == 2)
-        {
-            int creature_or_horror = uiCreatureOrHorror();
-
-            if (creature_or_horror != 2)
-            {
-                creatures.push_back(myFileReader.createSpecies(creatures));
-            }
-            else
-            {
-                //TODO look at message below
-                cout << "Maybe make it so that we can have different types of animals and this is how they'd be defined" << endl;
-            }
-        }
-
-        else if (user_choice == 3)
-        {   
-            int whatList = uiRenderListOfType();
-            
-            
-            if (whatList == 1 && creatures.size()>0)
-            {
-                int detailOrCompact = uiDetailListOrCompactList();
-
-                if (detailOrCompact == 1)
-                {
-                    seeAllCreatures(creatures);
-                    cout << endl;
-                }
-
-                if (detailOrCompact == 2)
-                {
-                    seeDetailCreatures(creatures);
-                    cout << endl;
-                }
-                else
-                {
-                    cout << "Invalid selection" << endl;
-                }
-                
-                
-            }
-            else if(whatList == 1 && creatures.size() == 0)
-            {
-                cout << "No species of type creature yet added" << endl;
-            }
-
-            else if (whatList == 2 )
-            {
-                //TODO Fix
-                cout << "This has been removed" << endl;
-            }
-
-            else if(whatList == 3 && roles.size()>0)
-            {
-                int detailOrCompact = uiDetailListOrCompactList();
-
-                if (detailOrCompact == 1)
-                {
-                    seeAllRoles(roles);
-                    cout << endl;
-                }
-
-                if (detailOrCompact == 2)
-                {
-                    seeDetailRoles(roles);
-                    cout << endl;
-                }
-                else
-                {
-                    cout << "Invalid selection" << endl;
-                }
-            }
-
-            else if(whatList == 3 && roles.size() == 0)
-            {
-                cout << "No roles added" << endl;
-            }
-
-            cout << endl;
-        }
-
-
-        else if (user_choice == 4)
-        {    
-            int select_creature_horror_person = uiSelectCHP();
-            if(select_creature_horror_person == 1)
-            {
-                if(creatures.size() > 0)
-                {
-                    Creature cre = selectCreature(creatures);
-
-                    int basicOrCustom = uiBasicOrCustom();
-
-                    if (basicOrCustom == 1)
-                    {
-                        Creature beast = createCreature(cre);
-                        int countOfCreatures = getNumberOfCreatures(IndividualsCreatures, cre.getName());
-                        string name = cre.getName();
-                        Individuals<Creature> t = Individuals<Creature>(name, beast, countOfCreatures +1, cre.getName());
-                        IndividualsCreatures.push_back(t);
-                        t.printA();
-                        cout << endl;
-
-                    }
-
-                    else if (basicOrCustom == 2)
-                    {
-                        string name; 
-                        cout << "Enter name for individual: ";
-                        cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-                        std::getline(std::cin, name);
-                        cout << endl;
-                        Creature beast = createCustomCreature();
-                        int countOfCreatures = getNumberOfCreatures(IndividualsCreatures, cre.getName());
-                        Individuals<Creature> t = Individuals<Creature>(name, beast, countOfCreatures +1, cre.getName());
-                        IndividualsCreatures.push_back(t);
-                        t.printA();
-                        cout << endl;
-                    }
-
-                    else if (basicOrCustom < 1 || basicOrCustom >2) 
-                    {
-                        cout << "Invalid choice..." << endl;
-                    } 
-                                   
-                }
-
-                else
-                {
-                    cout << "There are no creatures..." << endl;
-                }
-            }
-            else if (select_creature_horror_person == 2)
-            {
-                //TODO Remove
-                cout << "Nothing to see here, move along" << endl;
-            }
-
-            else if (select_creature_horror_person == 3)
-            {
-                //TODO Remove this
-                cout << "Gone" << endl;
-            }
-
-            else
-            {
-                cout << "Invalid selection" << endl;
-            }
-
-        }
-
-        else if (user_choice == 5)
-        {
-            int indList = uiIndividualList();
-            if (indList == 1)
-            {
-                printIndividualPersons(individualsPersons);
-            }
-
-            else if (indList == 2)
-            {
-                printIndividualCreature(IndividualsCreatures);
-            }
-
-
-            else if (indList == 3)
-            {
-                //TODO Remove
-                cout << "Nothing to see here" << endl;
-            }
-
-            else if (indList == 4)
-            {
-                printIndividualInvestigator(investigators);
-            }
-
-            else
-            {
-                cout << "Invalid selection! " << endl;
-            }
-
-        }
-
-        else if (user_choice == 6)
-        {
-            cout << user_choice << endl;
-            int whatToEdit = uiEditIndividuals();
-            if (whatToEdit == 1)
-            {
-                //TODO REMOVE
-                cout << "blah" << endl;
-
-            }
-            else if (whatToEdit == 2)
-            {
-                //TODO remove
-                cout << "Taken away" << endl;
-            }
-
-            else if(whatToEdit == 3)
-            {
-            //TODO Remove
-                cout << "Nothing to see here" << endl;
-            }
-
-            else if(whatToEdit == 4)
-            {
-                //TODO Remove
-                
-            }
-        }
-
-        else if (user_choice == 7)
-        {
-            
-            int select_creature_horror_person = uiSelectCHP();
-            if(select_creature_horror_person == 1)
-            {
-                if(creatures.size() > 0)
-                {
-                    cout << "Creatures" << endl;
-                    //Get the creature
-                    Creature cre = selectCreature(creatures);
-                    //Send the filename to the remove function and the creature itself
-                    myFileReader.RemoveCreatureFromFile(cre, "species.txt");
-                    //Remove the creature from the creature vector as per the Occamz razor sollution
-                    for (int i = 0; i < creatures.size(); i++)
-                    {
-                        if (creatures[i].getName() == cre.getName())
-                        {
-                            creatures.erase (creatures.begin() + i);
-                        }
-                    }
-                    //Success
-                    cout << "Creature type has been removed..." << endl;                   
-                }
-
-                else
-                {
-                    cout << "There are no creatures..." << endl;
-                }
-            }
-            else if (select_creature_horror_person == 2)
-            {
-                //TODO Remove
-                cout << "Nothing to see here" << endl;
-                
-            }
-
-            else if (select_creature_horror_person == 3)
-            {
-                if(roles.size() > 0)
-                {
-                    Role sel_role = selectRole(roles);
-                    myFileReader.RemovePersonRoleFromFile(sel_role, "roles.txt");
-                    //Remove the role from the role vector as per the Occamz razor sollution
-                    for (int i = 0; i < roles.size(); i++)
-                    {
-                        if (roles[i].getRoleName() == sel_role.getRoleName())
-                        {
-                            roles.erase (roles.begin() + i);
-                        }
-                    }
-                    //Success
-                    cout << "Role type has been removed..." << endl;
-
-                }
-                
-                else
-                {
-
-                }
-            }
-
-            else
-            {
-                cout << "Invalid selection" << endl;
-            }
-
-        }
-
-        else if (user_choice == 8)
-        {
-            int select_test;
-            cout << "Would you like to select\n\t0.Dice test\n\t1.attack setup test?\n\t2.Final version of path 2. Create Encounter\n\t3.version of path 9 generate encounter\n\t4.Final version of path 1. Create Human\n\t5.Not final version of path 5. Add attack to Being/object\n\t6. Not final version of path 6. Edit/delete being\n\t7. Not final version of path 7. Edit/delete encounter\n\t8.Battle Test\n\t9.Select/remove Character for game session -- Path 8"<< endl;
-            cin >>select_test;
-            if (select_test == 0){
-                Dice selectedDice = selectIndividualDice(allDice);
-                cout << "The roll of your selected dice is: " << selectedDice.rollDice() << endl;
-            }
-            if (select_test == 1){
-                cout << "Moved to initiliazier!" << endl;
-            }
-            if (select_test == 2){
-                //Path 2 completed
-                //Create Encounter Path
-                Encounter newEncounter;
-                bool hasBeenSaved = false;
-                while (!hasBeenSaved)
-                {
-                    int userChoice1 = uiCreateEncounter(newEncounter.creatures.size());
-                    // if he wants to select from the already existing plethora of characters
-                    if (userChoice1 == 1)
-                    {
-                        string typeOfCreature = uiSelectBeingType();
-                        cout << typeOfCreature << endl;
-
-                        //Find how many creatures of the type exist
-                        int tempCreaturesCount = countAllCreaturesOfType(creatures, typeOfCreature);
-                        if (tempCreaturesCount > 0)
-                        {
-                            Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
-                            newEncounter.addEnemyToEncounter(selectedCreature);
-                        } else{
-                            cout << "Error! No creature of type " << typeOfCreature << endl;
-                        }
-                    }
-                    //If the user wants to create his own custom enemy type
-                    else if (userChoice1 == 2)
-                    {
-                        creatures.push_back(myFileReader.createSpecies(creatures));
-                    } 
-                    // Attempt to save
-                    else if (userChoice1 == 3) {
-                        if (newEncounter.creatures.size() == 0)
-                        {
-                            cout << "Error! Nothing added to the encounter! Exiting...." << endl;
-                            hasBeenSaved = true;
-                        } else {
-                            string difficultyLevel = uiSelectDifficulty();
-                            newEncounter.changeDifficulty(difficultyLevel);
-                            allEncounters.push_back(newEncounter);
-                            myFileReader.createEncounter(newEncounter);
-                            cout << "Success! Encounter has been saved ...." << endl;
-                            cout << newEncounter << endl;
-                            hasBeenSaved = true;
-                        }
-                    } else {
-                        cout << "Invalid Choice! Try again!" << endl;
-                    }
-                }   
-            }
-            if (select_test == 3){
-                int randEnc;
-
-                cout << "Would you like to get a " << endl;
-                cout << "1. Easy encounter" << endl;
-                cout << "2. Medium encounter" << endl;
-                cout << "3. Hard encounter" << endl;
-                cout << "4. Impossible encounter" << endl;
-                cin >> randEnc;
-                while(randEnc < 1 || randEnc > 4){
-                    cout << "INVALID SELECTION!!!!" << endl;
-                    cout << "Would you like to get a " << endl;
-                    cout << "1. Easy encounter" << endl;
-                    cout << "2. Medium encounter" << endl;
-                    cout << "3. Hard encounter" << endl;
-                    cout << "4. Impossible encounter" << endl;
-                    cin >> randEnc;
-                }
-
-                Encounter selEnc = getRandomEncounter(randEnc-1, allEncounters);
-                
-            }
-            if (select_test == 4){
+        if (user_choice == 1){
                 //Path 1 Create Human
                 createPersonAndAddToVector(roles, investigators, individualsPersons);
             }
-            if (select_test == 5){
-                //Path 5 Add attack to weapon/being
-                int userChoice = uiAttackAdder();
-                if (userChoice == 1)
-                {
-                    string enemyType = uiSelectBeingType();
-                    int selectedCreature = selectCreatureWithIndex(creatures);
-                    Attack selectedAttack = selectAttack(attacks);
-                    cout << "BEFORE UPDATE ATTACKS" << endl;
-                    creatures[selectedCreature].printAttacks();
-                    creatures[selectedCreature].AddAttackToBeing(selectedAttack);
-                    //selectedCreature.printAttacks();
-                    cout << "AFTER UPDATE" << endl;
-                    creatures[selectedCreature].printAttacks();
 
-                }
-                if (userChoice == 2)
-                {
-                    int userChoice = uiSelectNPCOrPC();
-                    if (userChoice == 1)
-                    {
-                        
-                        Individuals<Person>  p = selectIndividualPerson(individualsPersons);
-                        Attack selectedAttack = selectAttack(attacks);
-                        p.getType().printAttacks();
-                        p.type.AddAttackToBeing(selectedAttack);
-                        p.type.printAttacks();
-                    }
-                    if (userChoice == 2)
-                    {
-                        
-                        Individuals<Investigator>& inv = selectIndividualInvestigator(investigators);
-                        Attack selectedAttack = selectAttack(attacks);
-                        inv.type.AddAttackToBeing(selectedAttack);
-                        inv.getType().printAttacks();
-                        inv.type.printAttacks();
-
-
-                    }
-                }
-                if (userChoice == 3)
-                {
-                    //Todo perhaps add the choice to pick a premade attack for a weapon
-                    // You would have to create a new vector called weapon attacks and allow the old one to be renamed unarmed attacks
-                    Weapon selectedWeapon = selectWeapon(weapons);
-                    Attack newAttack = createIndividualAttack(allDice);
-                    cout << "This is your new attack" << endl;
-                    cout << newAttack << endl;
-                    selectedWeapon.AddAttackToWeapon(newAttack);
-                }
-            }
-            if (select_test == 6)
+        else if (user_choice == 2){
+            //Path 2 completed
+            //Create Encounter Path
+            Encounter newEncounter;
+            bool hasBeenSaved = false;
+            while (!hasBeenSaved)
             {
-                //Select Being to edit/remove
-                int userchoice1 = uiPrintAllTypes ();
-                if (userchoice1 == 1)
+                int userChoice1 = uiCreateEncounter(newEncounter.creatures.size());
+                // if he wants to select from the already existing plethora of characters
+                if (userChoice1 == 1)
                 {
-                    int userchoice2 = uiNPCOrPC();
-                    if (userchoice2 == 1)
-                    {
-                        cout << "selected NPC" << endl;
-                        if (individualsPersons.size() != 0)
-                        {
-                            Individuals<Person> p = selectIndividualPerson(individualsPersons);
-                            cout << "Selected person: " << endl;
-                            p.printA();
-                            string editing = uiUpdateStat();
-                            if (editing != "cancel")
-                            {
-                                p.type.updateStat(editing);
-                                Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getDex(), p.type.getCon(), p.type.getWis(), p.type.getCha(), p.type.getGender(), p.type.getFear());
-                                string name = p.getName();
-                                string job = p.getJob();
-                                int count = p.getCounter();
-                                Individuals<Person> t = Individuals<Person>(name, newP, count, job);
-                                for (int i=0; i<individualsPersons.size();i++)
-                                {
-                                    if (individualsPersons[i].getName() == p.getName() && individualsPersons[i].getCounter() == p.getCounter() )
-                                    {
-                                    individualsPersons.erase(individualsPersons.begin() + i);
-                                    individualsPersons.push_back(t);
-                                    }
-                                }
-                                cout << "updated Person" << endl;
-                                t.printA();
-                                
-                                cout << endl;
-                                sort(individualsPersons.begin(), individualsPersons.end());
-                            }
-                        } else {
-                            cout << "Error! No NPC's found in system!" << endl;
-                        } 
-                                      
-                    }
-                    if (userchoice2 == 2)
-                    {
-                        cout << "selected PC" << endl;
-                        if (investigators.size() != 0)
-                        {
-                            Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
-                            cout << "Selected investigator: " << endl;
-                            inv.printA();
-                            string editing = uiUpdateStat();
-                            if (editing != "cancel")
-                            {
-                                inv.type.updateStat(editing);
-                                Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getDex(), inv.type.getCon(), inv.type.getWis(), inv.type.getCha(),  inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
-                                string name = inv.getName();
-                                string job = inv.getJob();
-                                int count = inv.getCounter();
-                                newI.updateCurrentLife(inv.type.getCurrentLife());
-                                newI.printCharacter();
-                                Individuals<Investigator> t = Individuals<Investigator>(name, newI, count, job);
-                                for (int i=0; i<investigators.size();i++)
-                                {
-                                    if (investigators[i].getName() == inv.getName() && investigators[i].getCounter() == inv.getCounter() )
-                                    {
-                                        investigators.erase(investigators.begin() + i);
-                                        investigators.push_back(t);
-                                        
-                                    }
-                                }
-                                cout << " Updated Investigator" << endl;
-                                t.printA();
-                                cout << endl;
-                                sort(investigators.begin(), investigators.end());
-                            }
-                        } else {
-                            cout << "Error! No PC's found in system!" << endl;
-                        }
-                    }
-                }
-                if (userchoice1 == 2)
-                {
-                    if (creatures.size() != 0){
-                        // start by listing all creatures
-                        //TODO CREATURE STUFFFFFFFFFF
-                        string type = uiSelectBeingType();
-                        Creature cre = selectCreatureWithType(creatures, type);
-                        // select stat to edit
-                        int index = 0;
-                        for (Creature cr : creatures)
-                        {
-                            if (cr.getName() == cre.getName())
-                            {
-                                break;
-                            }
-                            index ++;
-                        }
-                        cout<< index << endl;
-                
-                        string statToEdit = uiUpdateStat();
-                        if (statToEdit != "cancel")
-                        {
-                            cre.updateStat(statToEdit);
-                            Creature newCre = createCreature(cre);
-                             for (int i=0; i<creatures.size();i++)
-                                {
-                                    if (creatures[i].getName() == cre.getName())
-                                    {
-                                        creatures.erase(creatures.begin() + i);
-                                        creatures.push_back(newCre); 
-                                    }
-                                }
-                        }
-                        
-                    } else {
-                        cout << "Error! No enemies found in system!" << endl;
-                    }
-                }
-            }
-            if (select_test == 7)
-            {
-                //TODO write to file the change
-                if (allEncounters.size() > 0)
-                {
-                    cout << "Edit/remove encounters" << endl;
-                    int selectedEncounter = selectIndividualEncounter(allEncounters);
-                    int userChoice = uiEditEncounter();
-                    if (userChoice == 1)
-                    {
-                        cout << "What creature do you wish you remove?" << endl;
-                        seeAllCreatures(allEncounters[selectedEncounter].creatures);
-                        int userChoice2;
-                        cin >> userChoice2;
-                        if (userChoice2 > 0 &&  userChoice2 <= allEncounters[selectedEncounter].creatures.size()+1){
-                            allEncounters[selectedEncounter].creatures.erase (allEncounters[selectedEncounter].creatures.begin()+userChoice2-1);
-                            if (allEncounters[selectedEncounter].creatures.size() == 0){
-                                allEncounters.erase (allEncounters.begin()+selectedEncounter);      
-                            }
-                        } else {
-                            cout << "Error selection out of range!" << endl;
-                        }
-                    }
-                    else if (userChoice == 2)
-                    {
-                        string typeOfCreature = uiSelectBeingType();
-                        cout << typeOfCreature << endl;
+                    string typeOfCreature = uiSelectBeingType();
+                    cout << typeOfCreature << endl;
 
-                        //Find how many creatures of the type exist
-                        int tempCreaturesCount = countAllCreaturesOfType(creatures, typeOfCreature);
-                        if (tempCreaturesCount > 0)
-                        {
-                            Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
-                            allEncounters[selectedEncounter].addEnemyToEncounter(selectedCreature);
-                        } else{
-                            cout << "Error! No creature of type " << typeOfCreature << endl;
-                        }
-                    }
-                    else if (userChoice == 3)
+                    //Find how many creatures of the type exist
+                    int tempCreaturesCount = countAllCreaturesOfType(creatures, typeOfCreature);
+                    if (tempCreaturesCount > 0)
                     {
-                        string newDifficulty = uiSelectDifficulty();
-                        allEncounters[selectedEncounter].changeDifficulty(newDifficulty);
-
-                        
-                        cout << "Current difficulty: " << allEncounters[selectedEncounter].difficulty << endl;
-                        
-                    }
-                    else if (userChoice == 4)
-                    {
-                        allEncounters.erase (allEncounters.begin()+selectedEncounter);        
-                    }
-                    
-                } else {
-                    cout << "Error! No encounters found!" << endl;
-                }
-            }
-            // Battle test hereeee
-            else if(select_test == 8)
-            {
-                if (gameInvestigators.size() > 0)
-                {// Start by seleting encounter
-                int randEnc;
-
-                cout << "Would you like to get a " << endl;
-                cout << "1. Easy encounter" << endl;
-                cout << "2. Medium encounter" << endl;
-                cout << "3. Hard encounter" << endl;
-                cout << "4. Impossible encounter" << endl;
-                cin >> randEnc;
-                while(randEnc < 1 || randEnc > 4){
-                    cout << "INVALID SELECTION!!!!" << endl;
-                    cout << "Would you like to get a " << endl;
-                    cout << "1. Easy encounter" << endl;
-                    cout << "2. Medium encounter" << endl;
-                    cout << "3. Hard encounter" << endl;
-                    cout << "4. Impossible encounter" << endl;
-                    cin >> randEnc;
-                }
-
-                Encounter selEnc = getRandomEncounter(randEnc-1, allEncounters);
-                vector<Individuals<Investigator>> selInv;
-                bool keepAdding = true;
-                int addingNum;
-                while (keepAdding)
-                {
-                    cout << "Add Characters" << endl;
-                    
-                    selInv.push_back(selectIndividualInvestigator(gameInvestigators));
-                    
-                    // This is the shit we need to fix
-                    selInv[0].type.printAttacks();
-                    cout << "Keep adding?" << endl;
-                    cout <<"1. yes" << endl;
-                    cout <<"2. no" << endl;
-                    cin >> addingNum;
-                    while (addingNum > 2 || addingNum < 1)
-                    {
-                        cout << "invalid selection" << endl;
-                        cout << "Keep adding?" << endl;
-                        cout <<"1. yes" << endl;
-                        cout <<"2. no" << endl;
-                        cin >> addingNum;
-                    }
-
-                    if (addingNum == 2)
-                    {
-                        keepAdding = false;
-                    }
-                }
-                battleEnv(selEnc, selInv);
-                } else {
-                    cout << "Error! No investigator found!" << endl;
-                }
-            }
-            else if(select_test == 9)
-            {
-                int userChoice = uiSelectOrRemoveFromEncounter();
-                if (userChoice == 1)
-                {
-                    //Add character to game
-                    if (investigators.size() != 0)
-                    {
-                        gameInvestigators.push_back(selectIndividualInvestigator(investigators));
-                    } else {
-                        cout << "Error! No investigators in the system!" << endl;
-                    } 
-                }
-                if (userChoice == 2)
-                {
-                    //Remove character from game
-                    if (gameInvestigators.size() != 0)
-                    {
-                        for (int i = 0; i < gameInvestigators.size(); i++)
-                        {
-
-                            int userChoice2 = getIndexOfInvestigator(gameInvestigators);
-                            gameInvestigators.erase (gameInvestigators.begin()+userChoice2);
-                        }
+                        Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
+                        newEncounter.addEnemyToEncounter(selectedCreature);
                     } else{
-                        cout << "Error! No investigators in the system!" << endl;
+                        cout << "Error! No creature of type " << typeOfCreature << endl;
                     }
-                    
                 }
-            }
+                //If the user wants to create his own custom enemy type
+                else if (userChoice1 == 2)
+                {
+                    creatures.push_back(myFileReader.createSpecies(creatures));
+                } 
+                // Attempt to save
+                else if (userChoice1 == 3) {
+                    if (newEncounter.creatures.size() == 0)
+                    {
+                        cout << "Error! Nothing added to the encounter! Exiting...." << endl;
+                        hasBeenSaved = true;
+                    } else {
+                        string difficultyLevel = uiSelectDifficulty();
+                        newEncounter.changeDifficulty(difficultyLevel);
+                        allEncounters.push_back(newEncounter);
+                        myFileReader.createEncounter(newEncounter);
+                        cout << "Success! Encounter has been saved ...." << endl;
+                        cout << newEncounter << endl;
+                        hasBeenSaved = true;
+                    }
+                } else {
+                    cout << "Invalid Choice! Try again!" << endl;
+                }
+            }   
         }
 
-        // Testing area for creating weapons and attacks
-        else if (user_choice == 9)
+        else if (user_choice == 3)
         {
+            //Path 3 create weapons/attacks
             int w_or_s; 
             cout << "Would you like to create: " << endl;
             cout << "1. Weapon" << endl;
-            cout << "2. Attack/Spell" << endl;
+            cout << "2. Attack" << endl;
             cin >> w_or_s;
             while(w_or_s < 1 || w_or_s > 2){
                 cout << "invalid input" << endl;
                 cout << "Would you like to create: " << endl;
                 cout << "1. Weapon" << endl;
-                cout << "2. Attack/Spell" << endl;
+                cout << "2. Attack" << endl;
                 cin >> w_or_s;
             }
             if (w_or_s == 1 ){
@@ -978,6 +341,366 @@ int main()
             }
         }
 
+        if (user_choice == 4){
+            //Path 4 Add attack to weapon/being
+            int userChoice = uiAttackAdder();
+            if (userChoice == 1)
+            {
+                string enemyType = uiSelectBeingType();
+                int selectedCreature = selectCreatureWithIndex(creatures);
+                Attack selectedAttack = selectAttack(attacks);
+                cout << "BEFORE UPDATE ATTACKS" << endl;
+                creatures[selectedCreature].printAttacks();
+                creatures[selectedCreature].AddAttackToBeing(selectedAttack);
+                //selectedCreature.printAttacks();
+                cout << "AFTER UPDATE" << endl;
+                creatures[selectedCreature].printAttacks();
+
+            }
+            if (userChoice == 2)
+            {
+                int userChoice = uiSelectNPCOrPC();
+                if (userChoice == 1)
+                {
+                    
+                    Individuals<Person>  p = selectIndividualPerson(individualsPersons);
+                    Attack selectedAttack = selectAttack(attacks);
+                    p.getType().printAttacks();
+                    p.type.AddAttackToBeing(selectedAttack);
+                    p.type.printAttacks();
+                }
+                if (userChoice == 2)
+                {
+                    
+                    Individuals<Investigator>& inv = selectIndividualInvestigator(investigators);
+                    Attack selectedAttack = selectAttack(attacks);
+                    inv.type.AddAttackToBeing(selectedAttack);
+                    inv.getType().printAttacks();
+                    inv.type.printAttacks();
+
+
+                }
+            }
+            if (userChoice == 3)
+            {
+                //Todo perhaps add the choice to pick a premade attack for a weapon
+                // You would have to create a new vector called weapon attacks and allow the old one to be renamed unarmed attacks
+                Weapon selectedWeapon = selectWeapon(weapons);
+                Attack newAttack = createIndividualAttack(allDice);
+                cout << "This is your new attack" << endl;
+                cout << newAttack << endl;
+                selectedWeapon.AddAttackToWeapon(newAttack);
+            }
+        }
+
+        if (user_choice == 5){
+            //Path 5 Add weapon to being
+            int userChoice = uiWeaponAdder();
+            if (userChoice == 1)
+            {
+                string enemyType = uiSelectBeingType();
+                int selectedCreature = selectCreatureWithIndex(creatures);
+                Weapon selectedWeapon = selectWeapon(weapons);
+                cout << "BEFORE UPDATE ATTACKS" << endl;
+                creatures[selectedCreature].printAttacks();
+                creatures[selectedCreature].AddWeaponToBeing(selectedWeapon);
+                //selectedCreature.printAttacks();
+                cout << "AFTER UPDATE" << endl;
+                creatures[selectedCreature].printAttacks();
+
+            }
+            if (userChoice == 2)
+            {
+                int userChoice = uiSelectNPCOrPC();
+                if (userChoice == 1)
+                {
+                    
+                    Individuals<Person>  p = selectIndividualPerson(individualsPersons);
+                    Weapon selectedWeapon = selectWeapon(weapons);
+                    p.getType().printAttacks();
+                    p.type.AddWeaponToBeing(selectedWeapon);
+                    p.type.printAttacks();
+                }
+                if (userChoice == 2)
+                {
+                    Individuals<Investigator>& inv = selectIndividualInvestigator(investigators);
+                    Weapon selectedWeapon = selectWeapon(weapons);
+                    inv.type.AddWeaponToBeing(selectedWeapon);
+                    inv.getType().printAttacks();
+                    inv.type.printAttacks();
+                }
+            }
+        }
+        
+        if (user_choice == 6)
+        {
+            //Path 6 Select Being to edit/remove
+            int userchoice1 = uiPrintAllTypes ();
+            if (userchoice1 == 1)
+            {
+                int userchoice2 = uiNPCOrPC();
+                if (userchoice2 == 1)
+                {
+                    cout << "selected NPC" << endl;
+                    if (individualsPersons.size() != 0)
+                    {
+                        Individuals<Person> p = selectIndividualPerson(individualsPersons);
+                        cout << "Selected person: " << endl;
+                        p.printA();
+                        string editing = uiUpdateStat();
+                        if (editing != "cancel")
+                        {
+                            p.type.updateStat(editing);
+                            Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getDex(), p.type.getCon(), p.type.getWis(), p.type.getCha(), p.type.getGender(), p.type.getFear());
+                            string name = p.getName();
+                            string job = p.getJob();
+                            int count = p.getCounter();
+                            Individuals<Person> t = Individuals<Person>(name, newP, count, job);
+                            for (int i=0; i<individualsPersons.size();i++)
+                            {
+                                if (individualsPersons[i].getName() == p.getName() && individualsPersons[i].getCounter() == p.getCounter() )
+                                {
+                                individualsPersons.erase(individualsPersons.begin() + i);
+                                individualsPersons.push_back(t);
+                                }
+                            }
+                            cout << "updated Person" << endl;
+                            t.printA();
+                            
+                            cout << endl;
+                            sort(individualsPersons.begin(), individualsPersons.end());
+                        }
+                    } else {
+                        cout << "Error! No NPC's found in system!" << endl;
+                    } 
+                                    
+                }
+                if (userchoice2 == 2)
+                {
+                    cout << "selected PC" << endl;
+                    if (investigators.size() != 0)
+                    {
+                        Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
+                        cout << "Selected investigator: " << endl;
+                        inv.printA();
+                        string editing = uiUpdateStat();
+                        if (editing != "cancel")
+                        {
+                            inv.type.updateStat(editing);
+                            Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getDex(), inv.type.getCon(), inv.type.getWis(), inv.type.getCha(),  inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
+                            string name = inv.getName();
+                            string job = inv.getJob();
+                            int count = inv.getCounter();
+                            newI.updateCurrentLife(inv.type.getCurrentLife());
+                            newI.printCharacter();
+                            Individuals<Investigator> t = Individuals<Investigator>(name, newI, count, job);
+                            for (int i=0; i<investigators.size();i++)
+                            {
+                                if (investigators[i].getName() == inv.getName() && investigators[i].getCounter() == inv.getCounter() )
+                                {
+                                    investigators.erase(investigators.begin() + i);
+                                    investigators.push_back(t);
+                                    
+                                }
+                            }
+                            cout << " Updated Investigator" << endl;
+                            t.printA();
+                            cout << endl;
+                            sort(investigators.begin(), investigators.end());
+                        }
+                    } else {
+                        cout << "Error! No PC's found in system!" << endl;
+                    }
+                }
+            }
+            if (userchoice1 == 2)
+            {
+                if (creatures.size() != 0){
+                    // start by listing all creatures
+                    //TODO CREATURE STUFFFFFFFFFF
+                    string type = uiSelectBeingType();
+                    Creature cre = selectCreatureWithType(creatures, type);
+                    // select stat to edit
+                    int index = 0;
+                    for (Creature cr : creatures)
+                    {
+                        if (cr.getName() == cre.getName())
+                        {
+                            break;
+                        }
+                        index ++;
+                    }
+                    cout<< index << endl;
+            
+                    string statToEdit = uiUpdateStat();
+                    if (statToEdit != "cancel")
+                    {
+                        cre.updateStat(statToEdit);
+                        Creature newCre = createCreature(cre);
+                            for (int i=0; i<creatures.size();i++)
+                            {
+                                if (creatures[i].getName() == cre.getName())
+                                {
+                                    creatures.erase(creatures.begin() + i);
+                                    creatures.push_back(newCre); 
+                                }
+                            }
+                    }
+                    
+                } else {
+                    cout << "Error! No enemies found in system!" << endl;
+                }
+            }
+        }
+
+        if (user_choice == 7)
+        {
+            //Path 7 edit/remove encounter
+            //TODO write to file the change
+            if (allEncounters.size() > 0)
+            {
+                cout << "Edit/remove encounters" << endl;
+                int selectedEncounter = selectIndividualEncounter(allEncounters);
+                int userChoice = uiEditEncounter();
+                if (userChoice == 1)
+                {
+                    cout << "What creature do you wish you remove?" << endl;
+                    seeAllCreatures(allEncounters[selectedEncounter].creatures);
+                    int userChoice2;
+                    cin >> userChoice2;
+                    if (userChoice2 > 0 &&  userChoice2 <= allEncounters[selectedEncounter].creatures.size()+1){
+                        allEncounters[selectedEncounter].creatures.erase (allEncounters[selectedEncounter].creatures.begin()+userChoice2-1);
+                        if (allEncounters[selectedEncounter].creatures.size() == 0){
+                            allEncounters.erase (allEncounters.begin()+selectedEncounter);      
+                        }
+                    } else {
+                        cout << "Error selection out of range!" << endl;
+                    }
+                }
+                else if (userChoice == 2)
+                {
+                    string typeOfCreature = uiSelectBeingType();
+                    cout << typeOfCreature << endl;
+
+                    //Find how many creatures of the type exist
+                    int tempCreaturesCount = countAllCreaturesOfType(creatures, typeOfCreature);
+                    if (tempCreaturesCount > 0)
+                    {
+                        Creature selectedCreature = selectCreatureWithType(creatures, typeOfCreature);
+                        allEncounters[selectedEncounter].addEnemyToEncounter(selectedCreature);
+                    } else{
+                        cout << "Error! No creature of type " << typeOfCreature << endl;
+                    }
+                }
+                else if (userChoice == 3)
+                {
+                    string newDifficulty = uiSelectDifficulty();
+                    allEncounters[selectedEncounter].changeDifficulty(newDifficulty);
+
+                    
+                    cout << "Current difficulty: " << allEncounters[selectedEncounter].difficulty << endl;
+                    
+                }
+                else if (userChoice == 4)
+                {
+                    allEncounters.erase (allEncounters.begin()+selectedEncounter);        
+                }
+                
+            } else {
+                cout << "Error! No encounters found!" << endl;
+            }
+        }
+
+        else if(user_choice == 8)
+        {
+            //Path 8 Select or remove playable character to/from game session
+            int userChoice = uiSelectOrRemoveFromEncounter();
+            if (userChoice == 1)
+            {
+                //Add character to game
+                if (investigators.size() != 0)
+                {
+                    gameInvestigators.push_back(selectIndividualInvestigator(investigators));
+                } else {
+                    cout << "Error! No investigators in the system!" << endl;
+                } 
+            }
+            if (userChoice == 2)
+            {
+                //Remove character from game
+                if (gameInvestigators.size() != 0)
+                {
+                    for (int i = 0; i < gameInvestigators.size(); i++)
+                    {
+
+                        int userChoice2 = getIndexOfInvestigator(gameInvestigators);
+                        gameInvestigators.erase (gameInvestigators.begin()+userChoice2);
+                    }
+                } else{
+                    cout << "Error! No investigators in the system!" << endl;
+                }
+                
+            }
+        }
+
+        else if(user_choice == 9)
+        {
+            //Path 9 Start encounter!
+            if (gameInvestigators.size() > 0)
+            {// Start by seleting encounter
+            int randEnc;
+
+            cout << "Would you like to get a " << endl;
+            cout << "1. Easy encounter" << endl;
+            cout << "2. Medium encounter" << endl;
+            cout << "3. Hard encounter" << endl;
+            cout << "4. Impossible encounter" << endl;
+            cin >> randEnc;
+            while(randEnc < 1 || randEnc > 4){
+                cout << "INVALID SELECTION!!!!" << endl;
+                cout << "Would you like to get a " << endl;
+                cout << "1. Easy encounter" << endl;
+                cout << "2. Medium encounter" << endl;
+                cout << "3. Hard encounter" << endl;
+                cout << "4. Impossible encounter" << endl;
+                cin >> randEnc;
+            }
+
+            Encounter selEnc = getRandomEncounter(randEnc-1, allEncounters);
+            vector<Individuals<Investigator>> selInv;
+            bool keepAdding = true;
+            int addingNum;
+            while (keepAdding)
+            {
+                cout << "Add Characters" << endl;
+                
+                selInv.push_back(selectIndividualInvestigator(gameInvestigators));
+                
+                // This is the shit we need to fix
+                selInv[0].type.printAttacks();
+                cout << "Keep adding?" << endl;
+                cout <<"1. yes" << endl;
+                cout <<"2. no" << endl;
+                cin >> addingNum;
+                while (addingNum > 2 || addingNum < 1)
+                {
+                    cout << "invalid selection" << endl;
+                    cout << "Keep adding?" << endl;
+                    cout <<"1. yes" << endl;
+                    cout <<"2. no" << endl;
+                    cin >> addingNum;
+                }
+
+                if (addingNum == 2)
+                {
+                    keepAdding = false;
+                }
+            }
+            battleEnv(selEnc, selInv);
+            } else {
+                cout << "Error! No investigator found!" << endl;
+            }
+        }
 
         else if (user_choice == 0)
         {
