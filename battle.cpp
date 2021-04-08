@@ -210,16 +210,22 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                 Attack selectedAttack;
                 cin >> attackSelect;
                 // Check the size
+                cout << "This the size of attacks: " << characters[j].type.attacks.size()<<endl; 
                 if (attackSelect > characters[j].type.attacks.size())
                 {
+                    int newAttackSelect;
+                    cout << "Here we should be selecting weapons size of weapons: " << characters[j].type.weapons.size() << endl; 
                     cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
                     // If this condition is met then we are working with a attack
                     // so attackSelect should be deducted from the size of the attacks vector
-                    attackSelect = attackSelect - characters[j].type.attacks.size();
+                    newAttackSelect = attackSelect - characters[j].type.attacks.size();
                     cout << "this is the attack select after the deduction: " << attackSelect << endl;
-                    Attack selectedAttack = characters[j].type.weapons[0].attacks[attackSelect];
+                    Attack selectedAttack = characters[j].type.weapons[newAttackSelect-1].attacks[0];
+                    cout << "selectedAttackTEST" << endl;
+                    cout <<  characters[j].type.weapons[newAttackSelect-1].attacks[0]<< endl;
                 }
                 else{
+                    cout << "Does it go in here??" << endl;
                     Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
                 }
 
