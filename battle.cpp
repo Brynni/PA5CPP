@@ -147,6 +147,10 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
 
     //cout << "The amount of creatures:  " << countOfAlreadyGivenOrder << endl;
     //cout << "Starting the battle itself" << endl;
+    for (Creature cre: randomEnc.creatures)
+    {
+        
+    }
     bool encounterIsFinished = false;
     while (encounterIsFinished == false)
     {
@@ -170,62 +174,169 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                 //cout << "This freezes" << endl;
                 cout << "Currently attacking:  " << randomEnc.creatures[i].getName() << endl;
                 if (randomEnc.creatures[i].attacks.size() > 0){
-                    randomEnc.creatures[i].printCompactAttacks();
-                    cout << "Please enter attack selection: ";
-                    cin >> attackSelect;
-                    Attack selectedAttack;
-                    // Check the size
-                    cout << "my attack selection: " << attackSelect << endl;
-                    cout << "The characters amount of attacks! " <<randomEnc.creatures[i].attacks.size() << endl;
-                    if (attackSelect > 0)
-                    {
-                        bool foundAttack = false;
-                        if (attackSelect > randomEnc.creatures[i].attacks.size())
-                        {
-                            while (foundAttack == false) 
-                            {
-                                int newAttackSelect;
-                                cout << "Here we should be selecting weapons size of weapons: " << randomEnc.creatures[i].weapons.size() << endl; 
-                                cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
-                                // If this condition is met then we are working with a attack
-                                // so attackSelect should be deducted from the size of the attacks vector
-                                newAttackSelect = attackSelect - randomEnc.creatures[i].attacks.size();
-                                cout << "this is the attack select after the deduction: " << newAttackSelect << endl;
-                                int attackCounter = 0 + randomEnc.creatures[i].attacks.size();
-                                cout << "Blah! the selected attack! "<< newAttackSelect << endl;
-                                cout << "size of weapon attacks blah" << randomEnc.creatures[i].weapons[0].attacks.size() << endl;
-                                for (int b = 0; b < randomEnc.creatures[i].weapons.size(); b++)
-                                {
-                                    for (int z = 0; z< randomEnc.creatures[i].weapons[b].attacks.size();z++)
-                                    {   
-                                        attackCounter++;
-                                        cout << "Current count: " << attackCounter << endl;
-                                        if (attackCounter == newAttackSelect+1)
-                                        {
-                                            cout << "found my attacks!" << endl; 
-                                            selectedAttack = randomEnc.creatures[i].weapons[b].attacks[z];
-                                            cout <<  randomEnc.creatures[i].weapons[b].attacks[z]<< endl;
-                                            foundAttack = true;
-                                        }
-                                    }
-                                }
-                                if (foundAttack == false)
-                                {
-                                    cout << "Error! Selection outside of range!" << endl;
-                                    system("pause");
-                                    randomEnc.creatures[i].printCompactAttacks();
-                                    cout << "Enter your attack selection: ";
+                    // randomEnc.creatures[i].printCompactAttacks();
+                    // cout << "Please enter attack selection: ";
+                    // cin >> attackSelect;
+                    // Attack selectedAttack;
+                    // // Fáum 3 hér fyrir slash
+                    // // Check the size
+                    // cout << "my attack selection: " << attackSelect << endl;
+                    // cout << "The characters amount of attacks! " <<randomEnc.creatures[i].attacks.size() << endl;
+                    // // skilar 2 sem er stærðin af attacks
+                    // if (attackSelect > 0)
+                    // // fer hingað inn 
+                    // {
+                    //     bool foundAttack = false;
+                    //     // attackselect = 3 > 2
+                    //     if (attackSelect > randomEnc.creatures[i].attacks.size())
+                    //     {
+                    //         while (foundAttack == false) 
+                    //         {
 
-                                    cin >> attackSelect;
-                                }
-                            }
-                        } else{
-                            cout << selectedAttack << endl;
-                            cout << "Does it go in here??" << endl;
-                            Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
+                    //             int newAttackSelect;
+                    //             // Fáum 2
+                    //             cout << "Here we should be selecting weapons size of weapons: " << randomEnc.creatures[i].weapons.size() << endl; 
+                    //             // 3 hérna
+                    //             cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
+                    //             // If this condition is met then we are working with a attack
+                    //             // so attackSelect should be deducted from the size of the attacks vector
+                    //             // Fáum 3 -2 = 1
+                    //             newAttackSelect = attackSelect - randomEnc.creatures[i].attacks.size();
+                    //             // 1
+                    //             cout << "this is the attack select after the deduction: " << newAttackSelect << endl;
+                    //             // AC = 2
+                    //             int attackCounter = 0 + randomEnc.creatures[i].attacks.size();
+                    //             // 1
+                    //             cout << "Blah! the selected attack! "<< newAttackSelect << endl;
+                    //             // 3
+                    //             cout << "size of weapon attacks blah" << randomEnc.creatures[i].weapons.size() << endl;
+                    //             for (int b = 0; b < randomEnc.creatures[i].weapons.size(); b++)
+                    //             {
+                    //                 // Wep.size = 2?
+                    //                 for (int z = 0; z< randomEnc.creatures[i].weapons[b].attacks.size();z++)
+                    //                 {
+                    //                     // AC = 3?   
+                    //                     attackCounter++;
+                    //                     cout << "Current count: " << attackCounter << endl;
+                    //                     // Ef að 
+                    //                     if (attackCounter == newAttackSelect+1)
+                    //                     {
+                    //                         cout << "found my attacks!" << endl; 
+                    //                         selectedAttack = randomEnc.creatures[i].weapons[b].attacks[z];
+                    //                         cout <<  randomEnc.creatures[i].weapons[b].attacks[z]<< endl;
+                    //                         foundAttack = true;
+                    //                     }
+                    //                 }
+                    //             }
+                    //             if (foundAttack == false)
+                    //             {
+                    //                 cout << "Error! Selection outside of range!" << endl;
+                    //                 system("pause");
+                    //                 randomEnc.creatures[i].printCompactAttacks();
+                    //                 cout << "Enter your attack selection: ";
+
+                    //                 cin >> attackSelect;
+                    //             }
+                    //         }
+                    //     } else{
+                    //         cout << selectedAttack << endl;
+                    //         cout << "Does it go in here??" << endl;
+                    //         Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
+                    //     }
+
+                        Attack selectedAttack;
+                        int unarmedOrWeapon;
+                        cout << "Currently Attacking " << randomEnc.creatures[i].getName() << endl;
+                        cout << "Do you want to make a weapon attack or a unarmed attack?" << endl;
+                        cout << "1. Weapon attack" << endl;
+                        cout << "2. Unarmed attack" << endl;
+                        cin >> unarmedOrWeapon;
+                        while(unarmedOrWeapon < 1 || unarmedOrWeapon > 2)
+                        {
+                            cout << "INVALID SELECTION" << endl;
+                            cout << "Do you want to make a weapon attack or a unarmed attack?" << endl;
+                            cout << "1. Weapon attack" << endl;
+                            cout << "2. Unarmed attack" << endl;
                         }
 
-                        
+                        if (unarmedOrWeapon == 1)
+                        {
+                            // Select the weapon here
+                            int weaponSelection;
+                            int weaponSize = randomEnc.creatures[i].weapons.size();
+                            randomEnc.creatures[i].printOnlyWeapons();
+                            cout << "Select your weapon: ";
+                            cin >> weaponSelection;
+                            while (weaponSelection < 0 || weaponSelection > weaponSize)
+                            {
+                                cout << "Invalid selection: " << endl;
+                                randomEnc.creatures[i].printOnlyWeapons();
+                                cout << "Select your weapon: ";
+                                cin >> weaponSelection;
+                                cout << " " << endl;
+                            }
+
+
+                            int attackSelection;
+                            int attackSize = randomEnc.creatures[i].weapons[weaponSelection-1].attacks.size();
+                            int a_counter = 0;
+                            // Iterating the attacks
+                            for (Attack a : randomEnc.creatures[i].weapons[weaponSelection-1].attacks)
+                            {
+                                a_counter ++;
+                                a.printInfo();
+                            }
+                            cout << "Select your attack: ";
+                            cin >>attackSelection;
+                            while (attackSelection < 0 || attackSelection > attackSize)
+                            {
+                                int a_counter = 0;
+                                cout << "INVALID SELECTION!!!" << endl;
+                                for (Attack a : randomEnc.creatures[i].weapons[weaponSelection-1].attacks)
+                                {
+                                    a_counter ++;
+                                    a.printInfo();
+                                }
+                                cout << "Select your attack: ";
+                                cin >>attackSelection;
+
+                            }
+
+                            selectedAttack = randomEnc.creatures[i].weapons[weaponSelection-1].attacks[attackSelection-1];
+                                   
+                        }
+
+                        if(unarmedOrWeapon == 2)
+                        {
+                            int attackSelection;
+                            int attackSize = randomEnc.creatures[i].attacks.size();
+                            int a_counter = 0;
+                            // Iterating the attacks
+                            for (Attack a : randomEnc.creatures[i].attacks)
+                            {
+                                a_counter ++;
+                                a.printInfo();
+                            }
+                            cout << "Select your attack: ";
+                            cin >>attackSelection;
+                            while (attackSelection < 0 || attackSelection > attackSize)
+                            {
+                                int a_counter = 0;
+                                cout << "INVALID SELECTION!!!" << endl;
+                                for (Attack a : randomEnc.creatures[i].attacks)
+                                {
+                                    a_counter ++;
+                                    a.printInfo();
+                                }
+                                cout << "Select your attack: ";
+                                cin >>attackSelection;
+
+                            }
+
+                            selectedAttack = randomEnc.creatures[i].attacks[attackSelection-1];
+                        }
+
+
 
 
 
@@ -244,66 +355,154 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                 }
                 i++;
             }
-            else if(j < characters.size() && characters[j].type.getAttackOrder() ==currentOrder)
+            if(j < characters.size() && characters[j].type.getAttackOrder() ==currentOrder)
             {
                 cout << "It is characters " << characters[j].type.getName() << " turn!" << endl;
                 currentOrder++;
                 if (characters[j].type.attacks.size() > 0) {
-                    characters[j].type.printCompactAttacks();
-                    cout << "Enter your attack selection: ";
-                    Attack selectedAttack;
-                    cin >> attackSelect;
-                    if (attackSelect > 0)
-                    {
-                        bool foundAttack = false;
-                        if (attackSelect > characters[j].type.attacks.size())
-                        {
-                            while (foundAttack == false) 
-                            {
-                                int newAttackSelect;
-                                cout << "Here we should be selecting weapons size of weapons: " << characters[j].type.weapons.size() << endl; 
-                                cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
-                                // If this condition is met then we are working with a attack
-                                // so attackSelect should be deducted from the size of the attacks vector
-                                newAttackSelect = attackSelect - characters[j].type.attacks.size();
-                                cout << "this is the attack select after the deduction: " << newAttackSelect << endl;
-                                int attackCounter = 0 + characters[j].type.attacks.size();
-                                cout << "Blah! the selected attack! "<< newAttackSelect << endl;
-                                for (int b = 0; b < characters[j].type.weapons.size(); b++)
-                                {
-                                    for (int z = 0; z< characters[j].type.weapons[b].attacks.size();z++)
-                                    {   
-                                        attackCounter++;
-                                        cout << "Current count: " << attackCounter << endl;
-                                        if (attackCounter == newAttackSelect+1)
-                                        {
-                                            cout << "found my attacks!" << endl; 
-                                            selectedAttack = characters[j].type.weapons[b].attacks[z];
-                                            cout <<  characters[j].type.weapons[b].attacks[z]<< endl;
-                                            foundAttack = true;
-                                        }
-                                    }
-                                }
-                                if (foundAttack == false)
-                                {
-                                    cout << "Error! Selection outside of range!" << endl;
-                                    system("pause");
-                                    characters[j].type.printCompactAttacks();
-                                    cout << "Enter your attack selection: ";
+                    // characters[j].type.printCompactAttacks();
+                    // cout << "Enter your attack selection: ";
+                    // Attack selectedAttack;
+                    // cin >> attackSelect;
+                    // if (attackSelect > 0)
+                    // {
+                    //     bool foundAttack = false;
+                    //     if (attackSelect > characters[j].type.attacks.size())
+                    //     {
+                    //         while (foundAttack == false) 
+                    //         {
+                    //             int newAttackSelect;
+                    //             cout << "Here we should be selecting weapons size of weapons: " << characters[j].type.weapons.size() << endl; 
+                    //             cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
+                    //             // If this condition is met then we are working with a attack
+                    //             // so attackSelect should be deducted from the size of the attacks vector
+                    //             newAttackSelect = attackSelect - characters[j].type.attacks.size();
+                    //             cout << "this is the attack select after the deduction: " << newAttackSelect << endl;
+                    //             int attackCounter = 0 + characters[j].type.attacks.size();
+                    //             cout << "Blah! the selected attack! "<< newAttackSelect << endl;
+                    //             for (int b = 0; b < characters[j].type.weapons.size(); b++)
+                    //             {
+                    //                 for (int z = 0; z< characters[j].type.weapons[b].attacks.size();z++)
+                    //                 {   
+                    //                     attackCounter++;
+                    //                     cout << "Current count: " << attackCounter << endl;
+                    //                     if (attackCounter == newAttackSelect+1)
+                    //                     {
+                    //                         cout << "found my attacks!" << endl; 
+                    //                         selectedAttack = characters[j].type.weapons[b].attacks[z];
+                    //                         cout <<  characters[j].type.weapons[b].attacks[z]<< endl;
+                    //                         foundAttack = true;
+                    //                     }
+                    //                 }
+                    //             }
+                    //             if (foundAttack == false)
+                    //             {
+                    //                 cout << "Error! Selection outside of range!" << endl;
+                    //                 system("pause");
+                    //                 characters[j].type.printCompactAttacks();
+                    //                 cout << "Enter your attack selection: ";
 
-                                    cin >> attackSelect;
-                                }
-                            }
-                        }
-                        else{
-                            cout << "Does it go in here??" << endl;
-                            Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
-                        }
+                    //                 cin >> attackSelect;
+                    //             }
+                    //         }
+                    //     }
+                    //     else{
+                    //         cout << "Does it go in here??" << endl;
+                    //         Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
+                    //     }
 
                         
 
 
+                        Attack selectedAttack;
+                        int unarmedOrWeapon;
+                        cout << "Currently Attacking " << characters[j].type.getName() << endl;
+                        cout << "Do you want to make a weapon attack or a unarmed attack?" << endl;
+                        cout << "1. Weapon attack" << endl;
+                        cout << "2. Unarmed attack" << endl;
+                        cin >> unarmedOrWeapon;
+                        while(unarmedOrWeapon < 1 || unarmedOrWeapon > 2)
+                        {
+                            cout << "INVALID SELECTION" << endl;
+                            cout << "Do you want to make a weapon attack or a unarmed attack?" << endl;
+                            cout << "1. Weapon attack" << endl;
+                            cout << "2. Unarmed attack" << endl;
+                        }
 
+                        if (unarmedOrWeapon == 1)
+                        {
+                            // Select the weapon here
+                            int weaponSelection;
+                            int weaponSize = characters[j].type.weapons.size();
+                            characters[j].type.printOnlyWeapons();
+                            cout << "Select your weapon: ";
+                            cin >> weaponSelection;
+                            while (weaponSelection < 0 || weaponSelection > weaponSize)
+                            {
+                                cout << "Invalid selection: " << endl;
+                                characters[j].type.printOnlyWeapons();
+                                cout << "Select your weapon: ";
+                                cin >> weaponSelection;
+                            }
+
+
+                            int attackSelection;
+                            int attackSize = characters[j].type.weapons[weaponSelection-1].attacks.size();
+                            int a_counter = 0;
+                            // Iterating the attacks
+                            for (Attack a : characters[j].type.weapons[weaponSelection-1].attacks)
+                            {
+                                a_counter ++;
+                                a.printInfo();
+                            }
+                            cout << "Select your attack: ";
+                            cin >>attackSelection;
+                            while (attackSelection < 0 || attackSelection > attackSize)
+                            {
+                                int a_counter = 0;
+                                cout << "INVALID SELECTION!!!" << endl;
+                                for (Attack a : characters[j].type.weapons[weaponSelection-1].attacks)
+                                {
+                                    a_counter ++;
+                                    a.printInfo();
+                                }
+                                cout << "Select your attack: ";
+                                cin >>attackSelection;
+
+                            }
+
+                            selectedAttack = characters[j].type.weapons[weaponSelection-1].attacks[attackSelection-1];
+                                   
+                        }
+                        if (unarmedOrWeapon == 2)
+                        {
+                            int attackSelection;
+                            int attackSize = characters[j].type.attacks.size();
+                            int a_counter = 0;
+                            // Iterating the attacks
+                            for (Attack a : characters[j].type.attacks)
+                            {
+                                a_counter ++;
+                                a.printInfo();
+                            }
+                            cout << "Select your attack: ";
+                            cin >>attackSelection;
+                            while (attackSelection < 0 || attackSelection > attackSize)
+                            {
+                                int a_counter = 0;
+                                cout << "INVALID SELECTION!!!" << endl;
+                                for (Attack a : characters[j].type.attacks)
+                                {
+                                    a_counter ++;
+                                    a.printInfo();
+                                }
+                                cout << "Select your attack: ";
+                                cin >>attackSelection;
+
+                            }
+
+                            selectedAttack = characters[j].type.attacks[attackSelection-1];
+                        }
                         cout << selectedAttack;
                         //selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
                         cout << randomEnc;
@@ -337,10 +536,7 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                 }
             } 
         }
-    }
-}
-        
-        
+            
 };
 
 bool checkIfEncounterIsOver(vector<Individuals<Investigator>> &characters,  vector<Creature> &enemies)

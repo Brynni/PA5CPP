@@ -354,3 +354,22 @@ int Being::getAttackOrder()
     return this->attackOrder;
 };
 
+
+void Being::printOnlyWeapons()
+{
+    int counter = 0;
+    for (Weapon w: weapons)
+    {
+        counter ++;
+        cout << counter << ".\t" << w.name << endl;
+    }
+};
+void Being::printOnlyAttacks()
+{
+    int counter;
+    for (Attack a: attacks)
+    {
+        cout << counter;
+        a.printInfo();
+    }
+}
