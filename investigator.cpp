@@ -130,27 +130,27 @@ Investigator createCustomInvestigator()
 
     cout << "Enter life for Investigator: " <<  endl;
     cin >> life;
-    while (life < 0 || life > 10)
+    while (life < 0 || life > 100)
     {
-        cout << "Invalid value for life - the range is 0 - 10" << endl;
+        cout << "Invalid value for life - the range is 0 - 100" << endl;
         cout << "Enter life for Investigator: " <<  endl;
         cin >> life;
         cout << endl;
     }   
     cout << "Enter strength for Investigator: " <<  endl;
     cin >> strength;
-    while (strength < 0 || strength > 10)
+    while (strength < 0 || strength > 20)
     {
-        cout << "Invalid value for Investigator - the range is 0 - 10" << endl;
+        cout << "Invalid value for Investigator - the range is 0 - 20" << endl;
         cout << "Enter life for Investigator: " <<  endl;
         cin >> strength;
         cout << endl;
     }   
     cout << "Enter Intelligence for Investigator: " <<  endl;
     cin >> intelligence;
-    while (intelligence < 0 || intelligence > 10)
+    while (intelligence < 0 || intelligence > 20)
     {
-        cout << "Invalid value for Investigator - the range is 0 - 10" << endl;
+        cout << "Invalid value for Investigator - the range is 0 - 20" << endl;
         cout << "Enter life for Investigator: " <<  endl;
         cin >> intelligence;
         cout << endl;
@@ -159,9 +159,9 @@ Investigator createCustomInvestigator()
         cout << endl;
     cout << "Enter dexterity for Investigator: " <<  endl;
     cin >> dex;
-    while (dex < 0 || dex > 30)
+    while (dex < 0 || dex > 20)
     {
-        cout << "Invalid range! dexterity must be between 0-30" << endl; 
+        cout << "Invalid range! dexterity must be between 0-20" << endl; 
         cout << "Enter dexterity for Investigator: " <<  endl;
         cin >> dex;
     }
@@ -169,9 +169,9 @@ Investigator createCustomInvestigator()
     cout << endl;
     cout << "Enter constituion for Investigator: " <<  endl;
     cin >> con;
-    while (con < 0 || con > 30)
+    while (con < 0 || con > 20)
     {
-        cout << "Invalid range! constituion must be between 0-30" << endl; 
+        cout << "Invalid range! constituion must be between 0-20" << endl; 
         cout << "Enter constituion for Investigator: " <<  endl;
         cin >> con;
     }
@@ -179,9 +179,9 @@ Investigator createCustomInvestigator()
     cout << endl;
     cout << "Enter wisdom for Investigator: " <<  endl;
     cin >> wis;
-    while (wis < 0 || wis > 30)
+    while (wis < 0 || wis > 20)
     {
-        cout << "Invalid range! wisdom must be between 0-30" << endl; 
+        cout << "Invalid range! wisdom must be between 0-20" << endl; 
         cout << "Enter wisdom for Investigator: " <<  endl;
         cin >> wis;
     }
@@ -189,9 +189,9 @@ Investigator createCustomInvestigator()
     cout << endl;
     cout << "Enter charisma for Investigator: " <<  endl;
     cin >> cha;
-    while (cha < 0 || cha > 30)
+    while (cha < 0 || cha > 20)
     {
-        cout << "Invalid range! Charisma must be between 0-30" << endl; 
+        cout << "Invalid range! Charisma must be between 0-20" << endl; 
         cout << "Enter charisma for Investigator: " <<  endl;
         cin >> cha;
     }
@@ -200,14 +200,11 @@ Investigator createCustomInvestigator()
     cin   >> name;
     cout << endl;
 
-    cout <<"Enter gender for Investigator: ";
-    std::getline(std::cin, gender);
-
     cout << "Enter fear for Investigator: " <<  endl;
     cin >> fear;
-    while (fear < 0 || fear > 10)
+    while (fear < 0 || fear > 20)
     {
-        cout << "Invalid value for fear - the range is 0 - 10" << endl;
+        cout << "Invalid value for fear - the range is 0 - 20" << endl;
         cout << "Enter fear for Investigator: " <<  endl;
         cin >> fear;
         cout << endl;
@@ -222,7 +219,9 @@ Investigator createCustomInvestigator()
         cin >> terror;
         cout << endl;
     }
-
+    
+    cout <<"Enter gender for Investigator: " << endl;
+    std::getline(std::cin, gender);
     Investigator inv = Investigator(name, life, strength, intelligence, dex, con, wis, cha, gender, fear, terror);
     return inv;     
 }

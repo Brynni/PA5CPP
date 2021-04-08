@@ -1,5 +1,7 @@
 Name: Ghoul
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 22
 Strength: 13
 Intelligence: 7
@@ -13,6 +15,8 @@ Type: Undead
 #
 Name: Wolf
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 11
 Strength: 12
 Intelligence: 3
@@ -26,6 +30,8 @@ Type: Animal
 #
 Name: Chthonian
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 207
 Strength: 22
 Intelligence: 12
@@ -40,6 +46,8 @@ Type: Monstrosity
 #
 Name: Shoggoth
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 387
 Strength: 26
 Intelligence: 12
@@ -54,6 +62,8 @@ Type: Monstrosity
 #
 Name: Color Out of space
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 76
 Strength: 16
 Intelligence: 15
@@ -82,6 +92,8 @@ Type: Monstrosity
 #
 Name: Housefly
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 1
 Strength: 1
 Intelligence: 1
@@ -95,6 +107,8 @@ Disquiet: 1
 #
 Name: Wisp
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 5
 Strength: 5
 Intelligence: 5
@@ -108,6 +122,8 @@ Disquiet: 5
 #
 Name: Dust bunny
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 1
 Strength: 1
 Intelligence: 1
@@ -121,6 +137,8 @@ Disquiet: 1
 #
 Name: Sargon
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 15
 Strength: 15
 Intelligence: 15
@@ -134,6 +152,8 @@ Disquiet: 1
 #
 Name: Jolli
 Creature
+Attacks: Punch
+Weapons: sword
 Life: 56
 Strength: 12
 Intelligence: 10
@@ -145,86 +165,10 @@ Type: Undead
 Natural
 Disquiet: 3
 #
-Name: 123
-Creature
-Life: 10
-Strength: 10
-Intelligence: 10
-Dex: 10
-Con: 10
-Wis: 10
-Cha: 10
-Type: Undead
-Natural
-Disquiet: 2
-#
 Name: Ari
 Creature
-Life: 10
-Strength: 10
-Intelligence: 10
-Dex: 10
-Con: 10
-Wis: 10
-Cha: 10
-Type: Humanoid
-Natural
-Disquiet: 10
-#
-Name: qweq
-Creature
-Life: 12
-Strength: 10
-Intelligence: 10
-Dex: 8
-Con: 10
-Wis: 10
-Cha: 10
-Type: Undead
-Natural
-Disquiet: 10
-#
-Name: 555
-Creature
-Life: 123
-Strength: 20
-Intelligence: 10
-Dex: 10
-Con: 10
-Wis: 10
-Cha: 10
-Type: Monstrosity
-Natural
-Disquiet: 10
-#
-Name: 22222
-Creature
-Life: 1
-Strength: 1
-Intelligence: 1
-Dex: 1
-Con: 1
-Wis: 1
-Cha: 1
-Type: Animal
-Natural
-Disquiet: 1
-#
-Name: 123333
-Creature
-Life: 1
-Strength: 1
-Intelligence: 1
-Dex: 1
-Con: 1
-Wis: 1
-Cha: 1
-Type: Animal
-Natural
-Disquiet: 1
-#
-Name: imabadboi
-Creature
+Attacks: Punch
+Weapons: sword
 Life: 10
 Strength: 10
 Intelligence: 10

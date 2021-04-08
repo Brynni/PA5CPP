@@ -672,46 +672,10 @@ int main()
                             Individuals<Person> p = selectIndividualPerson(individualsPersons);
                             cout << "Selected person: " << endl;
                             p.printA();
-                            int editing = uiStatToEdit();
-                            cout << endl;
-
-                            if (editing == 1)
+                            string editing = uiUpdateStat();
+                            if (editing != "cancel")
                             {
-                                p.type.updateLife();
-                            }
-
-                            else if (editing == 2)
-                            {
-                                p.type.updateStrength();
-                            }
-
-                            else if (editing == 3)
-                            {
-                                p.type.updateName();
-                            }
-
-                            else if (editing == 4)
-                            {
-                                p.type.updateInt();
-                            }
-
-                            else if (editing == 5)
-                            {
-                                p.type.updateGender();
-                            }
-
-                            else if (editing == 6)
-                            {
-                                p.type.updateFear();
-                            }
-
-                            else if (editing == 7)
-                            {
-                                p.type.takeDamage(5);
-                            }
-
-                            else if (editing > 0 && editing < 8)
-                            {
+                                p.type.updateStat(editing);
                                 Person newP = Person (p.type.getName(), p.type.getLife(), p.type.getStrength(), p.type.getInt(), p.type.getDex(), p.type.getCon(), p.type.getWis(), p.type.getCha(), p.type.getGender(), p.type.getFear());
                                 string name = p.getName();
                                 string job = p.getJob();
@@ -731,11 +695,6 @@ int main()
                                 cout << endl;
                                 sort(individualsPersons.begin(), individualsPersons.end());
                             }
-
-                            else if (editing < 1 || editing > 8)
-                            {
-                                cout << "Invalid Selection" << endl;
-                            }
                         } else {
                             cout << "Error! No NPC's found in system!" << endl;
                         } 
@@ -749,51 +708,10 @@ int main()
                             Individuals<Investigator> inv = selectIndividualInvestigator(investigators);
                             cout << "Selected investigator: " << endl;
                             inv.printA();
-                            int editing = uiStatToEdit();
-                            cout << endl;
-
-                            if (editing == 1)
+                            string editing = uiUpdateStat();
+                            if (editing != "cancel")
                             {
-                                inv.type.updateLife();
-                            }
-
-                            else if (editing == 2)
-                            {
-                                inv.type.updateStrength();
-                            }
-
-                            else if (editing == 3)
-                            {
-                                inv.type.updateName();
-                            }
-
-                            else if (editing == 4)
-                            {
-                                inv.type.updateInt();
-                            }
-
-                            else if (editing == 5)
-                            {
-                                inv.type.updateGender();
-                            }
-
-                            else if (editing == 6)
-                            {
-                                inv.type.updateFear();
-                            }
-
-                            else if (editing == 7)
-                            {
-                                inv.type.updateTerror();
-                            }
-
-                            else if (editing == 8)
-                            {
-                                inv.type.takeDamage(5);
-                            }
-
-                            else if (editing > 0 && editing < 9)
-                            {
+                                inv.type.updateStat(editing);
                                 Investigator newI = Investigator (inv.type.getName(), inv.type.getLife(), inv.type.getStrength(), inv.type.getInt(), inv.type.getDex(), inv.type.getCon(), inv.type.getWis(), inv.type.getCha(),  inv.type.getGender(), inv.type.getFear(), inv.type.getTerror());
                                 string name = inv.getName();
                                 string job = inv.getJob();
@@ -814,11 +732,6 @@ int main()
                                 t.printA();
                                 cout << endl;
                                 sort(investigators.begin(), investigators.end());
-                            }
-
-                            else if (editing < 1 || editing > 8)
-                            {
-                                cout << "Invalid Selection" << endl;
                             }
                         } else {
                             cout << "Error! No PC's found in system!" << endl;

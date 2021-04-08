@@ -78,7 +78,8 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
     cout << "Before BONGO Sort 2! " << endl;
     for (int i = 0; i < randomEnc.creatures.size();i++)
     {
-        cout << randomEnc.creatures[i]; 
+        cout << randomEnc.creatures[i];
+        cout << endl; 
     }
 
     sort(randomEnc.creatures.begin(), randomEnc.creatures.end(), [](const Creature& begin, const Creature& end)
@@ -92,6 +93,7 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
     {
         cout << randomEnc.creatures[i];
         cout << randomEnc.creatures[i].attackOrder; 
+        cout << endl;
     }
     
     
@@ -204,16 +206,6 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
     
 };
 
-// vector<string> generateInitiveOrder(vector<Being> allCharacters)
-// {
-//     // We send everything in here and generate a string array;
-//     // the strings are of type <e/c><i> e = enemey c = character and <i> is the index in correct corresponding vect 
-//     vector<string>bla;
-//     //vector<Being*> initOrder;
-//     return bla;
-
-// };
-
 bool checkIfEncounterIsOver(vector<Individuals<Investigator>> &characters,  vector<Creature> &enemies)
 {
     bool isItOver = false;
@@ -249,7 +241,7 @@ bool checkIfAllEnemiesAreDead(vector <Creature>& creatures)
     int deadCharacterCount = 0;
     for (int i = 0; i < creatures.size();i++)
     {
-        if (creatures[i].getCurrentLife()==0)
+        if (creatures[i].getCurrentLife()<=0)
         {
             deadCharacterCount++;
         }
@@ -261,12 +253,22 @@ bool checkIfAllEnemiesAreDead(vector <Creature>& creatures)
     return areAllEnemiesDead;
 };
 
-bool checkIfSingleEnemeyIsDead(const Creature &enemey)
+bool checkIfSingleEnemeyIsDead(Creature &enemey)
 {
-    return true;
+    if (enemey.getCurrentLife() <= 0)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 bool checkIfSingleCharacterIsDead(Investigator &character)
 {
-    return true;
+        if (character.getCurrentLife() <= 0)
+    {
+        return true;
+    }
+
+    return false;
 };
