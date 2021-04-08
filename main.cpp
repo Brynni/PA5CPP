@@ -81,7 +81,7 @@ Individuals<Creature> selectIndividualCreature(vector <Individuals<Creature> > i
     return individualCreatures[selection -1];
 }
 
-Individuals<Person>& selectIndividualPerson(vector <Individuals<Person> > individualPersons)
+Individuals<Person> selectIndividualPerson(vector <Individuals<Person> > individualPersons)
 {
     printIndividualPersons(individualPersons);
     cout << endl;
@@ -632,7 +632,7 @@ int main()
                     if (userChoice == 1)
                     {
                         
-                        Individuals<Person> & p = selectIndividualPerson(individualsPersons);
+                        Individuals<Person>  p = selectIndividualPerson(individualsPersons);
                         Attack selectedAttack = selectAttack(attacks);
                         p.getType().printAttacks();
                         p.type.AddAttackToBeing(selectedAttack);
