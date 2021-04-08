@@ -17,6 +17,7 @@ class Attack
         int amountOfDiceThrown;
         void printInfo();
         int outPutDamage();
+        void printCompactAttack();
         const string getName();
 };
 

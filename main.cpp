@@ -358,7 +358,7 @@ int main()
                         cout << endl;
                     }
 
-                    else if (basicOrCustom != 1 || basicOrCustom !=2) 
+                    else if (basicOrCustom < 1 || basicOrCustom >2) 
                     {
                         cout << "Invalid choice..." << endl;
                     } 

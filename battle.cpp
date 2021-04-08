@@ -42,25 +42,25 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
 
 void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& characters)
 {
-    cout << "Printing Character Attacks!" << endl;
-    for (Individuals<Investigator> inv : characters)
-    {
+    // cout << "Printing Character Attacks!" << endl;
+    // for (Individuals<Investigator> inv : characters)
+    // {
         
-        inv.type.printAttacks();
-    }
+    //     inv.type.printAttacks();
+    // }
 
-    cout << "Printing Enemy Attacks!" << endl;
-    for (Creature c : randomEnc.creatures)
-    {
-        c.printAttacks();
-    }
+    // cout << "Printing Enemy Attacks!" << endl;
+    // for (Creature c : randomEnc.creatures)
+    // {
+    //     c.printAttacks();
+    // }
 
 
-    cout << "Before BONGO Sort! " << endl;
-    for (int i = 0; i < characters.size();i++)
-    {
-        cout << characters[i].type; 
-    }
+    // cout << "Before BONGO Sort! " << endl;
+    // for (int i = 0; i < characters.size();i++)
+    // {
+    //     cout << characters[i].type; 
+    // }
 
     sort(characters.begin(), characters.end(), [](const Individuals<Investigator>& begin, const Individuals<Investigator>& end)
     {
@@ -69,18 +69,18 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
 
     
     
-    cout << "After Sort! " << endl;
-    for (int i = 0; i < characters.size();i++)
-    {
-        cout << characters[i].type; 
-    }
+    // cout << "After Sort! " << endl;
+    // for (int i = 0; i < characters.size();i++)
+    // {
+    //     cout << characters[i].type; 
+    // }
 
-    cout << "Before BONGO Sort 2! " << endl;
-    for (int i = 0; i < randomEnc.creatures.size();i++)
-    {
-        cout << randomEnc.creatures[i];
-        cout << endl; 
-    }
+    // cout << "Before BONGO Sort 2! " << endl;
+    // for (int i = 0; i < randomEnc.creatures.size();i++)
+    // {
+    //     cout << randomEnc.creatures[i];
+    //     cout << endl; 
+    // }
 
     sort(randomEnc.creatures.begin(), randomEnc.creatures.end(), [](const Creature& begin, const Creature& end)
     {
@@ -163,7 +163,7 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                 
                 currentOrder++;
                 if (randomEnc.creatures[i].attacks.size() > 0){
-                    randomEnc.creatures[i].printAttacks();
+                    randomEnc.creatures[i].printCompactAttacks();
                     cout << "Please enter attack selection: ";
                     cin >> attackSelect;
                     Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect];
@@ -180,7 +180,7 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
             {
                 currentOrder++;
                 if (characters[j].type.attacks.size() > 0) {
-                characters[j].type.printAttacks();
+                characters[j].type.printCompactAttacks();
                 cin >> attackSelect;
                 Attack selectedAttack = characters[j].type.attacks[attackSelect];
                 cout << selectedAttack;
@@ -200,6 +200,14 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
             {
                 cout << "Battle is over!" << endl;
                 encounterIsFinished = true;
+                if(checkIfAllCharactersAreDead(characters))
+                {
+                    cout<< "You lost!!" << endl;
+                }
+                else
+                {
+                    cout << "VICTORY!!!!" << endl;
+                }
             } 
         }
     }
