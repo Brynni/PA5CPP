@@ -394,7 +394,7 @@ int main()
         }
 
         if (user_choice == 5){
-            //Path 4 Add attack to weapon/being
+            //Path 5 Add weapon to being
             int userChoice = uiWeaponAdder();
             if (userChoice == 1)
             {
@@ -434,7 +434,7 @@ int main()
         
         if (user_choice == 6)
         {
-            //Path 5 Select Being to edit/remove
+            //Path 6 Select Being to edit/remove
             int userchoice1 = uiPrintAllTypes ();
             if (userchoice1 == 1)
             {
@@ -555,7 +555,7 @@ int main()
 
         if (user_choice == 7)
         {
-            //Path 6 edit/remove encounter
+            //Path 7 edit/remove encounter
             //TODO write to file the change
             if (allEncounters.size() > 0)
             {
@@ -613,6 +613,7 @@ int main()
 
         else if(user_choice == 8)
         {
+            //Path 8 Select or remove playable character to/from game session
             int userChoice = uiSelectOrRemoveFromEncounter();
             if (userChoice == 1)
             {
@@ -644,6 +645,7 @@ int main()
 
         else if(user_choice == 9)
         {
+            //Path 9 Start encounter!
             if (gameInvestigators.size() > 0)
             {// Start by seleting encounter
             int randEnc;
