@@ -198,6 +198,39 @@ void Being::printAttacks(){
     }
 }
 
+void Being::printCompactAttacks(){
+    int index = 0;
+    if(attacks.size()> 0)
+    { 
+            cout << "_____________UNARMED ATTACKS_____________" << endl;
+            for (Attack a:attacks)
+            {
+                index ++;
+                cout << index << ".\t";
+                a.printInfo();
+                cout << endl;
+            }
+        }
+    if (weapons.size() > 0)
+    {
+        cout << "_____________Weapon ATTACKS_____________" << endl;
+        for(Weapon w: weapons)
+        {
+            for (Attack a: w.attacks)
+            {
+                index ++;
+                cout << index << ".\t";
+                a.printInfo();
+                cout << endl;
+            }
+        }
+
+    }
+
+
+
+};
+
 int Being::getInitiative()
 {
     int modifier = floor((this->dexterity /2) -5);

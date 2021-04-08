@@ -50,6 +50,7 @@ class Being
         int getAttackOrder();
         vector<Attack>&getAttacksVector();
         vector <Weapon> & getWeaponsVector();
+        void printCompactAttacks();
 
        
 
