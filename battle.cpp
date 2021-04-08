@@ -157,16 +157,41 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         int j = 0;
         for (i, j; currentOrder + 1 < countOfAlreadyGivenOrder;)
         {
+        cout <<"creature size" <<randomEnc.creatures.size() << endl;
+        cout << "creature[i] attackorder  "<<randomEnc.creatures[i].getAttackOrder() << endl;
+        cout << "current Order " <<currentOrder << endl;
+        {
             
-            if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()==currentOrder)
+            if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()  ==currentOrder)
             {
                 
                 currentOrder++;
+                cout <<randomEnc.creatures[i].attacks.size() << endl;
+                //cout << "This freezes" << endl;
+                cout << "Currently attacking:  " << randomEnc.creatures[i].getName() << endl;
                 if (randomEnc.creatures[i].attacks.size() > 0){
                     randomEnc.creatures[i].printCompactAttacks();
                     cout << "Please enter attack selection: ";
                     cin >> attackSelect;
-                    Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect];
+                    if (randomEnc.creatures[i].attacks.size() > 0) {
+                        Attack selectedAttack;
+                        cin >> attackSelect;
+                    // Check the size
+                    if (attackSelect > randomEnc.creatures[i].attacks.size())
+                    {
+                        cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
+                        // If this condition is met then we are working with a attack
+                        // so attackSelect should be deducted from the size of the attacks vector
+                        attackSelect = attackSelect - randomEnc.creatures[i].attacks.size();
+                        cout << "this is the attack select after the deduction: " << attackSelect << endl;
+                        Attack selectedAttack = randomEnc.creatures[i].weapons[0].attacks[attackSelect];
+                    }
+                    else{
+                        Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
+                    }
+
+                    
+                    //Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect-1];
                     selectIndividualInvestigator(characters).type.takeDamage(selectedAttack.outPutDamage());
                     
                     
@@ -174,15 +199,34 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                     cout << randomEnc.creatures[i].getName() << " has no attacks" << endl;
                 }
                 i++;
-                
+                }  
             }
-            else if(j < characters.size() && characters[j].type.getAttackOrder()==currentOrder)
+            else if(j < characters.size() && characters[j].type.getAttackOrder() ==currentOrder)
             {
                 currentOrder++;
                 if (characters[j].type.attacks.size() > 0) {
                 characters[j].type.printCompactAttacks();
+                cout << "Enter your attack selection: ";
+                Attack selectedAttack;
                 cin >> attackSelect;
-                Attack selectedAttack = characters[j].type.attacks[attackSelect];
+                // Check the size
+                if (attackSelect > characters[j].type.attacks.size())
+                {
+                    cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
+                    // If this condition is met then we are working with a attack
+                    // so attackSelect should be deducted from the size of the attacks vector
+                    attackSelect = attackSelect - characters[j].type.attacks.size();
+                    cout << "this is the attack select after the deduction: " << attackSelect << endl;
+                    Attack selectedAttack = characters[j].type.weapons[0].attacks[attackSelect];
+                }
+                else{
+                    Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
+                }
+
+                
+
+
+
                 cout << selectedAttack;
                 //selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
                 cout << randomEnc;
@@ -211,7 +255,9 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
             } 
         }
     }
-    
+}
+        
+        
 };
 
 bool checkIfEncounterIsOver(vector<Individuals<Investigator>> &characters,  vector<Creature> &enemies)
