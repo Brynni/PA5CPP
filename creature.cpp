@@ -314,7 +314,7 @@ Creature & selectCreature(vector<Creature> &creatures)
     return creatures[selection -1];
 }
 
-Creature & selectCreatureWithType(const vector<Creature>&creatures, const string &type)
+Creature  selectCreatureWithType(const vector<Creature>&creatures, const string &type)
 {
     vector <Creature> tempCreatures = seeAllCreaturesOfType(creatures, type);
     int selection;
