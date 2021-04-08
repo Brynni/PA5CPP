@@ -289,7 +289,7 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
                 cout << endl;
             }
 
-                if (basicOrCustom == 2)
+            else if (basicOrCustom == 2)
             {
                 string name;
                 cout << "Enter name for individual: ";
@@ -302,7 +302,7 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
                 t.printA();
                 cout << endl;
             }
-            else if (basicOrCustom != 1 || basicOrCustom !=2) 
+            else if (basicOrCustom < 1 || basicOrCustom >2) 
             {
                 cout << "Invalid choice..." << endl;
             } 
@@ -332,7 +332,7 @@ void createPersonAndAddToVector(vector <Role> roles, vector<Individuals<Investig
                 cout << endl;
             }
 
-            if(basicOrCustom == 2)
+            else if(basicOrCustom == 2)
             {
                 string name;
                 cout << "Enter name for your individual: ";

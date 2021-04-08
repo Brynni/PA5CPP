@@ -262,6 +262,7 @@ int main()
                         newEncounter.addEnemyToEncounter(selectedCreature);
                     } else{
                         cout << "Error! No creature of type " << typeOfCreature << endl;
+                        system("pause");
                     }
                 }
                 //If the user wants to create his own custom enemy type
@@ -275,12 +276,14 @@ int main()
                     {
                         cout << "Error! Nothing added to the encounter! Exiting...." << endl;
                         hasBeenSaved = true;
+                        system("pause");
                     } else {
                         string difficultyLevel = uiSelectDifficulty();
                         newEncounter.changeDifficulty(difficultyLevel);
                         allEncounters.push_back(newEncounter);
                         myFileReader.createEncounter(newEncounter);
                         cout << "Success! Encounter has been saved ...." << endl;
+                        system("pause");
                         cout << newEncounter << endl;
                         hasBeenSaved = true;
                     }
@@ -341,7 +344,7 @@ int main()
             }
         }
 
-        if (user_choice == 4){
+        else if (user_choice == 4){
             //Path 4 Add attack to weapon/being
             int userChoice = uiAttackAdder();
             if (userChoice == 1)
@@ -393,7 +396,7 @@ int main()
             }
         }
 
-        if (user_choice == 5){
+        else if (user_choice == 5){
             //Path 5 Add weapon to being
             int userChoice = uiWeaponAdder();
             if (userChoice == 1)
@@ -432,9 +435,9 @@ int main()
             }
         }
         
-        if (user_choice == 6)
+        else if (user_choice == 6)
         {
-            //Path 6 Select Being to edit/remove
+            //Path 6 Select Being to edit
             int userchoice1 = uiPrintAllTypes ();
             if (userchoice1 == 1)
             {
@@ -472,6 +475,7 @@ int main()
                         }
                     } else {
                         cout << "Error! No NPC's found in system!" << endl;
+                        system("pause");
                     } 
                                     
                 }
@@ -510,6 +514,7 @@ int main()
                         }
                     } else {
                         cout << "Error! No PC's found in system!" << endl;
+                        system("pause");
                     }
                 }
             }
@@ -549,11 +554,12 @@ int main()
                     
                 } else {
                     cout << "Error! No enemies found in system!" << endl;
+                    system("pause");
                 }
             }
         }
 
-        if (user_choice == 7)
+        else if (user_choice == 7)
         {
             //Path 7 edit/remove encounter
             //TODO write to file the change
@@ -575,6 +581,7 @@ int main()
                         }
                     } else {
                         cout << "Error selection out of range!" << endl;
+                        system("pause");
                     }
                 }
                 else if (userChoice == 2)
@@ -590,6 +597,7 @@ int main()
                         allEncounters[selectedEncounter].addEnemyToEncounter(selectedCreature);
                     } else{
                         cout << "Error! No creature of type " << typeOfCreature << endl;
+                        system("pause");
                     }
                 }
                 else if (userChoice == 3)
@@ -608,6 +616,7 @@ int main()
                 
             } else {
                 cout << "Error! No encounters found!" << endl;
+                system("pause");
             }
         }
 
@@ -623,6 +632,7 @@ int main()
                     gameInvestigators.push_back(selectIndividualInvestigator(investigators));
                 } else {
                     cout << "Error! No investigators in the system!" << endl;
+                    system("pause");
                 } 
             }
             if (userChoice == 2)
@@ -638,6 +648,7 @@ int main()
                     }
                 } else{
                     cout << "Error! No investigators in the system!" << endl;
+                    system("pause");
                 }
                 
             }
@@ -699,6 +710,7 @@ int main()
             battleEnv(selEnc, selInv);
             } else {
                 cout << "Error! No investigator found!" << endl;
+                system("pause");
             }
         }
 
