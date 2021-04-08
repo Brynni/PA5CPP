@@ -24,5 +24,5 @@ class Dice
 void initializeBaseDice(vector <Dice> &allDice);
 void printIndividualDice(vector <Dice> allDice);
 Dice selectIndividualDice(const vector <Dice>& allDice);
-Dice selectIndividualDiceByNickname(vector <Dice> allDice, const string & nickname);
+Dice selectIndividualDiceByNickname(vector <Dice>& allDice, const string & nickname);
 #endif

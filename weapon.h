@@ -15,8 +15,9 @@ class Weapon
         void printInfo();
         void AddAttacksToWeapon(vector <Attack> newAttacks);
         void AddAttackToWeapon(Attack newAttack);
-        /* int rollAttack();
         string getName();
+        /* int rollAttack();
+        
         string getType();
         // does it use dex or str
         string getModifier();

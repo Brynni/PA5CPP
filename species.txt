@@ -77,8 +77,8 @@ Eldritch horror
 #
 Name: Pug
 Creature
-Attacks: Punch
-Weapons: sword
+Attacks: Punch Scratch Bite
+Weapons: Warhammer
 Life: 1
 Strength: 2
 Intelligence: 3
@@ -108,7 +108,7 @@ Disquiet: 1
 Name: Wisp
 Creature
 Attacks: Punch
-Weapons: sword
+Weapons: Bow
 Life: 5
 Strength: 5
 Intelligence: 5
@@ -152,7 +152,7 @@ Disquiet: 1
 #
 Name: Jolli
 Creature
-Attacks: Punch
+Attacks: Punch Scratch Bite
 Weapons: sword
 Life: 56
 Strength: 12

@@ -134,6 +134,7 @@ int main()
 
     //All vectors pertaining to game mechanics
     vector <Dice> allDice;
+    initializeBaseDice(allDice);
     vector <Encounter> allEncounters;
 
     srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
@@ -151,7 +152,10 @@ int main()
     unarmedBeastAttacks.push_back(scratch);
     attacks.push_back(bite);
     attacks.push_back(scratch);
-
+    for (int i = 0; i < attacks.size(); i++)
+    {
+        cout << attacks[i];
+    }
     // Create an attack vector for weapon attacks
     
         //Melee weapons use strength
@@ -166,7 +170,7 @@ int main()
 
     vector <Attack> warhammerAttacks;
     Attack crush = Attack("Crush", "Strength", selectIndividualDiceByNickname(allDice,"D12"), 1);
-    
+    warhammerAttacks.push_back(crush);
 
         //Ranged weapons use Dexterity
     vector <Attack> bowAttack;
@@ -193,9 +197,9 @@ int main()
     //Initialize all the needed data for the game to function
     FileReader myFileReader; 
     myFileReader.ReadRolesFromFile(roles);
-    myFileReader.ReadCreaturesFromFile(creatures, attacks);
+    myFileReader.ReadCreaturesFromFile(creatures, attacks, weapons);
     myFileReader.ReadEncounterFromFile(allEncounters, creatures);
-    initializeBaseDice(allDice);
+    
 
     //Test adding weapons to a character and adding unarmed attacks as well
     /* Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
@@ -212,7 +216,7 @@ int main()
     man.AddAttackToBeing(punch);
     man.printAttacks();
     int manInit = man.getInitiative();
-    cout << "This is the initive: " << manInit << endl;
+    cout << "This is the initiative: " << manInit << endl;
     Investigator newI = Investigator (man.getName(), man.getLife(), man.getStrength(), man.getInt(), man.getDex(), man.getCon(), man.getWis(), man.getCha(),  man.getGender(), man.getFear(), man.getTerror());
     
     newI.updateCurrentLife(man.getCurrentLife());
