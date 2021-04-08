@@ -89,12 +89,15 @@ Dice selectIndividualDice(const vector <Dice> &allDice)
     return allDice[selection -1];
 }
 
-Dice selectIndividualDiceByNickname(vector <Dice> allDice, const string& nickname)
+Dice selectIndividualDiceByNickname(vector <Dice> &allDice, const string& nickname)
 {
+    cout << "Dice nickname: "<<nickname << endl;
     for (int i = 0; i < allDice.size(); i++)
-    {
+    {   
+        cout << allDice[i].getNickname() << endl;
         if (allDice[i].getNickname() == nickname)
         {
+            cout << "found dice!" << endl;
             return allDice[i];
         }
     }

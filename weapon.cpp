@@ -39,6 +39,11 @@ void Weapon::AddAttackToWeapon(Attack newAttack){
     this->attacks.push_back(newAttack);
 }
 
+string Weapon::getName()
+{
+    return this->name;
+}
+
 Weapon createIndividualWeapon ()
 {
     string name;

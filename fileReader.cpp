@@ -43,14 +43,27 @@ bool checkForNameRole(vector <Role> roles, string name)
 
 int selectAttackByName(vector<Attack> &attacks, const string &name)
 {
-    Attack tempAttack;
     int counter = 0; 
     int indexOfAttack = 0;
     for (Attack atk : attacks )
     {   
         if (atk.getName() == name)
         {
-            tempAttack = atk;
+            indexOfAttack = counter;
+        }
+        counter++;
+    }
+    return indexOfAttack;
+}
+
+int selectWeaponByName(vector<Weapon> &weapons, const string &name)
+{
+    int counter = 0; 
+    int indexOfAttack = 0;
+    for (Weapon wpn : weapons )
+    {   
+        if (wpn.getName() == name)
+        {
             indexOfAttack = counter;
         }
         counter++;
@@ -174,7 +187,7 @@ void FileReader::ReadRolesFromFile(vector <Role> &roles){
 }
 
 
-void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures, vector <Attack> attacks){
+void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures, vector <Attack> attacks, vector <Weapon> weapons){
 
     ifstream speciesFile;
     string fileStream; 
@@ -185,7 +198,8 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures, vector <Att
     string weaponsNames;
     string attacksTemp;
     string attacksNames;
-    std::vector<std::string> words;
+    std::vector<std::string> wordsAttacks;
+    std::vector<std::string> wordsWeapons;
     int life;
     int strength;
     int intelligence;
@@ -281,7 +295,7 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures, vector <Att
                 readingWeapons = true;
                 weaponsNames = "";
                 weaponsNames = fileStream;
-                words.push_back(weaponsNames);
+                wordsWeapons.push_back(weaponsNames);
                 if (weaponsTemp == "")
                 {
                     weaponsTemp = weaponsNames;
@@ -301,6 +315,7 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures, vector <Att
                 readingAttacks = true;
                 attacksNames = "";
                 attacksNames = fileStream;
+                wordsAttacks.push_back(attacksNames);
                 if (attacksTemp == "")
                 {
                     attacksTemp = attacksNames;
@@ -319,22 +334,26 @@ void FileReader::ReadCreaturesFromFile(vector <Creature> &creatures, vector <Att
                 
                 if (attacksTemp != "")
                 {
-                    cout << "Attacks: " << attacksTemp << endl;
-                    for (int i = 0; i < words.size(); i++)
+                    for (int i = 0; i < wordsAttacks.size(); i++)
                     {
-                        int indexOfCreature = selectAttackByName(attacks, words[i]);
+                        int indexOfCreature = selectAttackByName(attacks, wordsAttacks[i]);
                         creature.AddAttackToBeing(attacks[indexOfCreature]);
                     }
-                    creature.printAttacks();
                 }
                 if (weaponsTemp != "")
                 {
-                    cout << "Weapons: " << weaponsTemp << endl;
+                    for (int i = 0; i < wordsWeapons.size(); i++)
+                    {
+                        int indexOfWeapon = selectWeaponByName(weapons, wordsWeapons[i]);
+                        creature.AddWeaponToBeing(weapons[indexOfWeapon]);
+                    }
                 }
                 creatures.push_back(creature);
                 attacksTemp = "";
                 weaponsTemp = "";
                 speciesName = "";
+                wordsAttacks.clear();
+                wordsWeapons.clear();
                 
             }
         }
