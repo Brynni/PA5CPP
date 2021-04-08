@@ -1,8 +1,10 @@
 #include "battle.h"
+#include "dice.h"
 #include <algorithm> 
 #include <random>
 #include <chrono>
 #include <algorithm>
+#include <math.h>
 using namespace std;
 
 Encounter getRandomEncounter(int difficulty, const vector<Encounter>&AllEncounters)
@@ -157,9 +159,9 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         int j = 0;
         for (i, j; currentOrder + 1 < countOfAlreadyGivenOrder;)
         {
-        cout <<"creature size" <<randomEnc.creatures.size() << endl;
-        cout << "creature[i] attackorder  "<<randomEnc.creatures[i].getAttackOrder() << endl;
-        cout << "current Order " <<currentOrder << endl;
+        // cout <<"creature size" <<randomEnc.creatures.size() << endl;
+        // cout << "creature[i] attackorder  "<<randomEnc.creatures[i].getAttackOrder() << endl;
+        // cout << "current Order " <<currentOrder << endl;
         {
             
             if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()  ==currentOrder)
@@ -220,7 +222,7 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                                 }
                             }
                         } else{
-                            cout << selectedAttack << endl;
+                            // cout << selectedAttack << endl;
                             cout << "Does it go in here??" << endl;
                             Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
                         }
@@ -234,8 +236,53 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                         /* cout << "Select a Person to attack!" << endl;
                         int selectedCreatureIndex;
                         cin >> selectedCreatureIndex;
+                        
                         //Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect-1]; */
-                        selectIndividualInvestigator(characters).type.takeDamage(selectedAttack.outPutDamage());
+                        int counter = 0;
+                        int selectedPersonIndex;
+                        for (int i = 0; i < characters.size();i++)
+                        {
+                            cout << counter <<characters[i].type; 
+                            counter ++;
+                        }
+
+                        cout << "Select a PC to attack!" << endl;
+                        
+                        cin >> selectedPersonIndex;
+                        while(selectedPersonIndex < 0 || selectedPersonIndex > characters.size())
+                        {
+                            cout << "INVALID SELECTION " << endl;
+                            int counter = 0;
+                            int selectedPersonIndex;
+                            for (int u = 0; u < characters.size();u++)
+                            {
+                                cout << counter <<characters[u].type; 
+                                counter ++;
+                            }
+
+                            cout << "Select a PC to attack!" << endl;
+                            
+                            cin >> selectedPersonIndex;
+                        }
+
+                        int victimCon = characters[selectedPersonIndex].type.getCon();
+                        //int modifier = getAbilityModiferEnemy(selectedAttack, randomEnc.creatures[i]);
+                        int rollResult = rollD20();
+                        cout << characters[selectedPersonIndex].type.getName() << " has Constitution of " << victimCon << endl;
+                        cout << randomEnc.creatures[i].getName() << " Rolled : " << rollResult << endl;
+                        if (rollResult >= victimCon)
+                        {
+                            cout << "A hit!!" << endl;
+                            characters[selectedPersonIndex].type.takeDamage(selectedAttack.outPutDamage());
+                        }
+
+                        else
+                        {
+                            cout << "A Miss!!" << endl;
+                        } 
+
+
+                        //selectIndividualInvestigator(characters).type.takeDamage(selectedAttack.outPutDamage());
                     } else {
                         cout << "Invalid selection!" << endl;
                     }
@@ -305,12 +352,40 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
 
 
                         cout << selectedAttack;
+                        int selectedCreatureIndex;
+
                         //selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
                         cout << randomEnc;
                         cout << "Select a creature to attack!" << endl;
-                        int selectedCreatureIndex;
+                        
                         cin >> selectedCreatureIndex;
-                        randomEnc.creatures[selectedCreatureIndex].takeDamage(selectedAttack.outPutDamage());
+                        while (selectedCreatureIndex < 0 || selectedCreatureIndex > randomEnc.creatures.size())
+                        {
+                            cout << "INVALID SELECTION" << endl;
+                            cout << randomEnc;
+                            cout << "Select a creature to attack!" << endl;
+                        
+                            cin >> selectedCreatureIndex;
+
+                        }
+
+                        
+                        int victimCon = randomEnc.creatures[selectedCreatureIndex].getCon();
+                        //int modifier = getAbilityModiferInvestigator(selectedAttack, characters[j]);
+                        int rollResult = rollD20();
+                        cout << randomEnc.creatures[selectedCreatureIndex].getName() << " has Constitution of " << victimCon << endl;
+                        cout << characters[j].type.getName() << " Rolled : " << rollResult << endl;
+                        if (rollResult >= victimCon)
+                        {
+                            cout << "A hit!!" << endl;
+                            randomEnc.creatures[selectedCreatureIndex].takeDamage(selectedAttack.outPutDamage());
+                        }
+
+                        else
+                        {
+                            cout << "A Miss!!" << endl;
+                        } 
+                        
                     } else {
                         cout << "Invalid selection!" << endl;
                     }
@@ -409,3 +484,77 @@ bool checkIfSingleCharacterIsDead(Investigator &character)
 
     return false;
 };
+
+int rollD20()
+{
+    srand(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
+    int randNum = rand() % 20;
+    return randNum + 1;
+}
+
+int getAbilityModiferInvestigator(Attack a, Individuals<Investigator> & character)
+{
+    int profVal;
+    if (a.proficiencyAbility == "Strength")
+    {
+        profVal = character.type.getStrength();
+    }
+    if (a.proficiencyAbility == "Intelligence")
+    {
+       profVal = character.type.getInt();
+    }
+    if (a.proficiencyAbility == "Constitution")
+    {
+        profVal = character.type.getCon();
+    }
+    if (a.proficiencyAbility == "Dexterity")
+    {
+        profVal = character.type.getDex();
+    }
+    if (a.proficiencyAbility == "Wisdom")
+    {
+        profVal = character.type.getWis();
+    }
+    if (a.proficiencyAbility == "Charisma")
+    {
+        profVal = character.type.getCha();
+    }
+
+    profVal = floor(profVal/2 -5);
+    return profVal;
+
+}
+
+int getAbilityModiferEnemy(Attack a, Creature & enemy)
+{
+    int profVal;
+    if (a.proficiencyAbility == "Strength")
+    {
+        profVal = enemy.getStrength();
+    }
+    if (a.proficiencyAbility == "Intelligence")
+    {
+       profVal = enemy.getInt();
+    }
+    if (a.proficiencyAbility == "Constitution")
+    {
+        profVal = enemy.getCon();
+    }
+    if (a.proficiencyAbility == "Dexterity")
+    {
+        profVal = enemy.getDex();
+    }
+    if (a.proficiencyAbility == "Wisdom")
+    {
+        profVal = enemy.getWis();
+    }
+    if (a.proficiencyAbility == "Charisma")
+    {
+        profVal = enemy.getCha();
+    }
+
+    profVal = floor(profVal/2 -5);
+    return profVal;
+
+
+}

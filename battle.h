@@ -21,4 +21,6 @@ bool checkIfAllCharactersAreDead(vector<Individuals<Investigator>>& characters);
 bool checkIfAllEnemiesAreDead(vector <Creature>& enemies);
 bool checkIfSingleEnemeyIsDead(const Creature &enemey);
 bool checkIfSingleCharacterIsDead(const Investigator &character);
-
+int getAbilityModiferEnemy(Attack a, Creature & enemy);
+int getAbilityModiferInvestigator(Attack a, Individuals<Investigator> & character);
+int rollD20();
