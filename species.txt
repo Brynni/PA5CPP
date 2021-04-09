@@ -150,7 +150,7 @@ Type: Animal
 Natural
 Disquiet: 1
 #
-Name: Jolli
+Name: Grunt
 Creature
 Attacks: Punch Scratch Bite
 Weapons: sword
@@ -165,7 +165,7 @@ Type: Undead
 Natural
 Disquiet: 3
 #
-Name: Ari
+Name: Pirate
 Creature
 Attacks: Punch
 Weapons: sword

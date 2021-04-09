@@ -199,17 +199,6 @@ int main()
     myFileReader.ReadRolesFromFile(roles);
     myFileReader.ReadCreaturesFromFile(creatures, attacks, weapons);
     myFileReader.ReadEncounterFromFile(allEncounters, creatures);
-    
-
-    //Test adding weapons to a character and adding unarmed attacks as well
-    /* Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
-    man.AddWeaponToBeing(sword);
-    man.AddWeaponToBeing(bow);
-    man.AddAttackToBeing(punch);
-    man.printAttacks();
-    int manInit = man.getInitiative();
-    cout << "This is the initive: " << manInit << endl; */
-
     Investigator man("Warrior man", 9, 15, 12, 13, 14, 10, 8, "Male", 5, 1);
     man.AddWeaponToBeing(sword);
     man.AddWeaponToBeing(bow);
@@ -522,7 +511,6 @@ int main()
             {
                 if (creatures.size() != 0){
                     // start by listing all creatures
-                    //TODO CREATURE STUFFFFFFFFFF
                     string type = uiSelectBeingType();
                     Creature cre = selectCreatureWithType(creatures, type);
                     // select stat to edit

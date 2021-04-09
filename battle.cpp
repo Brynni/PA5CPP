@@ -44,61 +44,15 @@ Encounter randomEncounter(vector<Encounter>filteredVector, int difficulty)
 
 void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& characters)
 {
-    // cout << "Printing Character Attacks!" << endl;
-    // for (Individuals<Investigator> inv : characters)
-    // {
-        
-    //     inv.type.printAttacks();
-    // }
-
-    // cout << "Printing Enemy Attacks!" << endl;
-    // for (Creature c : randomEnc.creatures)
-    // {
-    //     c.printAttacks();
-    // }
-
-
-    cout << "Before BONGO Sort! " << endl;
-    for (int i = 0; i < characters.size();i++)
-    {
-        cout << characters[i].type; 
-    }
-
     sort(characters.begin(), characters.end(), [](const Individuals<Investigator>& begin, const Individuals<Investigator>& end)
     {
         return begin.type.initiativeRoll > end.type.initiativeRoll;
     });
 
-    
-    
-    // cout << "After Sort! " << endl;
-    // for (int i = 0; i < characters.size();i++)
-    // {
-    //     cout << characters[i].type; 
-    // }
-
-    // cout << "Before BONGO Sort 2! " << endl;
-    // for (int i = 0; i < randomEnc.creatures.size();i++)
-    // {
-    //     cout << randomEnc.creatures[i];
-    //     cout << endl; 
-    // }
-
     sort(randomEnc.creatures.begin(), randomEnc.creatures.end(), [](const Creature& begin, const Creature& end)
     {
         return begin.initiativeRoll > end.initiativeRoll;
     });
-    
-    
-    cout << "After Sort 2! " << endl;
-    for (int i = 0; i < randomEnc.creatures.size();i++)
-    {
-        cout << randomEnc.creatures[i];
-        cout << randomEnc.creatures[i].attackOrder; 
-        cout << endl;
-    }
-    
-    
     
     cout << "Giving attack order!" << endl;
     int countOfAlreadyGivenOrder = 0;
@@ -147,29 +101,20 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
         cout << "Name: " << inv.type.getName() << " Attack order: " << inv.type.attackOrder << " Initiative roll: " << inv.type.getInitiative() << endl;
     }
 
-    //cout << "The amount of creatures:  " << countOfAlreadyGivenOrder << endl;
-    //cout << "Starting the battle itself" << endl;
     bool encounterIsFinished = false;
     while (encounterIsFinished == false)
     {
-        //cout << "in the while loop!" << endl;
+
         int currentOrder = 0;
         int attackSelect;
         int i = 0;
         int j = 0;
         for (i, j; currentOrder + 1 < countOfAlreadyGivenOrder;)
-        {
-        // cout <<"creature size" <<randomEnc.creatures.size() << endl;
-        // cout << "creature[i] attackorder  "<<randomEnc.creatures[i].getAttackOrder() << endl;
-        // cout << "current Order " <<currentOrder << endl;
-        {
-            
+        {    
             if(i < randomEnc.creatures.size() && randomEnc.creatures[i].getAttackOrder()  ==currentOrder)
             {
-                
                 currentOrder++;
                 cout <<randomEnc.creatures[i].attacks.size() << endl;
-                //cout << "This freezes" << endl;
                 cout << "Currently attacking:  " << randomEnc.creatures[i].getName() << endl;
                 if (randomEnc.creatures[i].attacks.size() > 0 && randomEnc.creatures[i].getCurrentLife() > 0){
                     randomEnc.creatures[i].printCompactAttacks();
@@ -177,8 +122,6 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                     cin >> attackSelect;
                     Attack selectedAttack;
                     // Check the size
-                    cout << "my attack selection: " << attackSelect << endl;
-                    cout << "The characters amount of attacks! " <<randomEnc.creatures[i].attacks.size() << endl;
                     if (attackSelect > 0)
                     {
                         bool foundAttack = false;
@@ -187,15 +130,8 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                             while (foundAttack == false) 
                             {
                                 int newAttackSelect;
-                                cout << "Here is the amount of weapons the enemy has: " << randomEnc.creatures[i].weapons.size() << endl; 
-                                cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
-                                // If this condition is met then we are working with a attack
-                                // so attackSelect should be deducted from the size of the attacks vector
                                 newAttackSelect = attackSelect - randomEnc.creatures[i].attacks.size();
-                                cout << "this is the attack select after the deduction: " << newAttackSelect << endl;
                                 int attackCounter = 0;
-                                cout << "Blah! the selected attack! "<< newAttackSelect << endl;
-                                cout << "size of weapon attacks blah" << randomEnc.creatures[i].weapons[0].attacks.size() << endl;
                                 for (int b = 0; b < randomEnc.creatures[i].weapons.size(); b++)
                                 {
                                     for (int z = 0; z< randomEnc.creatures[i].weapons[b].attacks.size();z++)
@@ -211,6 +147,7 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                                         }
                                     }
                                 }
+
                                 if (foundAttack == false)
                                 {
                                     cout << "Error! Selection outside of range!" << endl;
@@ -221,31 +158,14 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                                     cin >> attackSelect;
                                 }
                             }
-                        } else{
-                            // cout << selectedAttack << endl;
-                            cout << "Does it go in here??" << endl;
+                        } 
+                        
+                        else
+                        {
                             Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect-1];
-                        }
-
-                        
-
-
-
+                        }                        
                         cout << selectedAttack;
-                        //selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
-                        /* cout << "Select a Person to attack!" << endl;
-                        int selectedCreatureIndex;
-                        cin >> selectedCreatureIndex;
-                        
-                        //Attack selectedAttack = randomEnc.creatures[i].attacks[attackSelect-1]; */
-                        //int counter = 0;
-                        int selectedPersonIndex;
-                        // for (int i = 0; i < characters.size();i++)
-                        // {
-                        //     cout << counter <<characters[i].type; 
-                        //     counter ++;
-                        // }
-                        
+                        int selectedPersonIndex;                        
                         printIndividualInvestigator(characters);
                         cout << "Select a PC to attack!" << endl;
                         cin >> selectedPersonIndex;
@@ -258,7 +178,6 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                         }
 
                         int victimCon = characters[selectedPersonIndex-1].type.getCon();
-                        //int modifier = getAbilityModiferEnemy(selectedAttack, randomEnc.creatures[i]);
                         int rollResult = rollD20();
                         cout << characters[selectedPersonIndex-1].type.getName() << " has Constitution of " << victimCon << endl;
                         cout << randomEnc.creatures[i].getName() << " Rolled : " << rollResult << endl;
@@ -273,18 +192,25 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                             cout << "A Miss!!" << endl;
                         } 
 
-
-                        //selectIndividualInvestigator(characters).type.takeDamage(selectedAttack.outPutDamage());
-                    } else {
+                    } 
+                    
+                    else 
+                    {
                         cout << "Invalid selection!" << endl;
                     }
-                } else if (randomEnc.creatures[i].attacks.size() == 0){
+
+                }
+
+                else if (randomEnc.creatures[i].attacks.size() == 0)
+                {
                     cout << randomEnc.creatures[i].getName() << " has no attacks" << endl;
                 }
+
                 else if (randomEnc.creatures[i].getCurrentLife() == 0)
                 {
                     cout << randomEnc.creatures[i].getName() << " is dead..." << endl;
                 }
+
                 i++;
             }
             else if(j < characters.size() && characters[j].type.getAttackOrder() ==currentOrder )
@@ -304,23 +230,15 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                             while (foundAttack == false) 
                             {
                                 int newAttackSelect;
-                                cout << "How many weapons does the character possess: " << characters[j].type.weapons.size() << endl; 
-                                cout << "this is the attack select b4 the deduction: " << attackSelect << endl;
-                                // If this condition is met then we are working with a attack
-                                // so attackSelect should be deducted from the size of the attacks vector
                                 newAttackSelect = attackSelect - characters[j].type.attacks.size();
-                                cout << "this is the attack select after the deduction: " << newAttackSelect << endl;
                                 int attackCounter = 0;
-                                cout << "Blah! the selected attack! "<< newAttackSelect << endl;
                                 for (int b = 0; b < characters[j].type.weapons.size(); b++)
                                 {
                                     for (int z = 0; z< characters[j].type.weapons[b].attacks.size();z++)
                                     {   
                                         attackCounter++;
-                                        cout << "Current count: " << attackCounter << endl;
                                         if (attackCounter == newAttackSelect)
                                         {
-                                            cout << "found my attacks!" << endl; 
                                             selectedAttack = characters[j].type.weapons[b].attacks[z];
                                             cout <<  characters[j].type.weapons[b].attacks[z]<< endl;
                                             foundAttack = true;
@@ -338,19 +256,13 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                                 }
                             }
                         }
-                        else{
-                            cout << "Does it go in here??" << endl;
+
+                        else
+                        {
                             Attack selectedAttack = characters[j].type.attacks[attackSelect-1];
                         }
-
-                        
-
-
-
                         cout << selectedAttack;
                         int selectedCreatureIndex;
-
-                        //selectCreature(randomEnc.creatures).takeDamage(selectedAttack.outPutDamage());
                         cout << randomEnc;
                         cout << "Select a creature to attack!" << endl;
                         
@@ -367,7 +279,6 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
 
                         
                         int victimCon = randomEnc.creatures[selectedCreatureIndex].getCon();
-                        //int modifier = getAbilityModiferInvestigator(selectedAttack, characters[j]);
                         int rollResult = rollD20();
                         cout << randomEnc.creatures[selectedCreatureIndex].getName() << " has Constitution of " << victimCon << endl;
                         cout << characters[j].type.getName() << " Rolled : " << rollResult << endl;
@@ -382,22 +293,44 @@ void battleEnv(Encounter randomEnc, vector<Individuals<Investigator>>& character
                             cout << "A Miss!!" << endl;
                         } 
                         
-                    } else {
+                    } 
+                    
+                    else 
+                    {
                         cout << "Invalid selection!" << endl;
                     }
                     
-                } else if (characters[j].type.attacks.size() == 0) {
+                } 
+                
+                else if (characters[j].type.attacks.size() == 0) 
+                {
                     cout << "This human has no attacks" << endl;
                 }
+
                 else if (characters[j].type.getCurrentLife() == 0)
                 { 
                     cout << "this human is dead..." << endl;
                 };
+
                 j++;
             }
             
-            
-        }
+        if (checkIfEncounterIsOver(characters, randomEnc.creatures))
+        {
+            encounterIsFinished = true;
+            if(checkIfAllCharactersAreDead(characters))
+            {
+                cout << "You lost :( " << endl;
+                break;
+            }
+
+            if(checkIfAllEnemiesAreDead(randomEnc.creatures))
+            {
+                cout << "A GLORIOUS VICTORY " << endl;
+                break;
+            };
+        }    
+        
     }
 }
         

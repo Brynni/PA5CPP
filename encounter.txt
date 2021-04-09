@@ -6,3 +6,6 @@ Wisp #
 Difficulty: Impossible
 Enemies-
 Ari #
+Difficulty: Impossible
+Enemies-
+Ari #

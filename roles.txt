@@ -1,4 +1,4 @@
-roleName: Nurse
+roleName: Wizzard
 lifeMin: 4
 lifeMax: 12
 strengthMin: 3
@@ -14,7 +14,7 @@ conMax: 18
 chaMin: 19
 chaMax: 19
 #
-roleName: Reporter
+roleName: Sorcerer
 lifeMin: 4
 lifeMax: 12
 strengthMin: 3
@@ -30,7 +30,7 @@ conMax: 18
 chaMin: 19
 chaMax: 19
 #
-roleName: Professor
+roleName: Warlock
 lifeMin: 4
 lifeMax: 10
 strengthMin: 2
@@ -46,7 +46,7 @@ conMax: 15
 chaMin: 15
 chaMax: 15
 #
-roleName: No
+roleName: lowlyScurb
 lifeMin: 1
 lifeMax: 1
 strengthMin: 1
@@ -63,19 +63,53 @@ chaMin: 1
 chaMax: 1
 #
 
-roleName: vessib
+roleName: Bard
 lifeMin: 6
-lifeMax: 10
+lifeMax: 20
 strengthMin: 1
 strengthMax: 10
-intelligenceMin: 1
-intelligenceMax: 10
-dexMin: 1
-dexMax: 10
+intelligenceMin: 5
+intelligenceMax: 16
+dexMin: 10
+dexMax: 15
 wisMin: 10
 wisMax: 10
 conMin: 10
 conMax: 10
-chaMin: 10
+chaMin: 16
+chaMax: 20
+#
+
+roleName: Rogue
+lifeMin: 6
+lifeMax: 20
+strengthMin: 1
+strengthMax: 10
+intelligenceMin: 5
+intelligenceMax: 16
+dexMin: 18
+dexMax: 20
+wisMin: 1
+wisMax: 8
+conMin: 10
+conMax: 15
+chaMin: 16
+chaMax: 20
+#
+
+roleName: Paladin
+lifeMin: 30
+lifeMax: 60
+strengthMin: 15
+strengthMax: 20
+intelligenceMin: 5
+intelligenceMax: 6
+dexMin: 1
+dexMax: 5
+wisMin: 1
+wisMax: 8
+conMin: 6
+conMax: 8
+chaMin: 6
 chaMax: 10
 #
